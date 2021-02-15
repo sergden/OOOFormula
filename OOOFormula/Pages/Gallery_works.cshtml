@@ -1,0 +1,38 @@
+﻿@page
+@model OOOFormula.Pages.Gallery_worksModel
+@{
+    ViewData["Title"] = "Наши работы";
+}
+
+<div class="text-center mt-5">
+    <h1>Наши работы</h1>
+</div>
+
+<div class="row mt-2">
+    <!--В цикле-->
+    @for (int i = 1; i <= 8; i++)
+    {
+        <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card-deck">
+                <div class="card m-3">
+                    <div class="text-center">
+                        <h6>Title Title Title Title Title Title Title Title Title Title</h6>
+                    </div>
+                    <div class="text-center">
+                        <img class="card-img-top" src="#" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!--Переход по страницам-->
+<div class="row justify-content-center">
+    @for (int i = 1; i <= 3; i++)
+    {
+        <div class="col-1 text-center">
+            <a class="nav-link nav-link-hover btn" asp-area="" asp-page="">@i</a>
+        </div>
+    }
+</div>
