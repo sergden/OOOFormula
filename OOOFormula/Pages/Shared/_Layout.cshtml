@@ -9,36 +9,95 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <!--TOP Header-->
+        <div class="container ">
+            <div class="row">
+                <div class="col-6 mt-4 mb-2">
+                    <a asp-area="" asp-page="/Index">
+                        <img class="img-fluid" src="~/images/method-draw-image.svg" asp-append-version="true" width="526" height="134" /> <!--W:226 H:134 (W:526 H:134)-->
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-3 mt-4">
+                    <h4>+7 (951) 269-65-88</h4>
+                    <h4>+7 (858) 571-64-88</h4>
+
+                </div>
+                <div class="col-lg-3 col-md-1 col-sm-1 col-1 mt-4">
+                    <a class="btn btn-primary text-light" asp-area="" asp-page="/Contacts">Запишитесь на замер</a>
+                </div>
+            </div>
+        </div>
+
+
+        <!--BOTTOM Header-->
+        <nav class="navbar navbar-expand-lg navbar-dark menu">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">OOOFormula</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="navbar-collapse collapse ">
+                    <ul class="navbar-nav mr-auto col-md-3 col-lg-9">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Catalog/Catalog">Каталог</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Gallery_works">Галерея работ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Delivery">Доставка и оплата</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Contacts">Контакты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/About">О нас</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <form class="form-inline my-2 my-md-0">
+                        <input class="form-control" type="search" placeholder="Поиск..." aria-label="Search">
+                    </form>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - OOOFormula - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="border-top footer text-muted bg-dark">
+        <div class="container text-light">
+            <div class="row mt-4">
+                <div class="col-3">
+                    <h2>Магазин</h2>
+                    <a class="text-light" asp-area="" asp-page="/Index">Главная</a><br />
+                    <a class="text-light" asp-area="" asp-page="/Catalog/Catalog">Каталог</a><br />
+                    <a class="text-light" asp-area="" asp-page="/Gallery_works">Галерея работ</a><br />
+                    <a class="text-light" asp-area="" asp-page="/Delivery">Доставка и оплата</a><br />
+                    <a class="text-light" asp-area="" asp-page="/Contacts">Контакты</a><br />
+                    <a class="text-light" asp-area="" asp-page="/About">О нас</a><br />
+                </div>
+                <div class="col-3">
+                    <h2>Контакты</h2>
+                    <address>
+                        Аксай, пр. Аксайский, 0<br>
+                        Вт-Вс - c 9:00 до 17:00<br>
+                        <abbr>Телефон:</abbr> +7 (951) 269-65-88<br />
+                        <abbr>Email:</abbr> email@enail.com<br />
+                    </address>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center text-light">
+            &copy; 2021 - OOOFormula
         </div>
     </footer>
 
@@ -46,6 +105,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
+
 </html>
