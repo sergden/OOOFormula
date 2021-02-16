@@ -15,6 +15,7 @@ namespace OOOFormula.Data
         }
        
         public DbSet<Atributes> Atributes { get; set; }
+        public DbSet<AtributesValues> AtributesValues { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Contacts> Contacts { get; set; }
         public DbSet<Gallery> Gallery { get; set; }

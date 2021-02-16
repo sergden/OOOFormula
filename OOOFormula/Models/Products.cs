@@ -22,15 +22,15 @@ namespace OOOFormula.Models
 
 
         public int CategoryId { get; set; }
-        //public Category Category { get; set; }
+        public Category Category { get; set; }
 
 
-        public int MaterialId { get; set; }
-        //public Materuals Materials{ get; set; }
+        public int MaterialsId { get; set; }
+        public Materials Materials { get; set; }
 
 
-        public int ManufacturerId { get; set; }
-        //public Manufacturers Manufacturers { get; set; }
+        public int ManufacturersId { get; set; }
+        public Manufacturers Manufacturers { get; set; }
 
     }
 }

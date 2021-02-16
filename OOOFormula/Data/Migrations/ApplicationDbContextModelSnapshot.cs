@@ -234,6 +234,24 @@ namespace OOOFormula.Data.Migrations
                     b.ToTable("Atributes");
                 });
 
+            modelBuilder.Entity("OOOFormula.Models.AtributesValues", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("IdAtribute")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AtributesValues");
+                });
+
             modelBuilder.Entity("OOOFormula.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -361,10 +379,10 @@ namespace OOOFormula.Data.Migrations
                     b.Property<string>("ImagesName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ManufacturerId")
+                    b.Property<int>("ManufacturersId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaterialId")
+                    b.Property<int>("MaterialsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -377,6 +395,12 @@ namespace OOOFormula.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ManufacturersId");
+
+                    b.HasIndex("MaterialsId");
 
                     b.ToTable("Products");
                 });
@@ -430,6 +454,33 @@ namespace OOOFormula.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("OOOFormula.Models.Products", b =>
+                {
+                    b.HasOne("OOOFormula.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OOOFormula.Models.Manufacturers", "Manufacturers")
+                        .WithMany()
+                        .HasForeignKey("ManufacturersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OOOFormula.Models.Materials", "Materials")
+                        .WithMany()
+                        .HasForeignKey("MaterialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Manufacturers");
+
+                    b.Navigation("Materials");
                 });
 #pragma warning restore 612, 618
         }
