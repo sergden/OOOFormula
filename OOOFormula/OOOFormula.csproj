@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Identity\Pages\Account\Manage\EditPages\Catalog\" />
     <Folder Include="Areas\Identity\Pages\Account\Manage\EditPages\Gallery_Works\" />
     <Folder Include="Areas\Identity\Pages\Account\Manage\EditPages\Materials\" />
     <Folder Include="Services\" />
