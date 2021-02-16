@@ -98,7 +98,7 @@ namespace OOOFormula.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Пользователь с такой парой логин/пароль не найден.");
                     return Page();
                 }
             }
