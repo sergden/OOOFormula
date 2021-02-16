@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace OOOFormula.Models
 {
-    public class Catalog
+    public class OurServices
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public string Image { get; set; }
     }
 }

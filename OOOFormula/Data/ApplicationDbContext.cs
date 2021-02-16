@@ -13,5 +13,14 @@ namespace OOOFormula.Data
             : base(options)
         {
         }
+       
+        public DbSet<Atributes> Atributes { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Contacts> Contacts { get; set; }
+        public DbSet<Gallery> Gallery { get; set; }
+        public DbSet<Manufacturers> Manufacturers { get; set; }
+        public DbSet<Materials> Materials { get; set; }
+        public DbSet<OurServices> OurServices { get; set; }
+        public DbSet<Products> Products { get; set; }
     }
 }
