@@ -8,18 +8,18 @@ using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
 
-namespace OOOFormula.Pages.Administration
+namespace OOOFormula.Pages.Administration.Catalog
 {
-    public class testModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly OOOFormula.Data.ApplicationDbContext _context;
 
-        public testModel(OOOFormula.Data.ApplicationDbContext context)
+        public DetailsModel(OOOFormula.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public OurServices OurServices { get; set; }
+        public Products Products { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,12 @@ namespace OOOFormula.Pages.Administration
                 return NotFound();
             }
 
-            OurServices = await _context.OurServices.FirstOrDefaultAsync(m => m.Id == id);
+            Products = await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Manufacturers)
+                .Include(p => p.Materials).FirstOrDefaultAsync(m => m.Id == id);
 
-            if (OurServices == null)
+            if (Products == null)
             {
                 return NotFound();
             }

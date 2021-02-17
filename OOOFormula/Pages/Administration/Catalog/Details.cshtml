@@ -1,0 +1,67 @@
+﻿@page
+@model OOOFormula.Pages.Administration.Catalog.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.ImagesName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.ImagesName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.Category.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.Materials)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.Materials.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Products.Manufacturers)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Products.Manufacturers.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Products.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
