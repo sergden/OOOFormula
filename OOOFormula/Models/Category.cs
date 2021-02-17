@@ -12,7 +12,5 @@ namespace OOOFormula.Models
 
         public string Name { get; set; }
 
-
-        //public Products Product { get; set; }
     }
 }
