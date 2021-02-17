@@ -5,16 +5,27 @@
     ViewData["Title"] = "Index";
 }
 
-<p>
-    <a class="btn btn-primary" asp-page="Create">Добавить новую запись</a>
-</p>
+<!--Вывод сообщения об результате операции из моделей Create и Edit-->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="col-12 alert alert-success text-center">
+        @TempData["SuccessMessage"];
+    </div>
+}
+
+<div class="col-12">
+    <p>
+        <a class="btn btn-primary" asp-page="Create">Добавить новую запись</a>
+    </p>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>Название</th>
             <th>Стоимость</th>
             <th>Описание</th>
-            <th>Описание</th>
+            <th>Фото</th>
             <th>Статус</th>
             <th>Категория</th>
             <th>Материал</th>
@@ -51,9 +62,9 @@
                     @Html.DisplayFor(modelItem => item.Manufacturers.Name)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
                     <a asp-page="./Details" asp-route-id="@item.Id">Просмотр</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a class="text-danger" asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
                 </td>
             </tr>
         }

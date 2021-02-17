@@ -21,16 +21,15 @@ namespace OOOFormula.Pages.Administration.Catalog
 
         public IActionResult OnGet()
         {
-        ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
-        ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Id");
-        ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Id");
+        ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
+        ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Name");
+        ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
             return Page();
         }
 
         [BindProperty]
         public Products Products { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -40,6 +39,8 @@ namespace OOOFormula.Pages.Administration.Catalog
 
             _context.Products.Add(Products);
             await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно добавлена";
 
             return RedirectToPage("./Index");
         }

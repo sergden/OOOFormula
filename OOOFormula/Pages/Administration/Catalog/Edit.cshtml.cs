@@ -45,8 +45,6 @@ namespace OOOFormula.Pages.Administration.Catalog
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -71,6 +69,8 @@ namespace OOOFormula.Pages.Administration.Catalog
                     throw;
                 }
             }
+
+            TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно обновлена";
 
             return RedirectToPage("./Index");
         }
