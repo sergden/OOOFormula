@@ -2,7 +2,7 @@
 @model OOOFormula.Pages.Administration.Catalog.ListMaterials.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Создание";
 }
 
 <div class="col-12 mb-2">
@@ -15,7 +15,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Materials.Name" class="control-label">Название</label>
-            <input asp-for="Materials.Name" class="form-control" />
+            <input asp-for="Materials.Name" class="form-control" required />
             <span asp-validation-for="Materials.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
