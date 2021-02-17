@@ -27,7 +27,6 @@ namespace OOOFormula.Pages.Administration.ListGallery
         [BindProperty]
         public Gallery Gallery { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -37,6 +36,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
             _context.Gallery.Add(Gallery);
             await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно создана";
 
             return RedirectToPage("./Index");
         }

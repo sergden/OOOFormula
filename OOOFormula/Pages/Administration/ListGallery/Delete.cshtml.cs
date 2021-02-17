@@ -53,6 +53,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 await _context.SaveChangesAsync();
             }
 
+            TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно удалена";
+
             return RedirectToPage("./Index");
         }
     }

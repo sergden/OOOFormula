@@ -2,53 +2,54 @@
 @model OOOFormula.Pages.Administration.ListGallery.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Галерея";
 }
 
-<h1>Index</h1>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="col-12 alert alert-success text-center">
+        @TempData["SuccessMessage"];
+    </div>
+}
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<div class="col-12">
+    <p>
+        <a class="btn btn-primary" asp-page="Create">Добавить новую запись</a>
+    </p>
+</div>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Gallery[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gallery[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gallery[0].ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gallery[0].DateAdd)
-            </th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Фото</th>
+            <th>Дата добавления</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Gallery) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdd)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Gallery)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdd)
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Просмотр</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
+                    <a class="text-danger" asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

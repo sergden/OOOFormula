@@ -27,7 +27,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
         [BindProperty]
         public Materials Materials { get; set; }
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -37,6 +36,8 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 
             _context.Materials.Add(Materials);
             await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно создана";
 
             return RedirectToPage("./Index");
         }

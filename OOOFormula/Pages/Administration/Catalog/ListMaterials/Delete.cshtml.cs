@@ -53,6 +53,8 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 await _context.SaveChangesAsync();
             }
 
+            TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно удалена";
+
             return RedirectToPage("./Index");
         }
     }
