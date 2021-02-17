@@ -1,8 +1,8 @@
 ﻿@page
-@model OOOFormula.Pages.Administration.Catalog.ListProducts.IndexModel
+@model OOOFormula.Pages.Administration.Catalog.ListMaterials.IndexModel
 
 @{
-    ViewData["Title"] = "Товары";
+    ViewData["Title"] = "Материалы";
 }
 
 <!--Вывод сообщения об результате операции из моделей Create и Edit-->
@@ -24,17 +24,12 @@
         <tr>
             <th>Название</th>
             <th>Стоимость</th>
-            <th>Описание</th>
             <th>Фото</th>
-            <th>Статус</th>
-            <th>Категория</th>
-            <th>Материал</th>
-            <th>Производитель</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Products)
+        @foreach (var item in Model.Materials)
         {
             <tr>
                 <td>
@@ -44,22 +39,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ImagesName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Materials.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Manufacturers.Name)
+                    @Html.DisplayFor(modelItem => item.ImagePath)
                 </td>
                 <td>
                     <a asp-page="./Details" asp-route-id="@item.Id">Просмотр</a> |

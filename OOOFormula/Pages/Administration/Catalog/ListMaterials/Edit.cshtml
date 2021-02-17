@@ -1,0 +1,41 @@
+﻿@page
+@model OOOFormula.Pages.Administration.Catalog.ListMaterials.EditModel
+
+@{
+    ViewData["Title"] = "Редактирование";
+}
+
+<div class="col-12 mb-2">
+    <h1>Редактирование</h1>
+    <hr />
+</div>
+
+<div class="col-6">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Materials.Id" />
+        <div class="form-group">
+            <label asp-for="Materials.Name" class="control-label">Название</label>
+            <input asp-for="Materials.Name" class="form-control" />
+            <span asp-validation-for="Materials.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Materials.Price" class="control-label">Стоимость</label>
+            <input asp-for="Materials.Price" class="form-control" />
+            <span asp-validation-for="Materials.Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Materials.ImagePath" class="control-label">Фото</label>
+            <input asp-for="Materials.ImagePath" class="form-control" />
+            <span asp-validation-for="Materials.ImagePath" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <a class="btn btn-danger" asp-page="./Index">Отмена</a> |
+            <input class="btn btn-success" type="submit" value="Сохранить" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

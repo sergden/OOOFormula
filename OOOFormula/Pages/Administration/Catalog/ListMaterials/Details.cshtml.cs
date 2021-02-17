@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using OOOFormula.Data;
+using OOOFormula.Models;
+
+namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
+{
+    public class DetailsModel : PageModel
+    {
+        private readonly OOOFormula.Data.ApplicationDbContext _context;
+
+        public DetailsModel(OOOFormula.Data.ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public Materials Materials { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Materials = await _context.Materials.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (Materials == null)
+            {
+                return NotFound();
+            }
+            return Page();
+        }
+    }
+}
