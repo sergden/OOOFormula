@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Administration\Catalog\Products\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
