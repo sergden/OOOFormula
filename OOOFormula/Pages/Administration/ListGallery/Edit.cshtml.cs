@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
@@ -13,9 +10,9 @@ namespace OOOFormula.Pages.Administration.ListGallery
 {
     public class EditModel : PageModel
     {
-        private readonly OOOFormula.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(OOOFormula.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -45,7 +42,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             {
                 return Page();
             }
-
+                        
             _context.Attach(Gallery).State = EntityState.Modified;
 
             try
@@ -67,7 +64,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно обновлена";
 
             return RedirectToPage("./Index");
-        }
+        }    
 
         private bool GalleryExists(int id)
         {
