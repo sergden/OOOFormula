@@ -22,9 +22,13 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Название</th>
-            <th>Стоимость</th>
-            <th>Фото</th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.NameSort">Название</a>
+            </th>
+            <th><a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.PriceSort">Стоимость</a></th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.ImageSort">Фото</a>4
+            </th>
             <th></th>
         </tr>
     </thead>

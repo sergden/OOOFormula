@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model OOOFormula.Pages.Administration.Catalog.ListProducts.IndexModel
 
 @{
@@ -22,18 +22,35 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Название</th>
-            <th>Стоимость</th>
-            <th>Описание</th>
-            <th>Фото</th>
-            <th>Статус</th>
-            <th>Категория</th>
-            <th>Материал</th>
-            <th>Производитель</th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.NameSort">Название</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.PriceSort">Стоимость</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.DescripSort">Описание</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.ImageSort">Фото</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.StatusSort">Статус</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.CategorySort">Категория</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.MaterialSort">Материал</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.ManufacturerSort">Производитель</a> 
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+
         @foreach (var item in Model.Products)
         {
             <tr>

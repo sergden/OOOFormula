@@ -21,10 +21,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Название</th>
-            <th>Описание</th>
-            <th>Фото</th>
-            <th>Дата добавления</th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.NameSort">Название</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.DescripSort">Описание</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.ImageSort">Фото</a>
+            </th>
+            <th>
+                <a asp-page-handler="Sorting" asp-route-sortOrder="@ViewBag.ImageSort">Фото</a>
+            </th>
             <th></th>
         </tr>
     </thead>

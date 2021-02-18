@@ -19,11 +19,28 @@ namespace OOOFormula.Pages.Administration.ListCategory
             _context = context;
         }
 
-        public IList<Category> Category { get;set; }
+        public IEnumerable<Category> Category { get;set; }
 
         public async Task OnGetAsync()
         {
             Category = await _context.Category.ToListAsync();
+        }
+
+        public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)
+        {
+            Category = await _context.Category.ToListAsync();
+
+            ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
+
+            switch (sortOrder)
+            {
+                case SortState.NameDesc:
+                    Category = Category.OrderByDescending(p => p.Name);
+                    break;
+                default:
+                    Category = Category.OrderBy(p => p.Name);
+                    break;
+            }
         }
     }
 }
