@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
 
-namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
+namespace OOOFormula.Pages.Administration.ListCategory
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,11 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             _context = context;
         }
 
-        public IList<Materials> Materials { get;set; }
+        public IList<Category> Category { get;set; }
 
         public async Task OnGetAsync()
         {
-            Materials = await _context.Materials.ToListAsync();
+            Category = await _context.Category.ToListAsync();
         }
     }
 }

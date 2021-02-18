@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,19 +9,19 @@ using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
 
-namespace OOOFormula.Pages.Administration.Catalog.ListProducts
+namespace OOOFormula.Pages.Administration.ListCategory
 {
     public class EditModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly OOOFormula.Data.ApplicationDbContext _context;
 
-        public EditModel(ApplicationDbContext context)
+        public EditModel(OOOFormula.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Products Products { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,18 +30,12 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 return NotFound();
             }
 
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials).FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Products == null)
+            if (Category == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
-            ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Name");
-            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
             return Page();
         }
 
@@ -50,7 +46,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 return Page();
             }
 
-            _context.Attach(Products).State = EntityState.Modified;
+            _context.Attach(Category).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +54,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductsExists(Products.Id))
+                if (!CategoryExists(Category.Id))
                 {
                     return NotFound();
                 }
@@ -68,14 +64,14 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 }
             }
 
-            TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно обновлена";
+            TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно обновлена";
 
             return RedirectToPage("./Index");
         }
 
-        private bool ProductsExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.Products.Any(e => e.Id == id);
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }

@@ -1,11 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OOOFormula.Data;
 using OOOFormula.Models;
 
-namespace OOOFormula.Pages.Administration.Catalog.ListProducts
+namespace OOOFormula.Pages.Administration.ListCategory
 {
     public class CreateModel : PageModel
     {
@@ -18,14 +21,11 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
         public IActionResult OnGet()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
-            ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Name");
-            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
             return Page();
         }
 
         [BindProperty]
-        public Products Products { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -34,10 +34,10 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 return Page();
             }
 
-            _context.Products.Add(Products);
+            _context.Category.Add(Category);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно создана";
+            TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно создана";
 
             return RedirectToPage("./Index");
         }

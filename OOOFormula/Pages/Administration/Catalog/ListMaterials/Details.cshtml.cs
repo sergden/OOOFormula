@@ -12,9 +12,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 {
     public class DetailsModel : PageModel
     {
-        private readonly OOOFormula.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(OOOFormula.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }

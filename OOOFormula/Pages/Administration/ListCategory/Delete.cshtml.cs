@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
 
-namespace OOOFormula.Pages.Administration.Catalog.ListProducts
+namespace OOOFormula.Pages.Administration.ListCategory
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
         }
 
         [BindProperty]
-        public Products Products { get; set; }
+        public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,12 +29,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 return NotFound();
             }
 
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials).FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Products == null)
+            if (Category == null)
             {
                 return NotFound();
             }
@@ -48,15 +45,15 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 return NotFound();
             }
 
-            Products = await _context.Products.FindAsync(id);
+            Category = await _context.Category.FindAsync(id);
 
-            if (Products != null)
+            if (Category != null)
             {
-                _context.Products.Remove(Products);
+                _context.Category.Remove(Category);
                 await _context.SaveChangesAsync();
             }
 
-            TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно удалена";
+            TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно удалена";
 
             return RedirectToPage("./Index");
         }

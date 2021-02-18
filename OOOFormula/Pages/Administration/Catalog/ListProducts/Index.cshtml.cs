@@ -12,9 +12,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 {
     public class IndexModel : PageModel
     {
-        private readonly OOOFormula.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(OOOFormula.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
