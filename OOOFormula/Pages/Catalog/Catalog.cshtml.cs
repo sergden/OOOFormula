@@ -21,12 +21,37 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Products> Products { get; set; }
 
+        public IEnumerable<Materials> Materials { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public decimal PriceFrom { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public decimal PriceTo { get; set; }
+
         public async Task OnGetAsync()
         {
             Products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Manufacturers)
                 .Include(p => p.Materials).ToListAsync();
+
+            Materials = await _context.Materials.ToListAsync();
+        }
+
+        public void OnGetByPrice()
+        {
+            Products = _context.Products
+       .Include(p => p.Category)
+       .Include(p => p.Manufacturers)
+       .Include(p => p.Materials).ToList();
+
+            Materials = _context.Materials.ToList();
+
+            if (Products != null)
+            {
+                Products = Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToList();
+            }
         }
     }
 }
