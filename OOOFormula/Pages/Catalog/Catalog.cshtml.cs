@@ -23,12 +23,6 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Materials> Materials { get; set; }
 
-        //[BindProperty(SupportsGet = true)]
-        //public decimal PriceFrom { get; set; }
-
-        //[BindProperty(SupportsGet = true)]
-        //public decimal PriceTo { get; set; }
-
         public async Task<IActionResult> OnGetAsync()
         {
             Products = await _context.Products
