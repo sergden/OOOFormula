@@ -32,15 +32,11 @@ namespace OOOFormula.Pages.Administration.ListCategory
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
 
-            switch (sortOrder)
+            Category = sortOrder switch
             {
-                case SortState.NameDesc:
-                    Category = Category.OrderByDescending(p => p.Name);
-                    break;
-                default:
-                    Category = Category.OrderBy(p => p.Name);
-                    break;
-            }
+                SortState.NameDesc => Category.OrderByDescending(p => p.Name),
+                _ => Category.OrderBy(p => p.Name),
+            };
         }
     }
 }

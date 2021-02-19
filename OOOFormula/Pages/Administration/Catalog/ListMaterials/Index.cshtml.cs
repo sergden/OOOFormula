@@ -34,27 +34,15 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
             ViewData["ImageSort"] = sortOrder == SortState.ImageAsc ? SortState.ImageDesc : SortState.ImageAsc;
 
-            switch (sortOrder)
+            Materials = sortOrder switch
             {
-                case SortState.NameDesc:
-                    Materials = Materials.OrderByDescending(p => p.Name);
-                    break;
-                case SortState.PriceAsc:
-                    Materials = Materials.OrderBy(p => p.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Materials = Materials.OrderByDescending(p => p.Price);
-                    break;                
-                case SortState.ImageAsc:
-                    Materials = Materials.OrderBy(p => p.ImagePath);
-                    break;
-                case SortState.ImageDesc:
-                    Materials = Materials.OrderByDescending(p => p.ImagePath);
-                    break;                
-                default:
-                    Materials = Materials.OrderBy(p => p.Name);
-                    break;
-            }
+                SortState.NameDesc => Materials.OrderByDescending(p => p.Name),
+                SortState.PriceAsc => Materials.OrderBy(p => p.Price),
+                SortState.PriceDesc => Materials.OrderByDescending(p => p.Price),
+                SortState.ImageAsc => Materials.OrderBy(p => p.ImagePath),
+                SortState.ImageDesc => Materials.OrderByDescending(p => p.ImagePath),
+                _ => Materials.OrderBy(p => p.Name),
+            };
         }
     }
 }

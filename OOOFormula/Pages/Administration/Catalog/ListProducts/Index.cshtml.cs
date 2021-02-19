@@ -44,57 +44,25 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             ViewData["ManufacturerSort"] = sortOrder == SortState.ManufacturerAsc ? SortState.ManufacturerDesc : SortState.ManufacturerAsc;
             ViewData["DateAddSort"] = sortOrder == SortState.DateAddAsc ? SortState.DateAddDesc : SortState.DateAddAsc;
 
-            switch (sortOrder)
+            Products = sortOrder switch
             {
-                case SortState.NameDesc:
-                    Products = Products.OrderByDescending(p => p.Name);
-                    break;
-                case SortState.PriceAsc:
-                    Products = Products.OrderBy(p => p.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Products = Products.OrderByDescending(p => p.Price);
-                    break;
-                case SortState.DescriptionAsc:
-                    Products = Products.OrderBy(p => p.Description);
-                    break;
-                case SortState.DescriptionDesc:
-                    Products = Products.OrderByDescending(p => p.Description);
-                    break;
-                case SortState.ImageAsc:
-                    Products = Products.OrderBy(p => p.ImagesName);
-                    break;
-                case SortState.ImageDesc:
-                    Products = Products.OrderByDescending(p => p.ImagesName);
-                    break;
-                case SortState.StatusAsc:
-                    Products = Products.OrderBy(p => p.status);
-                    break;
-                case SortState.StatusDesc:
-                    Products = Products.OrderByDescending(p => p.status);
-                    break;
-                case SortState.CategoryAsc:
-                    Products = Products.OrderBy(p => p.Category.Name);
-                    break;
-                case SortState.CategoryDesc:
-                    Products = Products.OrderByDescending(p => p.Category.Name);
-                    break;
-                case SortState.MaterialAsc:
-                    Products = Products.OrderBy(p => p.Materials.Name);
-                    break;
-                case SortState.MaterialDesc:
-                    Products = Products.OrderByDescending(p => p.Materials.Name);
-                    break;
-                case SortState.ManufacturerAsc:
-                    Products = Products.OrderBy(p => p.Manufacturers.Name);
-                    break;
-                case SortState.ManufacturerDesc:
-                    Products = Products.OrderByDescending(p => p.Manufacturers.Name);
-                    break;
-                default:
-                    Products = Products.OrderBy(p => p.Name);
-                    break;
-            }
+                SortState.NameDesc => Products.OrderByDescending(p => p.Name),
+                SortState.PriceAsc => Products.OrderBy(p => p.Price),
+                SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
+                SortState.DescriptionAsc => Products.OrderBy(p => p.Description),
+                SortState.DescriptionDesc => Products.OrderByDescending(p => p.Description),
+                SortState.ImageAsc => Products.OrderBy(p => p.ImagesName),
+                SortState.ImageDesc => Products.OrderByDescending(p => p.ImagesName),
+                SortState.StatusAsc => Products.OrderBy(p => p.status),
+                SortState.StatusDesc => Products.OrderByDescending(p => p.status),
+                SortState.CategoryAsc => Products.OrderBy(p => p.Category.Name),
+                SortState.CategoryDesc => Products.OrderByDescending(p => p.Category.Name),
+                SortState.MaterialAsc => Products.OrderBy(p => p.Materials.Name),
+                SortState.MaterialDesc => Products.OrderByDescending(p => p.Materials.Name),
+                SortState.ManufacturerAsc => Products.OrderBy(p => p.Manufacturers.Name),
+                SortState.ManufacturerDesc => Products.OrderByDescending(p => p.Manufacturers.Name),
+                _ => Products.OrderBy(p => p.Name),
+            };
         }
     }
 }

@@ -33,33 +33,17 @@ namespace OOOFormula.Pages.Administration.ListGallery
             ViewData["ImageSort"] = sortOrder == SortState.ImageAsc ? SortState.ImageDesc : SortState.ImageAsc;
             ViewData["DateAddSort"] = sortOrder == SortState.DateAddAsc ? SortState.DateAddDesc : SortState.DateAddAsc;
 
-            switch (sortOrder)
+            Gallery = sortOrder switch
             {
-                case SortState.NameDesc:
-                    Gallery = Gallery.OrderByDescending(p => p.Name);
-                    break;
-                case SortState.DescriptionAsc:
-                    Gallery = Gallery.OrderBy(p => p.Description);
-                    break;
-                case SortState.DescriptionDesc:
-                    Gallery = Gallery.OrderByDescending(p => p.Description);
-                    break;
-                case SortState.ImageAsc:
-                    Gallery = Gallery.OrderBy(p => p.ImagePath);
-                    break;
-                case SortState.ImageDesc:
-                    Gallery = Gallery.OrderByDescending(p => p.ImagePath);
-                    break;
-                case SortState.DateAddAsc:
-                    Gallery = Gallery.OrderBy(p => p.DateAdd);
-                    break;    
-                case SortState.DateAddDesc:
-                    Gallery = Gallery.OrderBy(p => p.DateAdd);
-                    break;
-                default:
-                    Gallery = Gallery.OrderBy(p => p.Name);
-                    break;
-            }
+                SortState.NameDesc => Gallery.OrderByDescending(p => p.Name),
+                SortState.DescriptionAsc => Gallery.OrderBy(p => p.Description),
+                SortState.DescriptionDesc => Gallery.OrderByDescending(p => p.Description),
+                SortState.ImageAsc => Gallery.OrderBy(p => p.ImagePath),
+                SortState.ImageDesc => Gallery.OrderByDescending(p => p.ImagePath),
+                SortState.DateAddAsc => Gallery.OrderBy(p => p.DateAdd),
+                SortState.DateAddDesc => Gallery.OrderBy(p => p.DateAdd),
+                _ => Gallery.OrderBy(p => p.Name),
+            };
         }
     }
 }
