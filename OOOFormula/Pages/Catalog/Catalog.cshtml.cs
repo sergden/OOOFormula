@@ -37,8 +37,10 @@ namespace OOOFormula.Pages.Catalog
             return Page();
         }
 
-        public async Task<IActionResult> OnGetFiltersAsync(decimal PriceFrom, decimal PriceTo)
+        public async Task<IActionResult> OnGetFiltersAsync(decimal PriceFrom, decimal PriceTo, int? MaterialId, SortState? sortOrder)
         {
+           // ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
+
             if (PriceFrom >= 0 && PriceTo > 0)
             {
                 Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo)
@@ -59,6 +61,16 @@ namespace OOOFormula.Pages.Catalog
             if (!Products.Any())
             {
                 TempData["Message"] = "Ничего не найдено";
+            }
+
+            if (sortOrder != null)
+            {
+                Products = sortOrder switch
+                {
+                    SortState.PriceAsc => Products.OrderBy(p => p.Price),
+                    SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
+                    _ => Products.OrderBy(p => p.Price),
+                };
             }
 
             return Page();
