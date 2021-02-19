@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,13 +23,13 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Materials> Materials { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public decimal PriceFrom { get; set; }
+        //[BindProperty(SupportsGet = true)]
+        //public decimal PriceFrom { get; set; }
 
-        [BindProperty(SupportsGet = true)]
-        public decimal PriceTo { get; set; }
+        //[BindProperty(SupportsGet = true)]
+        //public decimal PriceTo { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             Products = await _context.Products
                 .Include(p => p.Category)
@@ -37,21 +37,37 @@ namespace OOOFormula.Pages.Catalog
                 .Include(p => p.Materials).ToListAsync();
 
             Materials = await _context.Materials.ToListAsync();
+
+            //PriceFrom = PriceTo = 0;
+
+            return Page();
         }
 
-        public void OnGetByPrice()
+        public async Task<IActionResult> OnGetFiltersAsync(decimal PriceFrom, decimal PriceTo)
         {
-            Products = _context.Products
-       .Include(p => p.Category)
-       .Include(p => p.Manufacturers)
-       .Include(p => p.Materials).ToList();
-
-            Materials = _context.Materials.ToList();
-
-            if (Products != null)
+            if (PriceFrom >= 0 && PriceTo > 0)
             {
-                Products = Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToList();
+                Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo)
+                    .Include(p => p.Category)
+                    .Include(p => p.Manufacturers)
+                    .Include(p => p.Materials).ToListAsync();
+                Materials = _context.Materials.ToList();
             }
+            else if (PriceFrom >= 0 && PriceTo == 0)
+            {
+                Products = await _context.Products.Where(x => x.Price >= PriceFrom)
+                    .Include(p => p.Category)
+                    .Include(p => p.Manufacturers)
+                    .Include(p => p.Materials).ToListAsync();
+                Materials = _context.Materials.ToList();
+            }
+
+            if (!Products.Any())
+            {
+                TempData["Message"] = "Ничего не найдено";
+            }
+
+            return Page();
         }
     }
 }
