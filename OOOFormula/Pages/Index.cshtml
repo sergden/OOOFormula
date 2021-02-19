@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Главная";
 }
+
 <div class="row justify-content-center">
     <div class="col-4 mt-5 text-center">
         <a class="nav-link text-dark" asp-area="" asp-page="/Gallery_works">
@@ -12,8 +13,7 @@
 </div>
 
 <div class="row mt-1">
-
-    @for (int i = 1; i <= 4; i++)
+    @foreach (var item in Model.Gallery)
     {
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="card-deck">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="text-center">
                         <a asp-area="" asp-page="/Gallery_works">
-                            <img class="card-img-top" src="#" />
+                            <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" />
                         </a>
                     </div>
                 </div>
@@ -39,17 +39,16 @@
 </div>
 
 <div class="row">
-    <!--В цикле-->
-    @for (int i = 1; i <= 4; i++)
+    @foreach (var item in Model.OurServices)
     {
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="card-deck">
                 <div class="card m-3 cardBoxShadow">
                     <div class="text-center nav-link">
-                        <h6>Title</h6>
+                        <h6>@item.Name</h6>
                     </div>
                     <div class="text-center">
-                        <img class="card-img-top" src="#" />
+                        <img class="card-img-top" src="~/images/OurServices/@item.Image" asp-append-version="true" />
                     </div>
                 </div>
             </div>

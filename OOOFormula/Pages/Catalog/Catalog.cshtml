@@ -52,25 +52,23 @@
     <div class="col-md-9">
         <div class="row">
             <!--в цикле-->
-            @for (int i = 1; i <= 9; i++)
+            @foreach (var item in Model.Products)
             {
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="card-deck">
                         <div class="card m-3">
                             <div class="text-center">
-                                <a asp-page="/Catalog/Details">
-                                    <!--asp-route="#"-->
-                                    <img class="card-img-bottom" src="#" asp-append-version="true" />
+                                <a asp-page="/Catalog/Details" asp-route-id="@item.Id">
+                                    <img class="card-img-bottom" src="~/images/Products/@item.ImagesName" asp-append-version="true" />
                                 </a>
                             </div>
                             <div class="text-left mt-3">
-                                <a class="nav-link text-dark pb-0" asp-page="/Catalog/Details">
-                                    <!--asp-route="#"-->
-                                    <h6>Name</h6>
+                                <a class="nav-link text-dark pb-0" asp-page="/Catalog/Details" asp-route-id="@item.Id">
+                                    <h6>@item.Name</h6>
                                 </a>
                             </div>
                             <div class="text-left mt-3 ml-3">
-                                <h5>25000 ₽</h5>
+                                <h5>@item.Price ₽</h5>
                             </div>
                         </div>
                     </div>
@@ -82,11 +80,11 @@
 
 
 <!--Переход по страницам-->
-<div class="row justify-content-center">
+@*<div class="row justify-content-center">
     @for (int i = 1; i <= 3; i++)
     {
         <div class="col-1 text-center">
             <a class="nav-link nav-link-hover btn" asp-area="" asp-page="">@i</a>
         </div>
     }
-</div>
+</div>*@

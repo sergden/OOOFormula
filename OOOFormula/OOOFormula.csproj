@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\images\Products\**" />
+    <Content Remove="wwwroot\images\Products\**" />
+    <EmbeddedResource Remove="wwwroot\images\Products\**" />
+    <None Remove="wwwroot\images\Products\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.2" />
@@ -22,6 +29,9 @@
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="wwwroot\images\Gallery\" />
+    <Folder Include="wwwroot\images\Materials\" />
+    <Folder Include="wwwroot\images\OurServices\" />
     <Folder Include="wwwroot\images\Products\" />
   </ItemGroup>
 

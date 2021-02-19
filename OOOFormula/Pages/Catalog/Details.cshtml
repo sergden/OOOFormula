@@ -1,7 +1,9 @@
-﻿@page
+﻿@page "{id}"
 @model OOOFormula.Pages.Catalog.DetailsModel
 @{
-    ViewData["Title"] = "Название товара";
+    ViewData["Title"] = Model.Products.Name;
+    string ImagePath = "~/images/Products/" + Model.Products.ImagesName;
+}
 }
 
 <div class="row mt-5">
@@ -14,7 +16,7 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="card-img-bottom" src="/images/Examples/1.jpg" asp-append-version="true" alt="1 слайд" />
+                    <img class="card-img-bottom" src="@ImagePath" asp-append-version="true" alt="1 слайд" />
                 </div>
                 @for (int i = 2; i <= 3; i++)
                 {
@@ -40,21 +42,17 @@
         <div class="row">
             <div class="col-12 m-2">
                 <h2>
-                    <strong>Название товара</strong>
+                    <strong>@Model.Products.Name</strong>
                 </h2>
             </div>
             <div class="col-6 ml-2">
-                <h4>25 000 ₽</h4>
+                <h4>@Model.Products.Price ₽</h4>
             </div>
             <div class="col-12 ml-2 mt-3">
                 <h6>
                     <strong>Описание</strong>
                 </h6>
-                <p>
-                    Здесь содержится описание товара
-                    Здесь содержится описание товара
-                    Здесь содержится описание товара
-                </p>
+                <p>@Model.Products.Description</p>
             </div>
         </div>
     </div>
@@ -70,9 +68,12 @@
             </h3>
         </div>
         <div class="col-12 pl-2">
-            <p>
-                Здесь содержаться характеристики товара
-            </p>
+            <dl class="row">
+                <dt class="col-sm-2">Материал</dt>
+                <dd class="col-sm-10">
+                    @Model.Products.Materials.Name
+                </dd>
+            </dl>
         </div>
     </div>
 </div>

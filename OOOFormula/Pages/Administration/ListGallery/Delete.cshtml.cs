@@ -12,9 +12,9 @@ namespace OOOFormula.Pages.Administration.ListGallery
 {
     public class DeleteModel : PageModel
     {
-        private readonly OOOFormula.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(OOOFormula.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }
