@@ -12,7 +12,8 @@
 </div>
 
 <div class="col-6">
-    <form method="post">
+    <form method="post" asp-page-handler="OnPost" enctype="multipart/form-data">
+
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Gallery.Id" />
         <div class="form-group">
@@ -29,7 +30,15 @@
             <label asp-for="Gallery.ImagePath" class="control-label">Фото</label>
             <input asp-for="Gallery.ImagePath" class="form-control" />
             <span asp-validation-for="Gallery.ImagePath" class="text-danger"></span>
-        </div>
+        </div>   
+        @* Upload Image *@
+        @*<div class="form-group">
+            <div class="custom-file">
+                <input asp-for="Photo" class="custom-file-input form-control" />
+                <label class="custom-file-label text-left">Click Here</label>
+            </div>
+        </div>*@
+
         <div class="form-group">
             <label asp-for="Gallery.DateAdd" class="control-label" hidden >Дата добавления</label>
             <input asp-for="Gallery.DateAdd" class="form-control" hidden  value="@CurrentDate"/>
