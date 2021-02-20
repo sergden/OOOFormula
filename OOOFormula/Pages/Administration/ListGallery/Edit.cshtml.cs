@@ -98,6 +98,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             return _context.Gallery.Any(e => e.Id == id);
         }
 
+        //метод сохранения файла на сервере
         private string ProcessUploadedFile()
         {
             string uniqueFileName = null;

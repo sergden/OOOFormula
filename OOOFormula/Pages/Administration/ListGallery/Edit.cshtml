@@ -30,18 +30,18 @@
             <label asp-for="Gallery.ImagePath" class="control-label">Фото</label>
             <input asp-for="Gallery.ImagePath" class="form-control" />
             <span asp-validation-for="Gallery.ImagePath" class="text-danger"></span>
-        </div>   
+        </div>
         @* Upload Image *@
-        @*<div class="form-group">
+        <div class="form-group">
             <div class="custom-file">
                 <input asp-for="Photo" class="custom-file-input form-control" />
                 <label class="custom-file-label text-left">Click Here</label>
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
-            <label asp-for="Gallery.DateAdd" class="control-label" hidden >Дата добавления</label>
-            <input asp-for="Gallery.DateAdd" class="form-control" hidden  value="@CurrentDate"/>
+            <label asp-for="Gallery.DateAdd" class="control-label" hidden>Дата добавления</label>
+            <input asp-for="Gallery.DateAdd" class="form-control" hidden value="@CurrentDate" />
             <span asp-validation-for="Gallery.DateAdd" class="text-danger" hidden></span>
         </div>
         <div class="form-group">
@@ -54,5 +54,14 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    <!-- изменение значения label custom-file-label на имя загружаемого файла -->
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(filename);
+            });
+        });
+    </script>
 
 }
