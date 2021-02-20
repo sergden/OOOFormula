@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,14 +15,19 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EditModel(ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [BindProperty]
         public Products Products { get; set; }
+
+        [BindProperty]
+        public IFormFile Photo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -48,7 +56,25 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             if (!ModelState.IsValid)
             {
                 return Page();
-            }            
+            }
+
+            //удаление старого фото и загрузка нового на сервер
+            //if (Photo != null)
+            //{
+
+            //    if (Products.ImagesName != null)
+            //    {
+            //        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Products.ImagesName);
+
+            //        if (Products.ImagesName != "noimage.png")
+            //        {
+            //            System.IO.File.Delete(filePath);
+            //        }
+
+            //    }
+
+            //   Products.ImagesName = ProcessUploadedFile();
+            //}
 
             _context.Attach(Products).State = EntityState.Modified;
 
@@ -76,6 +102,26 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
         private bool ProductsExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
-        }        
+        }
+
+        //метод сохранения файла на сервере
+        private string ProcessUploadedFile()
+        {
+            string uniqueFileName = null;
+            if (Photo != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images"); //webRootPath возвращает путь до каталогаа wwwroot
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + Photo.FileName; //генерация уникального имени файла
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName); //объединение имени файла и сгенерированного уникального имени
+
+                //логика сохранения на сервер фото
+                using (var fs = new FileStream(filePath, FileMode.Create))
+                {
+                    Photo.CopyTo(fs);
+                }
+            }
+
+            return uniqueFileName;
+        }
     }
 }

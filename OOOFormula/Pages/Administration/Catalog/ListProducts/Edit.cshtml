@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Редактирование";
+    string PhotoPath = $"~/images/Gallery/{Model.Products.ImagesName ?? "noimage.png"}";
 }
 
 <div class="col-12 mb-2">
@@ -11,7 +12,7 @@
 </div>
 
 <div class="col-6">
-    <form method="post">
+    <form method="post" asp-page-handler="OnPost" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Products.Id" />
         <div class="form-group">
@@ -21,7 +22,7 @@
         </div>
         <div class="form-group">
             <label asp-for="Products.Price" class="control-label">Стоимость</label>
-            <input asp-for="Products.Price" class="form-control" type="number" min="0" step="1"/>
+            <input asp-for="Products.Price" class="form-control" type="number" min="0" step="1" />
             <span asp-validation-for="Products.Price" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -29,11 +30,18 @@
             <textarea asp-for="Products.Description" class="form-control"></textarea>
             <span asp-validation-for="Products.Description" class="text-danger"></span>
         </div>
+
+        @* Upload Image *@
         <div class="form-group">
-            <label asp-for="Products.ImagesName" class="control-label">Фото</label>
-            <input asp-for="Products.ImagesName" class="form-control" />
-            <span asp-validation-for="Products.ImagesName" class="text-danger"></span>
+            <div class="custom-file">
+                <input asp-for="Photo" class="custom-file-input form-control" />
+                <label class="custom-file-label text-left">Нажмите здесь для выбора файла</label>
+            </div>
+            <div class="col-6 mt-2 p-0">
+                <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+            </div>
         </div>
+
         <div class="form-group form-check">
             <label class="form-check-label">
                 <input class="form-check-input" asp-for="Products.status" /> Статус
@@ -63,34 +71,14 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- изменение значения label custom-file-label на имя загружаемого файла -->
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(filename);
+            });
+        });
+    </script>
 }
-
-
-
-
-
-@*<div class="form-group">
-        <div>
-            <img class="card-img-top border-primary" src="@photoPath" asp-append-version="true" />
-            <div class="custom-file">
-                <input asp-for="Photo" class="custom-file-input form-control" value="sss" />
-                <label asp-for="temp" class="custom-file-label text-left">Click Here</label>
-            </div>
-        </div>
-    </div>*@
-
-
-
-@*<div class="form-group">
-        <label asp-for="Products.ImagesName" class="control-label">Фото</label>
-        <input asp-for="Products.ImagesName" class="custom-file-input_" />
-        <span asp-validation-for="Products.ImagesName" class="text-danger"></span>
-
-        <div class="custom-file">
-            <input asp-for="Photo" class="custom-file-input form-control" />
-            <label class="custom-file-label text-left">Click Here</label>
-        </div>
-        <div class="col-6 mt-2">
-            <img class="card-img-top border-primary" src="@photoPath" asp-append-version="true" />
-        </div>
-    </div>*@
