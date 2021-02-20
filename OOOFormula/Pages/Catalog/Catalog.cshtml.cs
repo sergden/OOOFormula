@@ -32,15 +32,11 @@ namespace OOOFormula.Pages.Catalog
 
             Materials = await _context.Materials.ToListAsync();
 
-            //PriceFrom = PriceTo = 0;
-
             return Page();
         }
 
         public async Task<IActionResult> OnGetFiltersAsync(decimal PriceFrom, decimal PriceTo, int? MaterialId, SortState? sortOrder)
         {
-           // ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
-
             if (PriceFrom >= 0 && PriceTo > 0)
             {
                 Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo)
