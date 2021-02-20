@@ -24,7 +24,6 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Materials> Materials { get; set; }
 
-
         public async Task<IActionResult> OnGetAsync()
         {
             Products = await _context.Products.ToListAsync();
