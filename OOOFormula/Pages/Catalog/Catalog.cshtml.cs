@@ -29,8 +29,6 @@ namespace OOOFormula.Pages.Catalog
         {
             Products = await _context.Products.ToListAsync();
 
-           // Materials = await _context.Materials.ToListAsync();
-
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
 
             return Page();

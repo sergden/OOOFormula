@@ -16,6 +16,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             _context = context;
         }
 
+        [BindProperty]
+        public Products Products { get; set; }
+
         public IActionResult OnGet()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
@@ -23,9 +26,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
             return Page();
         }
-
-        [BindProperty]
-        public Products Products { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
