@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
@@ -23,35 +24,36 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Materials> Materials { get; set; }
 
+
         public async Task<IActionResult> OnGetAsync()
         {
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials).ToListAsync();
+            Products = await _context.Products.ToListAsync();
 
-            Materials = await _context.Materials.ToListAsync();
+           // Materials = await _context.Materials.ToListAsync();
+
+            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
 
             return Page();
         }
 
-        public async Task<IActionResult> OnGetFiltersAsync(decimal PriceFrom, decimal PriceTo, int? MaterialId, SortState? sortOrder)
+        public async Task<IActionResult> OnGetFiltersAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select)
         {
             if (PriceFrom >= 0 && PriceTo > 0)
             {
-                Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo)
-                    .Include(p => p.Category)
-                    .Include(p => p.Manufacturers)
-                    .Include(p => p.Materials).ToListAsync();
-                Materials = _context.Materials.ToList();
+                Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToListAsync();
+
+                ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
             }
             else if (PriceFrom >= 0 && PriceTo == 0)
             {
-                Products = await _context.Products.Where(x => x.Price >= PriceFrom)
-                    .Include(p => p.Category)
-                    .Include(p => p.Manufacturers)
-                    .Include(p => p.Materials).ToListAsync();
-                Materials = _context.Materials.ToList();
+                Products = await _context.Products.Where(x => x.Price >= PriceFrom).ToListAsync();
+
+                ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+            }
+
+            if (MaterialId_select != null)
+            {
+                Products = await _context.Products.Where(x => x.MaterialsId == MaterialId_select).ToListAsync();
             }
 
             if (!Products.Any())
