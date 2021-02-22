@@ -42,11 +42,11 @@ namespace OOOFormula.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Поле 'E-mail' не может быть пустым")]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Поле 'Пароль' не может быть пустым")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
