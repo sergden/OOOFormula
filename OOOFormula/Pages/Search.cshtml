@@ -4,23 +4,24 @@
     ViewData["Title"] = "Результаты поиска";
 }
 
+<div class="text-center mt-5">
+    <h1>Результаты поиска</h1>
+</div>
+
 @if (TempData["Message"] != null)
 {
     <div class="text-center mt-5">
-        <h1>@TempData["Message"]</h1>
+        <h4>@TempData["Message"]</h4>
     </div>
 }
 else
 {
-    <div class="text-center mt-5">
-        <h1>Результаты поиска</h1>
-    </div>
     <div class="row">
         <div class="col">
             <div class="row">
                 @if (Model.Products.Count() != 0)
                 {
-                    <div class="col-12">
+                    <div class="col-12 mt-4">
                         <p class="mb-0 text-center">
                             <span style="font-size:14pt;">
                                 <strong>Кухни</strong>
@@ -54,7 +55,7 @@ else
             <div class="row">
                 @if (Model.Gallery.Count() != 0)
                 {
-                    <div class="col-12">
+                    <div class="col-12 mt-4">
                         <p class="mb-0 text-center">
                             <span style="font-size:14pt;">
                                 <strong>Галерея</strong>

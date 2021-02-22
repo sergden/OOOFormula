@@ -24,23 +24,28 @@ namespace OOOFormula.Pages
 
         public async Task<IActionResult> OnGetAsync(string searchString)
         {
-            Products = await _context.Products.Where(p =>
-                 p.Name.ToLower().Contains(searchString.ToLower()) ||
-                 p.Description.ToLower().Contains(searchString.ToLower()))
-            .AsNoTracking()
-            .ToListAsync();
-
-            Gallery = await _context.Gallery.Where(p =>
-                 p.Name.ToLower().Contains(searchString.ToLower()))
-           .AsNoTracking()
-           .ToListAsync();
-
-            if(Products==null && Gallery == null)
+            if (!string.IsNullOrWhiteSpace(searchString))
             {
-                TempData["Message"] = $"Ничего не найдено";
+                Products = await _context.Products.Where(p =>
+                                 p.Name.ToLower().Contains(searchString.ToLower()) ||
+                                 p.Description.ToLower().Contains(searchString.ToLower()))
+                            .AsNoTracking()
+                            .ToListAsync();
+
+                Gallery = await _context.Gallery.Where(p =>
+                     p.Name.ToLower().Contains(searchString.ToLower()))
+               .AsNoTracking()
+               .ToListAsync();
+
+                if (Products.Count() == 0 && Gallery.Count() == 0)
+                {
+                    TempData["Message"] = $"Ничего не найдено";
+                }
+
+                return Page();
             }
 
-            return Page();
+            return NotFound();
         }
     }
 }

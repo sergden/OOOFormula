@@ -62,11 +62,8 @@
                             <partial name="_LoginPartial" />
                         </li>
                     </ul>
-                    @*<form class="form-inline my-2 my-md-0" method="get" asp-page="/Catalog/Catalog">
-                        <input class="form-control" type="search" name="searchString" placeholder="Поиск..." aria-label="Search">
-                    </form>*@    
                     <form class="form-inline my-2 my-md-0" method="get" asp-page="./Search">
-                        <input class="form-control" type="search" name="searchString" placeholder="Поиск..." aria-label="Search">
+                        <input class="form-control" type="search" name="searchString" placeholder="Поиск..." aria-label="Search" required>
                     </form>
                 </div>
             </div>
