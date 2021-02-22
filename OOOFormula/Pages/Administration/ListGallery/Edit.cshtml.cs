@@ -53,22 +53,22 @@ namespace OOOFormula.Pages.Administration.ListGallery
             }
 
             //удаление старого фото и загрузка нового на сервер
-            //if (Photo != null)
-            //{
-                
-            //    if (Gallery.ImagePath != null)
-            //    {
-            //        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Gallery.ImagePath);
+            if (Photo != null)
+            {
 
-            //        if (Gallery.ImagePath != "noimage.png")
-            //        {
-            //            System.IO.File.Delete(filePath);
-            //        }
+                if (Gallery.ImagePath != null)
+                {
+                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Gallery", Gallery.ImagePath);
 
-            //    }
+                    if (Gallery.ImagePath != "noimage.png")
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
 
-            //    Gallery.ImagePath = ProcessUploadedFile();
-            //}
+                }
+
+                Gallery.ImagePath = ProcessUploadedFile();
+            }
 
             _context.Attach(Gallery).State = EntityState.Modified;
 
@@ -104,7 +104,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             string uniqueFileName = null;
             if (Photo != null)
             {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images"); //webRootPath возвращает путь до каталогаа wwwroot
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Gallery"); //webRootPath возвращает путь до каталогаа wwwroot
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + Photo.FileName; //генерация уникального имени файла
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName); //объединение имени файла и сгенерированного уникального имени
 

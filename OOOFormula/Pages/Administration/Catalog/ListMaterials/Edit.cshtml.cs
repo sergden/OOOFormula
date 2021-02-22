@@ -36,25 +36,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             if (id == null)
             {
                 return NotFound();
-            }
-
-            //удаление старого фото и загрузка нового на сервер
-            //if (Photo != null)
-            //{
-
-            //    if (Materials.ImagePath != null)
-            //    {
-            //        string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Materials.ImagePath);
-
-            //        if (Materials.ImagePath != "noimage.png")
-            //        {
-            //            System.IO.File.Delete(filePath);
-            //        }
-
-            //    }
-
-            //    Materials.ImagePath = ProcessUploadedFile();
-            //}
+            }                       
 
             Materials = await _context.Materials.FirstOrDefaultAsync(m => m.Id == id);
 
@@ -70,6 +52,22 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            //удаление старого фото и загрузка нового на сервер
+            if (Photo != null)
+            {
+                if (Materials.ImagePath != null)
+                {
+                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials", Materials.ImagePath);
+
+                    if (Materials.ImagePath != "noimage.png")
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                }
+
+                Materials.ImagePath = ProcessUploadedFile();
             }
 
             _context.Attach(Materials).State = EntityState.Modified;
@@ -105,7 +103,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             string uniqueFileName = null;
             if (Photo != null)
             {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images"); //webRootPath возвращает путь до каталогаа wwwroot
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials"); //webRootPath возвращает путь до каталогаа wwwroot
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + Photo.FileName; //генерация уникального имени файла
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName); //объединение имени файла и сгенерированного уникального имени
 

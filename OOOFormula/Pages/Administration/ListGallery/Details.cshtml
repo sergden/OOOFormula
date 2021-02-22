@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = Model.Gallery.Name;
-    string ImagePath = "~/images/Gallery/" + Model.Gallery.ImagePath;
+    string PhotoPath = "~/images/Gallery/" + Model.Gallery.ImagePath;
 }
 
 <div class="col-12 mb-2">
@@ -23,8 +23,9 @@
         </dd>
         <dt class="col-sm-2">Фото</dt>
         <dd class="col-sm-10">
-            <div class="col-2 p-0">
-                <img class="card-img-top border-primary" src="@ImagePath" asp-append-version="true" />
+            <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+            <div class="col-lg-6 mt-2 p-0">
+                @Html.DisplayFor(model => model.Gallery.ImagePath)
             </div>
         </dd>
         <dt class="col-sm-2">Дата добавления</dt>
