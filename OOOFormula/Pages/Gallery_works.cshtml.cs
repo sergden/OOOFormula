@@ -20,7 +20,7 @@ namespace OOOFormula.Pages
 
         public async Task OnGetAsync()
         {
-            Gallery = await _context.Gallery.ToListAsync();
+            Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
         }
     }
 }

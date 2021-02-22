@@ -21,7 +21,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
         public async Task OnGetAsync()
         {
-            Gallery = await _context.Gallery.ToListAsync();
+            Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
         }
 
         public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)

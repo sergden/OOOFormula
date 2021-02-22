@@ -26,7 +26,7 @@ namespace OOOFormula.Pages.Catalog
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Products = await _context.Products.ToListAsync();
+            Products = await _context.Products.AsNoTracking().ToListAsync();
 
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
 

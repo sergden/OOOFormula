@@ -32,7 +32,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             Products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Manufacturers)
-                .Include(p => p.Materials).FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.Materials)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Products == null)
             {

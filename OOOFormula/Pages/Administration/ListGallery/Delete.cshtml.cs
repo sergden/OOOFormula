@@ -29,7 +29,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 return NotFound();
             }
 
-            Gallery = await _context.Gallery.FirstOrDefaultAsync(m => m.Id == id);
+            Gallery = await _context.Gallery.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
 
             if (Gallery == null)
             {

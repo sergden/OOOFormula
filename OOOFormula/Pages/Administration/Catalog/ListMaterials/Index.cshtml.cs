@@ -23,7 +23,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 
         public async Task OnGetAsync()
         {
-            Materials = await _context.Materials.ToListAsync();
+            Materials = await _context.Materials.AsNoTracking().ToListAsync();
         }
 
         public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)

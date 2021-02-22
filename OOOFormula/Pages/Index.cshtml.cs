@@ -30,13 +30,14 @@ namespace OOOFormula.Pages
         {
             if (_context.Gallery.Count() > 4)
             {
-                 Gallery = await _context.Gallery.Skip(_context.Gallery.Count() - 4).ToListAsync();
+                 Gallery = await _context.Gallery.Skip(_context.Gallery.Count() - 4).AsNoTracking().ToListAsync();
             }
             else
             {
-                Gallery = await _context.Gallery.ToListAsync();
+                Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
             }
-            OurServices = await _context.OurServices.ToListAsync();
+
+            OurServices = await _context.OurServices.AsNoTracking().ToListAsync();
         }
     }
 }

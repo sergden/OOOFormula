@@ -28,7 +28,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 return NotFound();
             }
 
-            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
 
             if (Category == null)
             {

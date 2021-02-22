@@ -24,7 +24,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             Products = await _context.Products
                 .Include(p => p.Category)
                 .Include(p => p.Manufacturers)
-                .Include(p => p.Materials).ToListAsync();
+                .Include(p => p.Materials)
+                .AsNoTracking()
+                .ToListAsync();
         }        
 
         public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)

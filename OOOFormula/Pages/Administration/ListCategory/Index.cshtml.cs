@@ -23,7 +23,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
 
         public async Task OnGetAsync()
         {
-            Category = await _context.Category.ToListAsync();
+            Category = await _context.Category.AsNoTracking().ToListAsync();
         }
 
         public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)

@@ -29,7 +29,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 return NotFound();
             }
 
-            Materials = await _context.Materials.FirstOrDefaultAsync(m => m.Id == id);
+            Materials = await _context.Materials.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
 
             if (Materials == null)
             {
