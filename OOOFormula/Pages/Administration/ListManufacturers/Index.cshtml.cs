@@ -19,11 +19,32 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             _context = context;
         }
 
-        public IList<Manufacturers> Manufacturers { get;set; }
+        public IEnumerable<Manufacturers> Manufacturers { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(SortState sortOrder = SortState.NameAsc)
         {
-            Manufacturers = await _context.Manufacturers.ToListAsync();
+            Manufacturers = await _context.Manufacturers.AsNoTracking().ToListAsync();
+
+            ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
+
+            Manufacturers = sortOrder switch
+            {
+                SortState.NameDesc => Manufacturers.OrderByDescending(p => p.Name),
+                _ => Manufacturers.OrderBy(p => p.Name),
+            };
         }
+
+        //public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)
+        //{
+        //    Manufacturers = await _context.Manufacturers.AsNoTracking().ToListAsync();
+
+        //    ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
+
+        //    Manufacturers = sortOrder switch
+        //    {
+        //        SortState.NameDesc => Manufacturers.OrderByDescending(p => p.Name),
+        //        _ => Manufacturers.OrderBy(p => p.Name),
+        //    };
+        //}
     }
 }

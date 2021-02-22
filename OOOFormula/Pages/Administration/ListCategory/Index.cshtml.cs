@@ -28,7 +28,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
 
         public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)
         {
-            Category = await _context.Category.ToListAsync();
+            Category = await _context.Category.AsNoTracking().ToListAsync();
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
 
