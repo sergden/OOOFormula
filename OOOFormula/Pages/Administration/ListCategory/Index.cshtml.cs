@@ -21,12 +21,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
 
         public IEnumerable<Category> Category { get;set; }
 
-        public async Task OnGetAsync()
-        {
-            Category = await _context.Category.AsNoTracking().ToListAsync();
-        }
-
-        public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)
+        public async Task OnGetAsync(SortState? sortOrder)
         {
             Category = await _context.Category.AsNoTracking().ToListAsync();
 
@@ -34,9 +29,10 @@ namespace OOOFormula.Pages.Administration.ListCategory
 
             Category = sortOrder switch
             {
+                SortState.NameAsc => Category.OrderBy(p => p.Name),
                 SortState.NameDesc => Category.OrderByDescending(p => p.Name),
-                _ => Category.OrderBy(p => p.Name),
+                _ => Category.OrderBy(p => p.Id),
             };
-        }
+        }       
     }
 }

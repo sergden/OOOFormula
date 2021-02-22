@@ -24,17 +24,12 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Materials> Materials { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select)
         {
             Products = await _context.Products.AsNoTracking().ToListAsync();
 
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
 
-            return Page();
-        }
-
-        public async Task<IActionResult> OnGetFiltersAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select)
-        {
             if (PriceFrom >= 0 && PriceTo > 0)
             {
                 Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToListAsync();
@@ -69,6 +64,6 @@ namespace OOOFormula.Pages.Catalog
             }
 
             return Page();
-        }
+        }               
     }
 }

@@ -29,23 +29,10 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
 
             Manufacturers = sortOrder switch
             {
+                SortState.NameAsc => Manufacturers.OrderBy(p => p.Name),
                 SortState.NameDesc => Manufacturers.OrderByDescending(p => p.Name),
-                SortState.NameAsc=>Manufacturers.OrderBy(p=>p.Name),
                 _ => Manufacturers.OrderBy(p => p.Id),
             };
         }
-
-        //public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)
-        //{
-        //    Manufacturers = await _context.Manufacturers.AsNoTracking().ToListAsync();
-
-        //    ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
-
-        //    Manufacturers = sortOrder switch
-        //    {
-        //        SortState.NameDesc => Manufacturers.OrderByDescending(p => p.Name),
-        //        _ => Manufacturers.OrderBy(p => p.Name),
-        //    };
-        //}
     }
 }

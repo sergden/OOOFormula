@@ -14,7 +14,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
     {
         private readonly ApplicationDbContext _context;
 
-        public DetailsModel(OOOFormula.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }

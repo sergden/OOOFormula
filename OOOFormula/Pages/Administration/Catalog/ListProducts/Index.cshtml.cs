@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 {
@@ -19,7 +19,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
         public IEnumerable<Products> Products { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(SortState? sortOrder)
         {
             Products = await _context.Products
                 .Include(p => p.Category)
@@ -27,14 +27,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 .Include(p => p.Materials)
                 .AsNoTracking()
                 .ToListAsync();
-        }        
-
-        public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)
-        {
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials).ToListAsync();
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
@@ -48,6 +40,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
             Products = sortOrder switch
             {
+                SortState.NameAsc => Products.OrderBy(p => p.Name),
                 SortState.NameDesc => Products.OrderByDescending(p => p.Name),
                 SortState.PriceAsc => Products.OrderBy(p => p.Price),
                 SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
@@ -63,7 +56,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 SortState.MaterialDesc => Products.OrderByDescending(p => p.Materials.Name),
                 SortState.ManufacturerAsc => Products.OrderBy(p => p.Manufacturers.Name),
                 SortState.ManufacturerDesc => Products.OrderByDescending(p => p.Manufacturers.Name),
-                _ => Products.OrderBy(p => p.Name),
+                _ => Products.OrderBy(p => p.Id),
             };
         }
     }

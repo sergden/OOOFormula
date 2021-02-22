@@ -19,14 +19,9 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
         public IEnumerable<Gallery> Gallery { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(SortState? sortOrder)
         {
             Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
-        }
-
-        public async Task OnGetSorting(SortState sortOrder = SortState.NameAsc)
-        {
-            Gallery = await _context.Gallery.ToListAsync();
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["DescripSort"] = sortOrder == SortState.DescriptionAsc ? SortState.DescriptionDesc : SortState.DescriptionAsc;
@@ -35,6 +30,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
             Gallery = sortOrder switch
             {
+                SortState.NameAsc => Gallery.OrderBy(p => p.Name),
                 SortState.NameDesc => Gallery.OrderByDescending(p => p.Name),
                 SortState.DescriptionAsc => Gallery.OrderBy(p => p.Description),
                 SortState.DescriptionDesc => Gallery.OrderByDescending(p => p.Description),
@@ -42,8 +38,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 SortState.ImageDesc => Gallery.OrderByDescending(p => p.ImagePath),
                 SortState.DateAddAsc => Gallery.OrderBy(p => p.DateAdd),
                 SortState.DateAddDesc => Gallery.OrderBy(p => p.DateAdd),
-                _ => Gallery.OrderBy(p => p.Name),
+                _ => Gallery.OrderBy(p => p.Id),
             };
-        }
+        }        
     }
 }

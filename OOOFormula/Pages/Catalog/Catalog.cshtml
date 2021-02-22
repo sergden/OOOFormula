@@ -28,10 +28,10 @@
                 <div class="mb-3">
                     <div class="row">
                         <div class="col col-sm-6 pl-3 pr-0">
-                            <a asp-page-handler="Filters" asp-route-sortOrder="@SortState.PriceAsc">По возрастанию</a>
+                            <a  asp-route-sortOrder="@SortState.PriceAsc">По возрастанию</a>
                         </div>
                         <div class="col col-sm-6 ">
-                            <a asp-page-handler="Filters" asp-route-sortOrder="@SortState.PriceDesc">По убыванию</a>
+                            <a  asp-route-sortOrder="@SortState.PriceDesc">По убыванию</a>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,8 @@
                 </div>
                 <div class="row mt-3 justify-content-center">
                     <div class="form-check pl-0">
-                        <button type="submit" class="btn btn-primary" asp-page-handler="Filters">Применить</button>
-                        <button type="submit" class="btn btn-primary" asp-page-handler="OnGetAsync">Сбросить</button>
+                        <button type="submit" class="btn btn-primary" >Применить</button>
+                        <button type="submit" class="btn btn-primary" >Сбросить</button>
                     </div>
                 </div>
             </form>
@@ -98,12 +98,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    @*<script>
-            $(document).ready(function () {
-                $('input').val('');
-            });
-        </script>*@
 }
 
 
