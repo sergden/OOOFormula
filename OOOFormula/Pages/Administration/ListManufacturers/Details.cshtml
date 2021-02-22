@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id}"
 @model OOOFormula.Pages.Administration.ListManufacturers.DetailsModel
 
 @{
@@ -10,7 +10,7 @@
     <hr />
 </div>
 
-<div>
+<div class="col-12">
     <dl class="row">
         <dt class="col-sm-2">Название</dt>
         <dd class="col-sm-10">
@@ -18,7 +18,8 @@
         </dd>
     </dl>
 </div>
-<div>
+
+<div class="col-12">
     <a class="btn btn-primary" asp-page="./Index">Назад</a> |
     <a class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Manufacturers.Id">Изменить</a>
 </div>

@@ -53,6 +53,8 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
                 await _context.SaveChangesAsync();
             }
 
+            TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно удалена";
+
             return RedirectToPage("./Index");
         }
     }

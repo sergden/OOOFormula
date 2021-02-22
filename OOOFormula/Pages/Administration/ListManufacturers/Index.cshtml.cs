@@ -21,7 +21,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
 
         public IEnumerable<Manufacturers> Manufacturers { get;set; }
 
-        public async Task OnGetAsync(SortState sortOrder = SortState.NameAsc)
+        public async Task OnGetAsync(SortState? sortOrder)
         {
             Manufacturers = await _context.Manufacturers.AsNoTracking().ToListAsync();
 
@@ -30,7 +30,8 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             Manufacturers = sortOrder switch
             {
                 SortState.NameDesc => Manufacturers.OrderByDescending(p => p.Name),
-                _ => Manufacturers.OrderBy(p => p.Name),
+                SortState.NameAsc=>Manufacturers.OrderBy(p=>p.Name),
+                _ => Manufacturers.OrderBy(p => p.Id),
             };
         }
 

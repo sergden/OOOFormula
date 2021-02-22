@@ -37,6 +37,8 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             _context.Manufacturers.Add(Manufacturers);
             await _context.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно создана";
+
             return RedirectToPage("./Index");
         }
     }

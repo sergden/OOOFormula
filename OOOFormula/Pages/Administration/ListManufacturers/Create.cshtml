@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id}"
 @model OOOFormula.Pages.Administration.ListManufacturers.CreateModel
 
 @{
@@ -10,21 +10,19 @@
     <hr />
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Manufacturers.Name" class="control-label">Название</label>
-                <input asp-for="Manufacturers.Name" class="form-control" />
-                <span asp-validation-for="Manufacturers.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <a class="btn btn-primary" asp-page="Index">Назад</a> |
-                <input type="submit" value="Создать" class="btn btn-success" />
-            </div>
-        </form>
-    </div>
+<div class="col-6">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Manufacturers.Name" class="control-label">Название</label>
+            <input asp-for="Manufacturers.Name" class="form-control" />
+            <span asp-validation-for="Manufacturers.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <a class="btn btn-primary" asp-page="Index">Назад</a> |
+            <input type="submit" value="Создать" class="btn btn-success" />
+        </div>
+    </form>
 </div>
 
 @section Scripts {

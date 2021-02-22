@@ -64,6 +64,8 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
                 }
             }
 
+            TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно обновлена";
+
             return RedirectToPage("./Index");
         }
 
