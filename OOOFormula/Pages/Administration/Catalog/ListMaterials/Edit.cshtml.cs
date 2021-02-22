@@ -98,6 +98,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             return _context.Materials.Any(e => e.Id == id);
         }
 
+        //метод сохранения файла на сервере
         private string ProcessUploadedFile()
         {
             string uniqueFileName = null;

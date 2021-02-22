@@ -11,8 +11,11 @@
 </div>
 
 <div class="col-6">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="Materials.ImagePath" />
+
         <div class="form-group">
             <label asp-for="Materials.Name" class="control-label">Название</label>
             <input asp-for="Materials.Name" class="form-control" required />
@@ -23,10 +26,14 @@
             <input asp-for="Materials.Price" class="form-control" />
             <span asp-validation-for="Materials.Price" class="text-danger"></span>
         </div>
+
+        @* Upload Image *@
         <div class="form-group">
-            <label asp-for="Materials.ImagePath" class="control-label">Фото</label>
-            <input asp-for="Materials.ImagePath" class="form-control" />
-            <span asp-validation-for="Materials.ImagePath" class="text-danger"></span>
+            <label class="control-label">Фото</label>
+            <div class="custom-file mt-2 p-0">
+                <input asp-for="Photo" class="custom-file-input form-control" />
+                <label class="custom-file-label text-left">Нажмите здесь для выбора файла</label>
+            </div>
         </div>
         <div class="form-group">
             <a class="btn btn-primary" asp-page="Index">Назад</a> |
@@ -37,4 +44,14 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- изменение значения label custom-file-label на имя загружаемого файла -->
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(filename);
+            });
+        });
+    </script>
 }

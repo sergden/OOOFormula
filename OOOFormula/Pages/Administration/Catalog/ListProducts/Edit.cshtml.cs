@@ -70,7 +70,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                     {
                         System.IO.File.Delete(filePath);
                     }
-
                 }
 
                 Products.ImagesName = ProcessUploadedFile();

@@ -11,11 +11,10 @@
 *.sln.docstates
 
 #ignore images in /wwwroot/images/
-wwwroot/images/[Gg]allery/
-wwwroot/images/[Mm]aterials/
-wwwroot/images/[Oo]urServices/
-wwwroot/images/[Pp]roducts/
-
+[Gg]allery/
+[Mm]aterials/
+[Oo]urServices/
+[Pp]roducts/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

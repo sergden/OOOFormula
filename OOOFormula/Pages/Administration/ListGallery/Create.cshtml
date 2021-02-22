@@ -12,8 +12,11 @@
 </div>
 
 <div class="col-6">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="Gallery.ImagePath" />
+
         <div class="form-group">
             <label asp-for="Gallery.Name" class="control-label">Название</label>
             <input asp-for="Gallery.Name" class="form-control" />
@@ -24,13 +27,16 @@
             <input asp-for="Gallery.Description" class="form-control" />
             <span asp-validation-for="Gallery.Description" class="text-danger"></span>
         </div>
+        @* Upload Image *@
         <div class="form-group">
-            <label asp-for="Gallery.ImagePath" class="control-label">Фото</label>
-            <input asp-for="Gallery.ImagePath" class="form-control" />
-            <span asp-validation-for="Gallery.ImagePath" class="text-danger"></span>
+            <label class="control-label">Фото</label>
+            <div class="custom-file mt-2 p-0">
+                <input asp-for="Photo" class="custom-file-input form-control" />
+                <label class="custom-file-label text-left">Нажмите здесь для выбора файла</label>
+            </div>
         </div>
         <div class="form-group">
-            <label asp-for="Gallery.DateAdd" class="control-label" hidden >Дата добавления</label>
+            <label asp-for="Gallery.DateAdd" class="control-label" hidden>Дата добавления</label>
             <input asp-for="Gallery.DateAdd" class="form-control" hidden value="@CurrentDate" />
             <span asp-validation-for="Gallery.DateAdd" class="text-danger" hidden></span>
         </div>
@@ -43,4 +49,14 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <!-- изменение значения label custom-file-label на имя загружаемого файла -->
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(filename);
+            });
+        });
+    </script>
 }
