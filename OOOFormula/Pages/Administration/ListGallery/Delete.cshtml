@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Удаление";
+    string PhotoPath = "~/images/Gallery/" + Model.Gallery.ImagePath;
 }
 
 <div class="col-12 mb-2">
@@ -22,14 +23,17 @@
         </dd>
         <dt class="col-sm-2">Фото</dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Gallery.ImagePath)
+            <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+            <div class="col-lg-6 mt-2 p-0">
+                @Html.DisplayFor(model => model.Gallery.ImagePath)
+            </div>
         </dd>
         <dt class="col-sm-2">Дата добавления</dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Gallery.DateAdd)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Gallery.Id" />
         <a class="btn btn-success" asp-page="./Index">Отмена</a> |
