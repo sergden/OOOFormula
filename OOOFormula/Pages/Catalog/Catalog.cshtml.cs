@@ -24,46 +24,59 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Materials> Materials { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select)
+        public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select, string searchString)
         {
-            Products = await _context.Products.AsNoTracking().ToListAsync();
+            if (string.IsNullOrWhiteSpace(searchString))
+            {
+                Products = await _context.Products.AsNoTracking().ToListAsync();
+
+                ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+
+                if (PriceFrom >= 0 && PriceTo > 0)
+                {
+                    Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToListAsync();
+
+                    ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+                }
+                else if (PriceFrom >= 0 && PriceTo == 0)
+                {
+                    Products = await _context.Products.Where(x => x.Price >= PriceFrom).ToListAsync();
+
+                    ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+                }
+
+                if (MaterialId_select != null)
+                {
+                    Products = await _context.Products.Where(x => x.MaterialsId == MaterialId_select).ToListAsync();
+                }
+
+                if (!Products.Any())
+                {
+                    TempData["Message"] = "Ничего не найдено";
+                }
+
+                if (sortOrder != null)
+                {
+                    Products = sortOrder switch
+                    {
+                        SortState.PriceAsc => Products.OrderBy(p => p.Price),
+                        SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
+                        _ => Products.OrderBy(p => p.Price),
+                    };
+                }
+
+                return Page();
+            }
+
+            Products = await _context.Products.Where(p =>
+                p.Name.ToLower().Contains(searchString.ToLower()) ||
+                p.Description.ToLower().Contains(searchString.ToLower()))
+            .AsNoTracking()
+            .ToListAsync();
 
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
 
-            if (PriceFrom >= 0 && PriceTo > 0)
-            {
-                Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToListAsync();
-
-                ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
-            }
-            else if (PriceFrom >= 0 && PriceTo == 0)
-            {
-                Products = await _context.Products.Where(x => x.Price >= PriceFrom).ToListAsync();
-
-                ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
-            }
-
-            if (MaterialId_select != null)
-            {
-                Products = await _context.Products.Where(x => x.MaterialsId == MaterialId_select).ToListAsync();
-            }
-
-            if (!Products.Any())
-            {
-                TempData["Message"] = "Ничего не найдено";
-            }
-
-            if (sortOrder != null)
-            {
-                Products = sortOrder switch
-                {
-                    SortState.PriceAsc => Products.OrderBy(p => p.Price),
-                    SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
-                    _ => Products.OrderBy(p => p.Price),
-                };
-            }
-
             return Page();
-        }               
+        }
     }
 }

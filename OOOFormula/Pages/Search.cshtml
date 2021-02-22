@@ -1,0 +1,87 @@
+﻿@page
+@model OOOFormula.Pages.SearchModel
+@{
+    ViewData["Title"] = "Результаты поиска";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="text-center mt-5">
+        <h1>@TempData["Message"]</h1>
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <h1>Результаты поиска</h1>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                @if (Model.Products.Count() != 0)
+                {
+                    <div class="col-12">
+                        <p class="mb-0 text-center">
+                            <span style="font-size:14pt;">
+                                <strong>Кухни</strong>
+                            </span>
+                        </p>
+                    </div>
+                }
+                @foreach (var item in Model.Products)
+                {
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="card-deck">
+                            <div class="card m-3">
+                                <div class="text-center">
+                                    <a asp-page="/Catalog/Details" asp-route-id="@item.Id">
+                                        <img class="card-img-bottom" src="~/images/Products/@item.ImagesName" asp-append-version="true" />
+                                    </a>
+                                </div>
+                                <div class="text-left mt-3">
+                                    <a class="nav-link text-dark pb-0" asp-page="/Catalog/Details" asp-route-id="@item.Id">
+                                        <h6>@item.Name</h6>
+                                    </a>
+                                </div>
+                                <div class="text-left mt-3 ml-3">
+                                    <h5>@item.Price ₽</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                @if (Model.Gallery.Count() != 0)
+                {
+                    <div class="col-12">
+                        <p class="mb-0 text-center">
+                            <span style="font-size:14pt;">
+                                <strong>Галерея</strong>
+                            </span>
+                        </p>
+                    </div>
+                }
+                @foreach (var item in Model.Gallery)
+                {
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="card-deck">
+                            <div class="card m-3">
+                                <div class="text-center">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Gallery_works">
+                                        <h6>@item.Name</h6>
+                                    </a>
+                                </div>
+                                <div class="text-center">
+                                    <a asp-area="" asp-page="/Gallery_works">
+                                        <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
