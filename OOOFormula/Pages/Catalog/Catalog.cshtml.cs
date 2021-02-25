@@ -27,9 +27,9 @@ namespace OOOFormula.Pages.Catalog
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select, string searchString)
         {
             Products = await _context.Products.AsNoTracking().ToListAsync(); //извлекаем из БД все записи
-            ViewData["MaterialsId"] = getMaterials(); //получаем материалы
+            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
 
-            //поиск, если есть строка
+            //поиск, если есть строка поиска
             if (!string.IsNullOrWhiteSpace(searchString))
             {
                 Products = Products.Where(p =>
@@ -43,7 +43,7 @@ namespace OOOFormula.Pages.Catalog
             {
                 Products = Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo);
             }
-            else if (PriceFrom >= 0 && PriceTo == 0)
+            else if (PriceFrom > 0 && PriceTo == 0)
             {
                 Products = Products.Where(x => x.Price >= PriceFrom);
             }
@@ -71,11 +71,6 @@ namespace OOOFormula.Pages.Catalog
             }
 
             return Page();
-        }
-
-        public SelectList getMaterials()
-        {
-            return new SelectList(_context.Materials, "Id", "Name");
         }
     }
 }
