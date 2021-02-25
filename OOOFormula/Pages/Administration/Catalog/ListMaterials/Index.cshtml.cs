@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 {
@@ -19,7 +17,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             _context = context;
         }
 
-        public IEnumerable<Materials> Materials { get;set; }
+        public IEnumerable<Materials> Materials { get; set; }
 
         public async Task OnGetAsync(SortState? sortOrder)
         {

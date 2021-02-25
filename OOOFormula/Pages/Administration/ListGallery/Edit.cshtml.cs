@@ -1,14 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListGallery
 {
@@ -91,7 +91,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно обновлена";
 
             return RedirectToPage("./Index");
-        }    
+        }
 
         private bool GalleryExists(int id)
         {

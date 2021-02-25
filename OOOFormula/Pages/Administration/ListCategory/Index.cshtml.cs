@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListCategory
 {
@@ -19,7 +17,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
             _context = context;
         }
 
-        public IEnumerable<Category> Category { get;set; }
+        public IEnumerable<Category> Category { get; set; }
 
         public async Task OnGetAsync(SortState? sortOrder)
         {
@@ -33,6 +31,6 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 SortState.NameDesc => Category.OrderByDescending(p => p.Name),
                 _ => Category.OrderBy(p => p.Id),
             };
-        }       
+        }
     }
 }
