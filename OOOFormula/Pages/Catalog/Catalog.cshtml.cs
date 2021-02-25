@@ -30,19 +30,19 @@ namespace OOOFormula.Pages.Catalog
             {
                 Products = await _context.Products.AsNoTracking().ToListAsync();
 
-                ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+                ViewData["MaterialsId"] = getMaterials();
 
                 if (PriceFrom >= 0 && PriceTo > 0)
                 {
                     Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToListAsync();
 
-                    ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+                    ViewData["MaterialsId"] = getMaterials();
                 }
                 else if (PriceFrom >= 0 && PriceTo == 0)
                 {
                     Products = await _context.Products.Where(x => x.Price >= PriceFrom).ToListAsync();
 
-                    ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+                    ViewData["MaterialsId"] = getMaterials();
                 }
 
                 if (MaterialId_select != null)
@@ -53,6 +53,7 @@ namespace OOOFormula.Pages.Catalog
                 if (!Products.Any())
                 {
                     TempData["Message"] = "Ничего не найдено";
+                    return Page();
                 }
 
                 if (sortOrder != null)
@@ -74,9 +75,14 @@ namespace OOOFormula.Pages.Catalog
             .AsNoTracking()
             .ToListAsync();
 
-            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+            ViewData["MaterialsId"] = getMaterials();
 
             return Page();
+        }
+
+        public SelectList getMaterials()
+        {
+            return new SelectList(_context.Materials, "Id", "Name");
         }
     }
 }
