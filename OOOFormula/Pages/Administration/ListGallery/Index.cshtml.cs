@@ -26,6 +26,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["DescripSort"] = sortOrder == SortState.DescriptionAsc ? SortState.DescriptionDesc : SortState.DescriptionAsc;
             ViewData["ImageSort"] = sortOrder == SortState.ImageAsc ? SortState.ImageDesc : SortState.ImageAsc;
+            ViewData["StatusSort"] = sortOrder == SortState.StatusAsc ? SortState.StatusDesc : SortState.StatusAsc;
             ViewData["DateAddSort"] = sortOrder == SortState.DateAddAsc ? SortState.DateAddDesc : SortState.DateAddAsc;
 
             Gallery = sortOrder switch
@@ -36,6 +37,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 SortState.DescriptionDesc => Gallery.OrderByDescending(p => p.Description),
                 SortState.ImageAsc => Gallery.OrderBy(p => p.ImagePath),
                 SortState.ImageDesc => Gallery.OrderByDescending(p => p.ImagePath),
+                SortState.StatusAsc => Gallery.OrderBy(p => p.status),
+                SortState.StatusDesc => Gallery.OrderByDescending(p => p.status),
                 SortState.DateAddAsc => Gallery.OrderBy(p => p.DateAdd),
                 SortState.DateAddDesc => Gallery.OrderBy(p => p.DateAdd),
                 _ => Gallery.OrderBy(p => p.Id),

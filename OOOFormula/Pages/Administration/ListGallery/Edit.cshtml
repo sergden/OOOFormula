@@ -45,6 +45,12 @@
             </div>
         </div>
 
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Gallery.status" /> Отображать
+            </label>
+        </div>
+
         <div class="form-group">
             <label asp-for="Gallery.DateAdd" class="control-label" hidden>Дата добавления</label>
             <input asp-for="Gallery.DateAdd" class="form-control" hidden value="@CurrentDate" />

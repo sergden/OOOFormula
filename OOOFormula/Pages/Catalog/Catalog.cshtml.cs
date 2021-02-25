@@ -60,15 +60,12 @@ namespace OOOFormula.Pages.Catalog
             }
 
             //сортировка
-            if (sortOrder != null)
+            Products = sortOrder switch
             {
-                Products = sortOrder switch
-                {
-                    SortState.PriceAsc => Products.OrderBy(p => p.Price),
-                    SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
-                    _ => Products.OrderBy(p => p.Price),
-                };
-            }
+                SortState.PriceAsc => Products.OrderBy(p => p.Price),
+                SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
+                _ => Products.OrderBy(p => p.Price),
+            };
 
             return Page();
         }

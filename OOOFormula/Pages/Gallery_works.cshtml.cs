@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace OOOFormula.Pages
 
         public async Task OnGetAsync()
         {
-            Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
+            Gallery = await _context.Gallery.Where(g => g.status == true).AsNoTracking().ToListAsync();
         }
     }
 }

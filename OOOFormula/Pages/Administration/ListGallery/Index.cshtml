@@ -29,6 +29,9 @@
             </th>
             <th>
                 <a asp-route-sortOrder="@ViewBag.ImageSort">Фото</a>
+            </th>     
+            <th>
+                <a asp-route-sortOrder="@ViewBag.StatusSort">Статус</a>
             </th>
             <th>
                 <a asp-route-sortOrder="@ViewBag.DateAddSort">Дата добавления</a>
@@ -48,6 +51,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>   
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateAdd)
