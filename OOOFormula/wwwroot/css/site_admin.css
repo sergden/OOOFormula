@@ -135,3 +135,12 @@ a.text-light:hover, a.text-light:focus {
     margin-left: -1.25rem;
     border-radius: 5px;
 }
+
+table {
+    table-layout: fixed;
+    width: 100%
+}
+
+td {
+    word-wrap: break-word;
+}

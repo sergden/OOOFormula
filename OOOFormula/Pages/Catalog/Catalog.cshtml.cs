@@ -26,7 +26,10 @@ namespace OOOFormula.Pages.Catalog
 
         //For save state sorting
         [BindProperty(SupportsGet = true)]
-        public SortState? PriceState { get; set; } = null;
+        public SortState? PriceState { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int? MaterialIdState { get; set; }
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select, string searchString)
         {
@@ -34,7 +37,8 @@ namespace OOOFormula.Pages.Catalog
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
 
             //сохраняем состояние фильтрации
-            if (PriceState != null) PriceState = sortOrder;
+            if (sortOrder != null) PriceState = sortOrder;
+            if (MaterialId_select != null) MaterialIdState = MaterialId_select;
 
             //поиск, если есть строка поиска
             if (!string.IsNullOrWhiteSpace(searchString))
@@ -55,9 +59,9 @@ namespace OOOFormula.Pages.Catalog
                 Products = Products.Where(x => x.Price >= PriceFrom);
             }
 
-            if (MaterialId_select != null)
+            if (MaterialIdState != null)
             {
-                Products = Products.Where(x => x.MaterialsId == MaterialId_select);
+                Products = Products.Where(x => x.MaterialsId == MaterialIdState);
             }
 
             if (!Products.Any()) //проверяем, есть ли что-то
