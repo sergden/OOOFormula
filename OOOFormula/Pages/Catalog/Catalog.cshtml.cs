@@ -28,27 +28,21 @@ namespace OOOFormula.Pages.Catalog
         {
             if (string.IsNullOrWhiteSpace(searchString))
             {
-                Products = await _context.Products.AsNoTracking().ToListAsync();
-
-                ViewData["MaterialsId"] = getMaterials();
-
                 if (PriceFrom >= 0 && PriceTo > 0)
                 {
                     Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToListAsync();
-
-                    ViewData["MaterialsId"] = getMaterials();
                 }
                 else if (PriceFrom >= 0 && PriceTo == 0)
                 {
                     Products = await _context.Products.Where(x => x.Price >= PriceFrom).ToListAsync();
-
-                    ViewData["MaterialsId"] = getMaterials();
                 }
 
                 if (MaterialId_select != null)
                 {
                     Products = await _context.Products.Where(x => x.MaterialsId == MaterialId_select).ToListAsync();
                 }
+
+                ViewData["MaterialsId"] = getMaterials();
 
                 if (!Products.Any())
                 {
