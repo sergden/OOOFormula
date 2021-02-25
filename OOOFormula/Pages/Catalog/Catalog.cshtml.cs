@@ -26,50 +26,49 @@ namespace OOOFormula.Pages.Catalog
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select, string searchString)
         {
-            if (string.IsNullOrWhiteSpace(searchString))
+            Products = await _context.Products.AsNoTracking().ToListAsync(); //извлекаем из БД все записи
+            ViewData["MaterialsId"] = getMaterials(); //получаем материалы
+
+            //поиск, если есть строка
+            if (!string.IsNullOrWhiteSpace(searchString))
             {
-                if (PriceFrom >= 0 && PriceTo > 0)
-                {
-                    Products = await _context.Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo).ToListAsync();
-                }
-                else if (PriceFrom >= 0 && PriceTo == 0)
-                {
-                    Products = await _context.Products.Where(x => x.Price >= PriceFrom).ToListAsync();
-                }
+                Products = Products.Where(p =>
+                p.Name.ToLower().Contains(searchString.ToLower()) ||
+                p.Description.ToLower().Contains(searchString.ToLower())
+                );
+            }
 
-                if (MaterialId_select != null)
-                {
-                    Products = await _context.Products.Where(x => x.MaterialsId == MaterialId_select).ToListAsync();
-                }
+            //обрабатываем по фильтрам
+            if (PriceFrom >= 0 && PriceTo > 0)
+            {
+                Products = Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo);
+            }
+            else if (PriceFrom >= 0 && PriceTo == 0)
+            {
+                Products = Products.Where(x => x.Price >= PriceFrom);
+            }
 
-                ViewData["MaterialsId"] = getMaterials();
+            if (MaterialId_select != null)
+            {
+                Products = Products.Where(x => x.MaterialsId == MaterialId_select);
+            }
 
-                if (!Products.Any())
-                {
-                    TempData["Message"] = "Ничего не найдено";
-                    return Page();
-                }
-
-                if (sortOrder != null)
-                {
-                    Products = sortOrder switch
-                    {
-                        SortState.PriceAsc => Products.OrderBy(p => p.Price),
-                        SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
-                        _ => Products.OrderBy(p => p.Price),
-                    };
-                }
-
+            if (!Products.Any()) //проверяем, есть ли что-то
+            {
+                TempData["Message"] = "Ничего не найдено";
                 return Page();
             }
 
-            Products = await _context.Products.Where(p =>
-                p.Name.ToLower().Contains(searchString.ToLower()) ||
-                p.Description.ToLower().Contains(searchString.ToLower()))
-            .AsNoTracking()
-            .ToListAsync();
-
-            ViewData["MaterialsId"] = getMaterials();
+            //сортировка
+            if (sortOrder != null)
+            {
+                Products = sortOrder switch
+                {
+                    SortState.PriceAsc => Products.OrderBy(p => p.Price),
+                    SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
+                    _ => Products.OrderBy(p => p.Price),
+                };
+            }
 
             return Page();
         }
