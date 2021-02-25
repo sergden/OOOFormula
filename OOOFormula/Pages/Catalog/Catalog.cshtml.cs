@@ -26,7 +26,7 @@ namespace OOOFormula.Pages.Catalog
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select, string searchString)
         {
-            Products = await _context.Products.AsNoTracking().ToListAsync(); //извлекаем из БД все записи
+            Products = await _context.Products.Where(p => p.status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
 
             //поиск, если есть строка поиска
