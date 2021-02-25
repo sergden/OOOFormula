@@ -14,6 +14,8 @@ namespace OOOFormula.Models
 
         public string ImagePath { get; set; }
 
+        public bool status { get; set; }
+
         public DateTime DateAdd { get; set; }
 
     }
