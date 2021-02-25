@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -22,6 +22,10 @@ namespace OOOFormula.Pages
         public async Task OnGetAsync()
         {
             Gallery = await _context.Gallery.Where(g => g.status == true).AsNoTracking().ToListAsync();
+            if (!Gallery.Any())
+            {
+                TempData["Message"] = "Здесь пока ничего нет";
+            }
         }
     }
 }
