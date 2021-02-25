@@ -18,7 +18,7 @@
                     Цена
                     <div class="row">
                         <div class="col col-sm-6">
-                            <input class="form-control" placeholder="От" name="PriceFrom" type="number" min="0" step="1" />
+                            <input class="form-control" placeholder="От" name="PriceFrom" type="number" min="0" step="1" value="25"/>
                         </div>
                         <div class="col col-sm-6">
                             <input class="form-control" placeholder="До" name="PriceTo" type="number" min="0" step="1" />
@@ -33,6 +33,7 @@
                         <div class="col col-sm-6 ">
                             <a asp-route-sortOrder="@SortState.PriceDesc">По убыванию</a>
                         </div>
+                        <input hidden asp-for="PriceState" value="@Model.PriceState" />
                     </div>
                 </div>
                 <div class="mb-2">
@@ -51,7 +52,8 @@
                 <div class="row mt-3 justify-content-center">
                     <div class="form-check pl-0">
                         <button type="submit" class="btn btn-primary">Применить</button>
-                        <button type="submit" class="btn btn-primary">Сбросить</button>
+                       @* <button type="submit" class="btn btn-primary" asp-page-handler="ResetAsync">Сбросить</button>*@
+                        <a class="btn btn-primary text-light" asp-page="/Catalog/Catalog">Сбросить</a>
                     </div>
                 </div>
             </form>

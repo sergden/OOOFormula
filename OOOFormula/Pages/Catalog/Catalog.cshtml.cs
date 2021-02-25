@@ -24,10 +24,17 @@ namespace OOOFormula.Pages.Catalog
 
         public IEnumerable<Materials> Materials { get; set; }
 
+        //For save state sorting
+        [BindProperty(SupportsGet = true)]
+        public SortState? PriceState { get; set; } = null;
+
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortOrder, int? MaterialId_select, string searchString)
         {
             Products = await _context.Products.Where(p => p.status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
+
+            //сохраняем состояние фильтрации
+            if (PriceState != null) PriceState = sortOrder;
 
             //поиск, если есть строка поиска
             if (!string.IsNullOrWhiteSpace(searchString))
@@ -60,13 +67,20 @@ namespace OOOFormula.Pages.Catalog
             }
 
             //сортировка
-            Products = sortOrder switch
+            Products = PriceState switch
             {
                 SortState.PriceAsc => Products.OrderBy(p => p.Price),
                 SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
-                _ => Products.OrderBy(p => p.Price),
+                _ => Products.OrderBy(p => p.Id),
             };
 
+            return Page();
+        }
+
+        public async Task<IActionResult> OnGetResetAsync()
+        {
+            Products = await _context.Products.Where(p => p.status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
+            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
             return Page();
         }
     }
