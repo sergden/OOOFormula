@@ -25,7 +25,7 @@
                     </div>
                     <div class="text-center">
                         <a asp-area="" asp-page="/Gallery_works">
-                            <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" />
+                            <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" width="200" height="200" />
                         </a>
                     </div>
                 </div>
@@ -34,21 +34,23 @@
     }
 </div>
 
-<div class="text-center">
-    <h1 class="mt-5">Наши услуги</h1>
+<div class="row justify-content-center">
+    <div class="col-4 text-center">
+        <h1 class="mt-5">Наши услуги</h1>
+    </div>
 </div>
 
-<div class="row">
+<div class="row mt-1">
     @foreach (var item in Model.OurServices)
     {
         <div class="col-12 col-sm-6 col-lg-3">
             <div class="card-deck">
-                <div class="card m-3 cardBoxShadow">
-                    <div class="text-center nav-link">
+                <div class="card m-3">
+                    <div class="text-center">
                         <h6>@item.Name</h6>
                     </div>
                     <div class="text-center">
-                        <img class="card-img-top" src="~/images/OurServices/@item.Image" asp-append-version="true" />
+                        <img class="card-img-top" src="~/images/OurServices/@item.Image" asp-append-version="true" width="200" height="200" />
                     </div>
                 </div>
             </div>
