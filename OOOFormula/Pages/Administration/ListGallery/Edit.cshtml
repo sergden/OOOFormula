@@ -30,11 +30,19 @@
             <span asp-validation-for="Gallery.Description" class="text-danger"></span>
         </div>
 
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Gallery.status" /> Отображать
+            </label>
+        </div>
+
         @* Upload Image *@
         <div class="form-group">
             <label class="control-label">Фото</label>
             <div class="col-lg-6 mt-2 p-0">
-                <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+                <a href="@PhotoPath" data-fancybox>
+                    <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+                </a>
             </div>
             <div class="col-lg-6 mt-2 p-0">
                 @Html.DisplayFor(model => model.Gallery.ImagePath)
@@ -43,12 +51,6 @@
                 <input asp-for="Photo" class="custom-file-input form-control" />
                 <label class="custom-file-label text-left">Нажмите здесь для выбора файла</label>
             </div>
-        </div>
-
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="Gallery.status" /> Отображать
-            </label>
         </div>
 
         <div class="form-group">

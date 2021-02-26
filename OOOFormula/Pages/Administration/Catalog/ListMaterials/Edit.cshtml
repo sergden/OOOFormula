@@ -33,7 +33,9 @@
         <div class="form-group">
             <label class="control-label">Фото</label>
             <div class="col-lg-6 mt-2 p-0">
-                <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+                <a href="@PhotoPath" data-fancybox>
+                    <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+                </a>
             </div>
             <div class="col-lg-6 mt-2 p-0">
                 @Html.DisplayFor(model => model.Materials.ImagePath)
