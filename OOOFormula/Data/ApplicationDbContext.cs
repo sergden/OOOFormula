@@ -23,5 +23,6 @@ namespace OOOFormula.Data
         public DbSet<Materials> Materials { get; set; }
         public DbSet<OurServices> OurServices { get; set; }
         public DbSet<Products> Products { get; set; }
+        public DbSet<Requests> Requests { get; set; }
     }
 }
