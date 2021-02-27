@@ -7,6 +7,7 @@ namespace OOOFormula.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Поле 'Имя' не может быть пустым")]
+        [Display(Name = "Название")]
         public string Name { get; set; }
     }
 }
