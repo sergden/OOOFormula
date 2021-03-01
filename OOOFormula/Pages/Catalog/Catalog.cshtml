@@ -30,22 +30,22 @@
                         <div class="col col-sm-7 pl-3 pr-0">
                             @if (Model.PriceState == SortState.PriceAsc)
                             {
-                                <input type="radio" name="sortOrder" value="@SortState.PriceAsc" checked />
+                                <input type="radio" name="sortPrice" value="@SortState.PriceAsc" checked />
                             }
                             else
                             {
-                                <input type="radio" name="sortOrder" value="@SortState.PriceAsc" />
+                                <input type="radio" name="sortPrice" value="@SortState.PriceAsc" />
                             }
                             <label>По возрастанию</label>
                         </div>
                         <div class="col col-sm-7 pl-3 pr-0">
                             @if (Model.PriceState == SortState.PriceDesc)
                             {
-                                <input type="radio" name="sortOrder" value="@SortState.PriceDesc" checked />
+                                <input type="radio" name="sortPrice" value="@SortState.PriceDesc" checked />
                             }
                             else
                             {
-                                <input type="radio" name="sortOrder" value="@SortState.PriceDesc" />
+                                <input type="radio" name="sortPrice" value="@SortState.PriceDesc" />
                             }
                             <label>По убыванию</label>
                         </div>
