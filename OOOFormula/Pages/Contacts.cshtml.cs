@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages
@@ -31,6 +32,7 @@ namespace OOOFormula.Pages
             }
 
             Requests.Status = false;
+            Requests.Date = DateTime.Today;
 
             _context.Requests.Add(Requests);
             await _context.SaveChangesAsync();

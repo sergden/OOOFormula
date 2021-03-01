@@ -27,5 +27,8 @@ namespace OOOFormula.Models
         public string Message { get; set; }
 
         public bool Status { get; set; }
+
+        [Display(Name="Дата")]
+        public DateTime Date { get; set; }
     }
 }

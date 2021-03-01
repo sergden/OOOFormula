@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListRequests
 {
@@ -19,11 +16,11 @@ namespace OOOFormula.Pages.Administration.ListRequests
             _context = context;
         }
 
-        public IList<Requests> Requests { get;set; }
+        public IList<Requests> Requests { get; set; }
 
         public async Task OnGetAsync()
         {
-            Requests = await _context.Requests.ToListAsync();
+            Requests = await _context.Requests.AsNoTracking().ToListAsync();
         }
     }
 }
