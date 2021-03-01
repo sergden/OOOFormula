@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using OOOFormula.Data;
 using OOOFormula.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +10,9 @@ namespace OOOFormula.Pages.Administration.ListCategory
 {
     public class EditModel : PageModel
     {
-        private readonly OOOFormula.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(OOOFormula.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }

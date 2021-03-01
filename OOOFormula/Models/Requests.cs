@@ -11,15 +11,18 @@ namespace OOOFormula.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage ="Поле 'Имя' не может быть пустым")]
         [Display(Name="Имя")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Поле 'Телефон' не может быть пустым")]
         [Display(Name="Телефон")]
         public string Phone { get; set; }
 
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Поле 'Сообщение' не может быть пустым")]
         [Display(Name = "Сообщение")]
         public string Message { get; set; }
 

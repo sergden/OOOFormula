@@ -22,9 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Requests[0].Message)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Requests[0].Status)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -44,11 +41,8 @@
                 @Html.DisplayFor(modelItem => item.Message)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-page="./Details" asp-route-id="@item.Id">Просмотр</a> |
+                <a class="text-danger" asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
             </td>
         </tr>
 }
