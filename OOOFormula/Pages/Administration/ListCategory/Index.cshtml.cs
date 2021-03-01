@@ -22,9 +22,13 @@ namespace OOOFormula.Pages.Administration.ListCategory
         public async Task OnGetAsync(SortState? sortOrder)
         {
             Category = await _context.Category.AsNoTracking().ToListAsync();
+            Sorting(sortOrder);
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
+        }
 
+        private void Sorting(SortState? sortOrder)
+        {
             Category = sortOrder switch
             {
                 SortState.NameAsc => Category.OrderBy(p => p.Name),

@@ -22,11 +22,16 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
         public async Task OnGetAsync(SortState? sortOrder)
         {
             Materials = await _context.Materials.AsNoTracking().ToListAsync();
+            Sorting(sortOrder);
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
             ViewData["ImageSort"] = sortOrder == SortState.ImageAsc ? SortState.ImageDesc : SortState.ImageAsc;
 
+        }
+
+        private void Sorting(SortState? sortOrder)
+        {
             Materials = sortOrder switch
             {
                 SortState.NameAsc => Materials.OrderBy(p => p.Name),

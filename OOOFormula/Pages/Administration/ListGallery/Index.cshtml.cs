@@ -22,13 +22,17 @@ namespace OOOFormula.Pages.Administration.ListGallery
         public async Task OnGetAsync(SortState? sortOrder)
         {
             Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
+            Sorting(sortOrder);
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["DescripSort"] = sortOrder == SortState.DescriptionAsc ? SortState.DescriptionDesc : SortState.DescriptionAsc;
             ViewData["ImageSort"] = sortOrder == SortState.ImageAsc ? SortState.ImageDesc : SortState.ImageAsc;
             ViewData["StatusSort"] = sortOrder == SortState.StatusAsc ? SortState.StatusDesc : SortState.StatusAsc;
             ViewData["DateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+        }
 
+        private void Sorting(SortState? sortOrder)
+        {
             Gallery = sortOrder switch
             {
                 SortState.NameAsc => Gallery.OrderBy(p => p.Name),
