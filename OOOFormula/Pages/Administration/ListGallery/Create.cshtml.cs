@@ -45,6 +45,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 Gallery.ImagePath = ProcessUploadedFile();
             }
 
+            Gallery.DateAdd = DateTime.Today;
+
             _context.Gallery.Add(Gallery);
             await _context.SaveChangesAsync();
 
