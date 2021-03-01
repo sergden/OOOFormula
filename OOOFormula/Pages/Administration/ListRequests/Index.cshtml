@@ -15,19 +15,29 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Requests[0].Name)
+                <a asp-route-sortOrder="@ViewBag.NameSort">
+                    @Html.DisplayNameFor(model => model.Requests[0].Name)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Requests[0].Phone)
+                <a asp-route-sortOrder="@ViewBag.PhoneSort">
+                    @Html.DisplayNameFor(model => model.Requests[0].Phone)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Requests[0].Email)
+                <a asp-route-sortOrder="@ViewBag.EmailSort">
+                    @Html.DisplayNameFor(model => model.Requests[0].Email)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Requests[0].Message)
+                <a asp-route-sortOrder="@ViewBag.MessageSort">
+                    @Html.DisplayNameFor(model => model.Requests[0].Message)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Requests[0].Date)
+                <a asp-route-sortOrder="@ViewBag.DateSort">
+                    @Html.DisplayNameFor(model => model.Requests[0].Date)
+                </a>
             </th>
             <th></th>
         </tr>

@@ -28,6 +28,8 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 .AsNoTracking()
                 .ToListAsync();
 
+            Sorting(sortOrder);
+
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
             ViewData["DescripSort"] = sortOrder == SortState.DescriptionAsc ? SortState.DescriptionDesc : SortState.DescriptionAsc;
@@ -36,9 +38,11 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             ViewData["CategorySort"] = sortOrder == SortState.CategoryAsc ? SortState.CategoryDesc : SortState.CategoryAsc;
             ViewData["MaterialSort"] = sortOrder == SortState.MaterialAsc ? SortState.MaterialDesc : SortState.MaterialAsc;
             ViewData["ManufacturerSort"] = sortOrder == SortState.ManufacturerAsc ? SortState.ManufacturerDesc : SortState.ManufacturerAsc;
-            ViewData["DateAddSort"] = sortOrder == SortState.DateAddAsc ? SortState.DateAddDesc : SortState.DateAddAsc;
+        }
 
-            Products = sortOrder switch
+        private void Sorting(SortState? sort)
+        {
+            Products = sort switch
             {
                 SortState.NameAsc => Products.OrderBy(p => p.Name),
                 SortState.NameDesc => Products.OrderByDescending(p => p.Name),

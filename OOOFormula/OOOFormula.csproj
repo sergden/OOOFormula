@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="wwwroot\images\Gallery\" />
     <Folder Include="wwwroot\images\Materials\" />
     <Folder Include="wwwroot\images\OurServices\" />

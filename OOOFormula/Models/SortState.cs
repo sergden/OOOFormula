@@ -33,7 +33,16 @@ namespace OOOFormula.Models
         ManufacturerAsc,
         ManufacturerDesc,
 
-        DateAddAsc,
-        DateAddDesc
+        DateAsc,
+        DateDesc,
+
+        PhoneAsc,
+        PhoneDesc,
+
+        EmailAsc,
+        EmailDesc,
+
+        MessageAsc,
+        MessageDesc
     }
 }
