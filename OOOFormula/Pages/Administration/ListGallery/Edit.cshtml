@@ -48,8 +48,7 @@
                 @Html.DisplayFor(model => model.Gallery.ImagePath)
             </div>
             <div class="custom-file mt-2 p-0">
-                <input asp-for="Photo" class="custom-file-input form-control" />
-                <label class="custom-file-label text-left">Нажмите здесь для выбора файла</label>
+                <input asp-for="Photo" class="form-control" />
             </div>
         </div>
 
@@ -67,14 +66,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <!-- изменение значения label custom-file-label на имя загружаемого файла -->
-    <script>
-        $(document).ready(function () {
-            $('.custom-file-input').on("change", function () {
-                var filename = $(this).val().split("\\").pop();
-                $(this).next('.custom-file-label').html(filename);
-            });
-        });
-    </script>
 }
