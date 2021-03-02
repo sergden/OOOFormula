@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Catalog
 {
@@ -31,7 +30,7 @@ namespace OOOFormula.Pages.Catalog
         [BindProperty(SupportsGet = true)]
         public int? MaterialIdState { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortPrice, int? MaterialId_select, string searchString)
+        public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortPrice, int? MaterialId_select)
         {
             Products = await _context.Products.Where(p => p.status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
@@ -41,7 +40,7 @@ namespace OOOFormula.Pages.Catalog
             if (MaterialId_select != null) MaterialIdState = MaterialId_select;
 
             //обрабатываем по фильтрам
-            SortingPrice(PriceFrom, PriceTo);
+            FilterPrice(PriceFrom, PriceTo);
 
             if (!Products.Any()) //проверяем, есть ли что-то
             {
@@ -55,7 +54,7 @@ namespace OOOFormula.Pages.Catalog
             return Page();
         }
 
-        private void SortingPrice(decimal PriceFrom, decimal PriceTo)
+        private void FilterPrice(decimal PriceFrom, decimal PriceTo)
         {
             if (PriceFrom >= 0 && PriceTo > 0)
             {
