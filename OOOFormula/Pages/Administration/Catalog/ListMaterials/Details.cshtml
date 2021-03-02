@@ -11,28 +11,30 @@
     <hr />
 </div>
 
-<div class="col-12">
-    <dl class="row">
-        <dt class="col-sm-2">Название</dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Materials.Name)
-        </dd>
-        <dt class="col-sm-2">Стоимость</dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Materials.Price)
-        </dd>
-        <dt class="col-sm-2">Фото</dt>
-        <dd class="col-sm-10">
-            <a href="@PhotoPath" data-fancybox>
-                <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
-            </a>
-            <div class="col-lg-6 mt-2 p-0">
-                @Html.DisplayFor(model => model.Materials.ImagePath)
-            </div>
-        </dd>
-    </dl>
-</div>
-<div class="col-12">
-    <a class="btn btn-primary" asp-page="./Index">Назад</a> |
-    <a class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Materials.Id">Изменить</a>
+<div class="row">
+    <div class="col-12">
+        <dl class="row">
+            <dt class="col-sm-2">Название</dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Materials.Name)
+            </dd>
+            <dt class="col-sm-2">Стоимость</dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Materials.Price)
+            </dd>
+            <dt class="col-sm-2">Фото</dt>
+            <dd class="col-sm-10">
+                <a href="@PhotoPath" data-fancybox>
+                    <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+                </a>
+                <div class="col-lg-6 mt-2 p-0">
+                    @Html.DisplayFor(model => model.Materials.ImagePath)
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="col-12">
+        <a class="btn btn-primary" asp-page="./Index">Назад</a> |
+        <a class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Materials.Id">Изменить</a>
+    </div>
 </div>

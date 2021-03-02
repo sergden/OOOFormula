@@ -10,16 +10,18 @@
     <hr />
 </div>
 
-<div class="col-12">
-    <dl class="row">
-        <dt class="col-sm-2">Название</dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Manufacturers.Name)
-        </dd>
-    </dl>
-</div>
+<div class="row">
+    <div class="col-12">
+        <dl class="row">
+            <dt class="col-sm-2">Название</dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Manufacturers.Name)
+            </dd>
+        </dl>
+    </div>
 
-<div class="col-12">
-    <a class="btn btn-primary" asp-page="./Index">Назад</a> |
-    <a class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Manufacturers.Id">Изменить</a>
+    <div class="col-12">
+        <a class="btn btn-primary" asp-page="./Index">Назад</a> |
+        <a class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Manufacturers.Id">Изменить</a>
+    </div>
 </div>

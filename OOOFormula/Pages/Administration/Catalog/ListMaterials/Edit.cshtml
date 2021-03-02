@@ -11,46 +11,49 @@
     <hr />
 </div>
 
-<div class="col-6">
-    <form method="post" asp-page-handler="OnPost" enctype="multipart/form-data">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col-6">
+        <form method="post" asp-page-handler="OnPost" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <input type="hidden" asp-for="Materials.Id" />
-        <input type="hidden" asp-for="Materials.ImagePath" />
+            <input type="hidden" asp-for="Materials.Id" />
+            <input type="hidden" asp-for="Materials.ImagePath" />
 
-        <div class="form-group">
-            <label asp-for="Materials.Name" class="control-label">Название</label>
-            <input asp-for="Materials.Name" class="form-control" />
-            <span asp-validation-for="Materials.Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Materials.Price" class="control-label">Стоимость</label>
-            <input asp-for="Materials.Price" class="form-control" type="number" min="0" step="1" />
-            <span asp-validation-for="Materials.Price" class="text-danger"></span>
-        </div>
-
-        @* Upload Image *@
-        <div class="form-group">
-            <label class="control-label">Фото</label>
-            <div class="col-lg-6 mt-2 p-0">
-                <a href="@PhotoPath" data-fancybox>
-                    <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
-                </a>
+            <div class="form-group">
+                <label asp-for="Materials.Name" class="control-label">Название</label>
+                <input asp-for="Materials.Name" class="form-control" />
+                <span asp-validation-for="Materials.Name" class="text-danger"></span>
             </div>
-            <div class="col-lg-6 mt-2 p-0">
-                @Html.DisplayFor(model => model.Materials.ImagePath)
+            <div class="form-group">
+                <label asp-for="Materials.Price" class="control-label">Стоимость</label>
+                <input asp-for="Materials.Price" class="form-control" type="number" min="0" step="1" />
+                <span asp-validation-for="Materials.Price" class="text-danger"></span>
             </div>
-            <div class="custom-file mt-2 p-0">
-                <input asp-for="Photo" class="form-control" />
-            </div>
-        </div>
 
-        <div class="form-group">
-            <a class="btn btn-danger" asp-page="./Index">Отмена</a> |
-            <input class="btn btn-success" type="submit" value="Сохранить" />
-        </div>
-    </form>
+            @* Upload Image *@
+            <div class="form-group">
+                <label class="control-label">Фото</label>
+                <div class="col-lg-6 mt-2 p-0">
+                    <a href="@PhotoPath" data-fancybox>
+                        <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+                    </a>
+                </div>
+                <div class="col-lg-6 mt-2 p-0">
+                    @Html.DisplayFor(model => model.Materials.ImagePath)
+                </div>
+                <div class="custom-file mt-2 p-0">
+                    <input asp-for="Photo" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <a class="btn btn-danger" asp-page="./Index">Отмена</a> |
+                <input class="btn btn-success" type="submit" value="Сохранить" />
+            </div>
+        </form>
+    </div>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
