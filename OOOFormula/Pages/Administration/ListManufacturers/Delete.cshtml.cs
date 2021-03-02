@@ -26,7 +26,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
                 return NotFound();
             }
 
-            Manufacturers = await _context.Manufacturers.FirstOrDefaultAsync(m => m.Id == id);
+            Manufacturers = await _context.Manufacturers.FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
 
             if (Manufacturers == null)
             {
@@ -42,12 +42,12 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
                 return NotFound();
             }
 
-            Manufacturers = await _context.Manufacturers.FindAsync(id);
+            Manufacturers = await _context.Manufacturers.FindAsync(id); //ищем запись в БД
 
             if (Manufacturers != null)
             {
-                _context.Manufacturers.Remove(Manufacturers);
-                await _context.SaveChangesAsync();
+                _context.Manufacturers.Remove(Manufacturers); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
             }
 
             TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно удалена";

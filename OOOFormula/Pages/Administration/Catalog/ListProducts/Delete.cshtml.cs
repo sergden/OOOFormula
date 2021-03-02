@@ -31,7 +31,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 .Include(p => p.Manufacturers)
                 .Include(p => p.Materials)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
 
             if (Products == null)
             {
@@ -47,12 +47,12 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 return NotFound();
             }
 
-            Products = await _context.Products.FindAsync(id);
+            Products = await _context.Products.FindAsync(id); //ищем в БД запись
 
             if (Products != null)
             {
-                _context.Products.Remove(Products);
-                await _context.SaveChangesAsync();
+                _context.Products.Remove(Products); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
             }
 
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно удалена";

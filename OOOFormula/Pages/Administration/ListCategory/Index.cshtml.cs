@@ -21,8 +21,9 @@ namespace OOOFormula.Pages.Administration.ListCategory
 
         public async Task OnGetAsync(SortState? sortOrder)
         {
-            Category = await _context.Category.AsNoTracking().ToListAsync();
-            Sorting(sortOrder);
+            Category = await _context.Category.AsNoTracking().ToListAsync(); //получаем записи из БД
+
+            Sorting(sortOrder); //сортиовка
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
         }

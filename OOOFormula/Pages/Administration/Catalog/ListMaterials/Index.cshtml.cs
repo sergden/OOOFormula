@@ -21,8 +21,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 
         public async Task OnGetAsync(SortState? sortOrder)
         {
-            Materials = await _context.Materials.AsNoTracking().ToListAsync();
-            Sorting(sortOrder);
+            Materials = await _context.Materials.AsNoTracking().ToListAsync(); //получаем из БД записи
+
+            Sorting(sortOrder); //сортировка
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;

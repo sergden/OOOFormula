@@ -29,14 +29,14 @@ namespace OOOFormula.Pages
                                  p.Name.ToLower().Contains(searchString.ToLower()) ||
                                  p.Description.ToLower().Contains(searchString.ToLower()))
                             .AsNoTracking()
-                            .ToListAsync();
+                            .ToListAsync(); //выбираем из БД записи по критерию
 
                 Gallery = await _context.Gallery.Where(p =>
                      p.Name.ToLower().Contains(searchString.ToLower()))
                .AsNoTracking()
                .ToListAsync();
 
-                if (Products.Count() == 0 && Gallery.Count() == 0)
+                if (Products.Count() == 0 && Gallery.Count() == 0) //сообщение пользователю, если списки пустые
                 {
                     TempData["Message"] = $"Ничего не найдено";
                 }

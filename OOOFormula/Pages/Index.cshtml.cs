@@ -24,7 +24,7 @@ namespace OOOFormula.Pages
 
         public async Task OnGetAsync()
         {
-            if (_context.Gallery.Count() > 4)
+            if (_context.Gallery.Count() > 4) //выбираем последние 4 записи из таблицы
             {
                 Gallery = await _context.Gallery.Skip(_context.Gallery.Count() - 4).AsNoTracking().ToListAsync();
             }

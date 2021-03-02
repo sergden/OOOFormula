@@ -49,8 +49,8 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 Products.ImagesName = ProcessUploadedFile();
             }
 
-            _context.Products.Add(Products);
-            await _context.SaveChangesAsync();
+            _context.Products.Add(Products); //добавляем новый объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на сохранение
 
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно создана";
 

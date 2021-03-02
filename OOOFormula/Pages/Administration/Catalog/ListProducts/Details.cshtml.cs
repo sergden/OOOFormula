@@ -30,7 +30,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 .Include(p => p.Manufacturers)
                 .Include(p => p.Materials)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
 
             if (Products == null)
             {

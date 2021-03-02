@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
@@ -30,7 +30,7 @@ namespace OOOFormula.Pages.Catalog
                 .Include(p => p.Manufacturers)
                 .Include(p => p.Materials)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id); //извлекаем из БД все записи каталога, а также производителя и материал
 
             if (Products == null)
             {

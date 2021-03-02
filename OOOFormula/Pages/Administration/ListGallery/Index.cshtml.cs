@@ -21,7 +21,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
         public async Task OnGetAsync(SortState? sortOrder)
         {
-            Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
+            Gallery = await _context.Gallery.AsNoTracking().ToListAsync(); //получаем записи из БД
+
             Sorting(sortOrder);
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;

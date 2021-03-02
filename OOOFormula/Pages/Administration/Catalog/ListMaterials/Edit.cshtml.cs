@@ -36,7 +36,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 return NotFound();
             }
 
-            Materials = await _context.Materials.FirstOrDefaultAsync(m => m.Id == id);
+            Materials = await _context.Materials.FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
 
             if (Materials == null)
             {
@@ -57,22 +57,22 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             {
                 if (Materials.ImagePath != null)
                 {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials", Materials.ImagePath);
+                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials", Materials.ImagePath); //создаем полное имя файла
 
-                    if (Materials.ImagePath != "noimage.png")
+                    if (Materials.ImagePath != "noimage.png") //проверяем, не используется ли заглушка
                     {
                         System.IO.File.Delete(filePath);
                     }
                 }
 
-                Materials.ImagePath = ProcessUploadedFile();
+                Materials.ImagePath = ProcessUploadedFile(); //пишем в свойство имя файла
             }
 
-            _context.Attach(Materials).State = EntityState.Modified;
+            _context.Attach(Materials).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); //запрос к БД на изменение записи
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -25,7 +25,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 return NotFound();
             }
 
-            Gallery = await _context.Gallery.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            Gallery = await _context.Gallery.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
 
             if (Gallery == null)
             {

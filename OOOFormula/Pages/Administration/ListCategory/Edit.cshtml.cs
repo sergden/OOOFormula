@@ -27,7 +27,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 return NotFound();
             }
 
-            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
 
             if (Category == null)
             {
@@ -43,11 +43,11 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 return Page();
             }
 
-            _context.Attach(Category).State = EntityState.Modified;
+            _context.Attach(Category).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на изменение
             }
             catch (DbUpdateConcurrencyException)
             {

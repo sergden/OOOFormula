@@ -30,8 +30,8 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 return Page();
             }
 
-            _context.Category.Add(Category);
-            await _context.SaveChangesAsync();
+            _context.Category.Add(Category); //добавляем объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на сохранение
 
             TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно создана";
 

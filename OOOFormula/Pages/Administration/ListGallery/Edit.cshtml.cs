@@ -36,7 +36,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 return NotFound();
             }
 
-            Gallery = await _context.Gallery.FirstOrDefaultAsync(m => m.Id == id);
+            Gallery = await _context.Gallery.FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
 
             if (Gallery == null)
             {
@@ -58,7 +58,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
                 if (Gallery.ImagePath != null)
                 {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Gallery", Gallery.ImagePath);
+                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Gallery", Gallery.ImagePath); //получаем полное имя файла
 
                     if (Gallery.ImagePath != "noimage.png")
                     {
@@ -70,11 +70,11 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 Gallery.ImagePath = ProcessUploadedFile();
             }
 
-            _context.Attach(Gallery).State = EntityState.Modified;
+            _context.Attach(Gallery).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); //отправляем запрок к БД на изменение
             }
             catch (DbUpdateConcurrencyException)
             {

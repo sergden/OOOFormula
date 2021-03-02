@@ -45,10 +45,10 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 Materials.ImagePath = ProcessUploadedFile();
             }
 
-            _context.Materials.Add(Materials);
-            await _context.SaveChangesAsync();
+            _context.Materials.Add(Materials); //добавляем объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
 
-            TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно создана";
+            TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно создана"; //сообщение пользователю
 
             return RedirectToPage("./Index");
         }
@@ -59,7 +59,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             string uniqueFileName = null;
             if (Photo != null)
             {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials"); //webRootPath возвращает путь до каталогаа wwwroot
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials"); //webRootPath возвращает путь до каталога wwwroot
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + Photo.FileName; //генерация уникального имени файла
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName); //объединение имени файла и сгенерированного уникального имени
 

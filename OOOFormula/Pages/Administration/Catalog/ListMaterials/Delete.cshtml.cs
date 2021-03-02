@@ -26,7 +26,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 return NotFound();
             }
 
-            Materials = await _context.Materials.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            Materials = await _context.Materials.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
 
             if (Materials == null)
             {
@@ -42,15 +42,15 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 return NotFound();
             }
 
-            Materials = await _context.Materials.FindAsync(id);
+            Materials = await _context.Materials.FindAsync(id); //ищем в БД нужную запись
 
             if (Materials != null)
             {
-                _context.Materials.Remove(Materials);
-                await _context.SaveChangesAsync();
+                _context.Materials.Remove(Materials); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
             }
 
-            TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно удалена";
+            TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно удалена"; //сообщение пользователю
 
             return RedirectToPage("./Index");
         }

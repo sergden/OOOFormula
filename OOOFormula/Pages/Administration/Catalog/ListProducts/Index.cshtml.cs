@@ -26,9 +26,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 .Include(p => p.Manufacturers)
                 .Include(p => p.Materials)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(); //получаем записи из БД
 
-            Sorting(sortOrder);
+            Sorting(sortOrder); //сортировка
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;

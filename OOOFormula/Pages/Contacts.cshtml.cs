@@ -34,8 +34,8 @@ namespace OOOFormula.Pages
             Requests.Status = false;
             Requests.Date = DateTime.Today;
 
-            _context.Requests.Add(Requests);
-            await _context.SaveChangesAsync();
+            _context.Requests.Add(Requests); //добавляем объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД
 
             TempData["SuccessMessage"] = "Сообщение отправлено";
 

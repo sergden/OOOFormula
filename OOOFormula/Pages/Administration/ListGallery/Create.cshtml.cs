@@ -47,8 +47,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
             Gallery.DateAdd = DateTime.Today;
 
-            _context.Gallery.Add(Gallery);
-            await _context.SaveChangesAsync();
+            _context.Gallery.Add(Gallery); //добавляем объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
 
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно создана";
 

@@ -30,8 +30,8 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
                 return Page();
             }
 
-            _context.Manufacturers.Add(Manufacturers);
-            await _context.SaveChangesAsync();
+            _context.Manufacturers.Add(Manufacturers); //добавляем новый объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
 
             TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно создана";
 

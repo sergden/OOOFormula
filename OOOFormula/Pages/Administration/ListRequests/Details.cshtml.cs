@@ -25,7 +25,7 @@ namespace OOOFormula.Pages.Administration.ListRequests
                 return NotFound();
             }
 
-            Requests = await _context.Requests.FirstOrDefaultAsync(m => m.Id == id);
+            Requests = await _context.Requests.FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
 
             if (Requests == null)
             {
@@ -42,8 +42,8 @@ namespace OOOFormula.Pages.Administration.ListRequests
             if (Requests.Status == false)
             {
                 Requests.Status = true;
-                _context.Attach(Requests).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+                _context.Attach(Requests).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на изменение
             }
         }
     }

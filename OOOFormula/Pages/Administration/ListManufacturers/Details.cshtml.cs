@@ -25,7 +25,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
                 return NotFound();
             }
 
-            Manufacturers = await _context.Manufacturers.FirstOrDefaultAsync(m => m.Id == id);
+            Manufacturers = await _context.Manufacturers.FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
 
             if (Manufacturers == null)
             {

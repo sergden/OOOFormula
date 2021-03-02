@@ -22,9 +22,10 @@ namespace OOOFormula.Pages
         public async Task OnGetAsync()
         {
             Gallery = await _context.Gallery.Where(g => g.status == true).AsNoTracking().ToListAsync();
+
             if (!Gallery.Any())
             {
-                TempData["Message"] = "Здесь пока ничего нет";
+                TempData["Message"] = "Здесь пока ничего нет"; //сообщение пользователю
             }
         }
     }

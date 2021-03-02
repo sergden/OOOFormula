@@ -26,7 +26,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 return NotFound();
             }
 
-            Gallery = await _context.Gallery.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            Gallery = await _context.Gallery.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
 
             if (Gallery == null)
             {
@@ -42,12 +42,12 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 return NotFound();
             }
 
-            Gallery = await _context.Gallery.FindAsync(id);
+            Gallery = await _context.Gallery.FindAsync(id); //ищем запись в БД
 
             if (Gallery != null)
             {
-                _context.Gallery.Remove(Gallery);
-                await _context.SaveChangesAsync();
+                _context.Gallery.Remove(Gallery); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
             }
 
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно удалена";

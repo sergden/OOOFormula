@@ -26,7 +26,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 return NotFound();
             }
 
-            Category = await _context.Category.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Category.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
 
             if (Category == null)
             {
@@ -42,12 +42,12 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 return NotFound();
             }
 
-            Category = await _context.Category.FindAsync(id);
+            Category = await _context.Category.FindAsync(id); //ищем в БД запись
 
             if (Category != null)
             {
-                _context.Category.Remove(Category);
-                await _context.SaveChangesAsync();
+                _context.Category.Remove(Category); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
             }
 
             TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно удалена";
