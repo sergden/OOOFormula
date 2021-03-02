@@ -22,8 +22,6 @@ namespace OOOFormula.Pages
 
         public IEnumerable<Gallery> Gallery { get; set; }
 
-        public IEnumerable<OurServices> OurServices { get; set; }
-
         public async Task OnGetAsync()
         {
             if (_context.Gallery.Count() > 4)
@@ -34,8 +32,6 @@ namespace OOOFormula.Pages
             {
                 Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
             }
-
-            OurServices = await _context.OurServices.AsNoTracking().ToListAsync();
         }
     }
 }

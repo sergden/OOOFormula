@@ -14,14 +14,13 @@ namespace OOOFormula.Data
         {
         }
        
-        public DbSet<Atributes> Atributes { get; set; }
-        public DbSet<AtributesValues> AtributesValues { get; set; }
+        //public DbSet<Atributes> Atributes { get; set; }
+        //public DbSet<AtributesValues> AtributesValues { get; set; }
         public DbSet<Category> Category { get; set; }
-        public DbSet<Contacts> Contacts { get; set; }
         public DbSet<Gallery> Gallery { get; set; }
         public DbSet<Manufacturers> Manufacturers { get; set; }
         public DbSet<Materials> Materials { get; set; }
-        public DbSet<OurServices> OurServices { get; set; }
+        public DbSet<ProductImages> ProductImages { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Requests> Requests { get; set; }
     }
