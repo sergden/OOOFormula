@@ -46,15 +46,30 @@
         @foreach (var item in Model.Requests)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
+                @if (item.Status == false)
+                {
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </th>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Message)
                 </td>

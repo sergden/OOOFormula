@@ -25,13 +25,26 @@ namespace OOOFormula.Pages.Administration.ListRequests
                 return NotFound();
             }
 
-            Requests = await _context.Requests.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            Requests = await _context.Requests.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Requests == null)
             {
                 return NotFound();
             }
+
+            await changeStatus(); //меняем статус сообщения на 'Прочитано'
+
             return Page();
+        }
+
+        private async Task changeStatus()
+        {
+            if (Requests.Status == false)
+            {
+                Requests.Status = true;
+                _context.Attach(Requests).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
