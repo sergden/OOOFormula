@@ -1,0 +1,37 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark menu">
+    <div class="container">
+        <button class="navbar-toggler mb-2 mt-2" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse ">
+            <ul class="navbar-nav mr-auto col-md-3 col-lg-9">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Index">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Catalog/Catalog">Каталог</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Gallery_works">Галерея работ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Delivery">Доставка и оплата</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/Contacts">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-hover text-light" asp-area="" asp-page="/About">О нас</a>
+                </li>
+                <li>
+                    <partial name="_LoginPartial" />
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-md-0" method="get" asp-page="./Search">
+                <input class="form-control" type="search" name="searchString" placeholder="Поиск..." aria-label="Search" required>
+            </form>
+        </div>
+    </div>
+</nav>

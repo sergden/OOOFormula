@@ -40,9 +40,6 @@ namespace OOOFormula.Pages.Catalog
             if (sortPrice != null) PriceState = sortPrice;
             if (MaterialId_select != null) MaterialIdState = MaterialId_select;
 
-            //Поиск
-            Search(searchString);
-
             //обрабатываем по фильтрам
             SortingPrice(PriceFrom, PriceTo);
 
@@ -83,18 +80,6 @@ namespace OOOFormula.Pages.Catalog
                 SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
                 _ => Products.OrderBy(p => p.Id),
             };
-        }
-
-        private void Search(string searchString)
-        {
-            //поиск, если есть строка поиска
-            if (!string.IsNullOrWhiteSpace(searchString))
-            {
-                Products = Products.Where(p =>
-                p.Name.ToLower().Contains(searchString.ToLower()) ||
-                p.Description.ToLower().Contains(searchString.ToLower())
-                );
-            }
         }
 
         public async Task<IActionResult> OnGetResetAsync()
