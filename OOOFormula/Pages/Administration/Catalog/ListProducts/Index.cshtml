@@ -93,3 +93,19 @@
         }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Products.HasNextPage ? "disabled" : "";
+}
+
+<a asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Products.PageIndex-1)"
+   class="btn btn-primary @prevDisabled">
+    Назад
+</a>
+<a asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Products.PageIndex+1)"
+   class="btn btn-primary @nextDisabled">
+    Вперед
+</a>

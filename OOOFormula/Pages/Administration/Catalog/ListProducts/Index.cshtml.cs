@@ -17,18 +17,19 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             _context = context;
         }
 
-        public IEnumerable<Products> Products { get; set; }
+        public PaginatedList<Products> Products { get; set; }
 
-        public async Task OnGetAsync(SortState? sortOrder)
+        public SortState? CurrentSort { get; set; }
+
+        public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials)
-                .AsNoTracking()
-                .ToListAsync(); //получаем записи из БД
+            CurrentSort = sortOrder; //сохранение порядка сортировки
 
-            Sorting(sortOrder); //сортировка
+            IQueryable<Products> ProductsIQ = from s in _context.Products
+                                               .Include(p => p.Category)
+                                               .Include(p => p.Manufacturers)
+                                               .Include(p => p.Materials)
+                                              select s;
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
@@ -38,30 +39,38 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             ViewData["CategorySort"] = sortOrder == SortState.CategoryAsc ? SortState.CategoryDesc : SortState.CategoryAsc;
             ViewData["MaterialSort"] = sortOrder == SortState.MaterialAsc ? SortState.MaterialDesc : SortState.MaterialAsc;
             ViewData["ManufacturerSort"] = sortOrder == SortState.ManufacturerAsc ? SortState.ManufacturerDesc : SortState.ManufacturerAsc;
+
+            ProductsIQ = Sorting(sortOrder, ProductsIQ); //сортировка
+
+            int pageSize = 2; //количество элементов на странице
+            Products = await PaginatedList<Products>.CreateAsync(
+                ProductsIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
 
-        private void Sorting(SortState? sort)
+        private static IQueryable<Products> Sorting(SortState? sortOrder, IQueryable<Products> ProductsIQ)
         {
-            Products = sort switch
+            ProductsIQ = sortOrder switch
             {
-                SortState.NameAsc => Products.OrderBy(p => p.Name),
-                SortState.NameDesc => Products.OrderByDescending(p => p.Name),
-                SortState.PriceAsc => Products.OrderBy(p => p.Price),
-                SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
-                SortState.DescriptionAsc => Products.OrderBy(p => p.Description),
-                SortState.DescriptionDesc => Products.OrderByDescending(p => p.Description),
-                SortState.ImageAsc => Products.OrderBy(p => p.ImagesName),
-                SortState.ImageDesc => Products.OrderByDescending(p => p.ImagesName),
-                SortState.StatusAsc => Products.OrderBy(p => p.status),
-                SortState.StatusDesc => Products.OrderByDescending(p => p.status),
-                SortState.CategoryAsc => Products.OrderBy(p => p.Category.Name),
-                SortState.CategoryDesc => Products.OrderByDescending(p => p.Category.Name),
-                SortState.MaterialAsc => Products.OrderBy(p => p.Materials.Name),
-                SortState.MaterialDesc => Products.OrderByDescending(p => p.Materials.Name),
-                SortState.ManufacturerAsc => Products.OrderBy(p => p.Manufacturers.Name),
-                SortState.ManufacturerDesc => Products.OrderByDescending(p => p.Manufacturers.Name),
-                _ => Products.OrderBy(p => p.Id),
+                SortState.NameAsc => ProductsIQ.OrderBy(p => p.Name),
+                SortState.NameDesc => ProductsIQ.OrderByDescending(p => p.Name),
+                SortState.PriceAsc => ProductsIQ.OrderBy(p => p.Price),
+                SortState.PriceDesc => ProductsIQ.OrderByDescending(p => p.Price),
+                SortState.DescriptionAsc => ProductsIQ.OrderBy(p => p.Description),
+                SortState.DescriptionDesc => ProductsIQ.OrderByDescending(p => p.Description),
+                SortState.ImageAsc => ProductsIQ.OrderBy(p => p.ImagesName),
+                SortState.ImageDesc => ProductsIQ.OrderByDescending(p => p.ImagesName),
+                SortState.StatusAsc => ProductsIQ.OrderBy(p => p.status),
+                SortState.StatusDesc => ProductsIQ.OrderByDescending(p => p.status),
+                SortState.CategoryAsc => ProductsIQ.OrderBy(p => p.Category.Name),
+                SortState.CategoryDesc => ProductsIQ.OrderByDescending(p => p.Category.Name),
+                SortState.MaterialAsc => ProductsIQ.OrderBy(p => p.Materials.Name),
+                SortState.MaterialDesc => ProductsIQ.OrderByDescending(p => p.Materials.Name),
+                SortState.ManufacturerAsc => ProductsIQ.OrderBy(p => p.Manufacturers.Name),
+                SortState.ManufacturerDesc => ProductsIQ.OrderByDescending(p => p.Manufacturers.Name),
+                _ => ProductsIQ.OrderBy(p => p.Id),
             };
+
+            return ProductsIQ;
         }
     }
 }
