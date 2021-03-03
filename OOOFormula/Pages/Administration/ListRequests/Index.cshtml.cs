@@ -17,37 +17,47 @@ namespace OOOFormula.Pages.Administration.ListRequests
             _context = context;
         }
 
-        public IList<Requests> Requests { get; set; }
+        public PaginatedList<Requests> Requests { get; set; }
 
-        public async Task OnGetAsync(SortState? sortOrder)
+        public SortState? CurrentSort { get; set; }
+
+        public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
-            Requests = await _context.Requests.AsNoTracking().ToListAsync(); //получаем записи из БД
+            CurrentSort = sortOrder; //сохранение состояния сортировки
 
-            Sorting(sortOrder);
+            IQueryable<Requests> RequestsIQ = from s in _context.Requests
+                                              select s; //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PhoneSort"] = sortOrder == SortState.PhoneAsc ? SortState.PhoneDesc : SortState.PhoneAsc;
             ViewData["EmailSort"] = sortOrder == SortState.EmailAsc ? SortState.EmailDesc : SortState.EmailAsc;
             ViewData["MessageSort"] = sortOrder == SortState.MessageAsc ? SortState.MessageDesc : SortState.MessageAsc;
             ViewData["DateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+
+            RequestsIQ = Sorting(sortOrder, RequestsIQ); //сортировка
+
+            int pageSize = 2; //количество элементов на странице
+            Requests = await PaginatedList<Requests>.CreateAsync(
+                RequestsIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
 
-        private void Sorting(SortState? sort)
+        private static IQueryable<Requests> Sorting(SortState? sortOrder, IQueryable<Requests> RequestsIQ)
         {
-            IOrderedEnumerable<Requests> orderedEnumerables = sort switch
+            RequestsIQ = sortOrder switch
             {
-                SortState.NameAsc => Requests.OrderBy(r => r.Name),
-                SortState.NameDesc => Requests.OrderByDescending(r => r.Name),
-                SortState.DateAsc => Requests.OrderBy(r => r.Date),
-                SortState.DateDesc => Requests.OrderByDescending(r => r.Date),
-                SortState.PhoneAsc => Requests.OrderBy(r => r.Phone),
-                SortState.PhoneDesc => Requests.OrderByDescending(r => r.Phone),
-                SortState.EmailAsc => Requests.OrderBy(r => r.Email),
-                SortState.EmailDesc => Requests.OrderByDescending(r => r.Email),
-                SortState.MessageAsc => Requests.OrderBy(r => r.Message),
-                SortState.MessageDesc => Requests.OrderByDescending(r => r.Message),
-                _ => Requests.OrderBy(r => r.Id),
+                SortState.NameAsc => RequestsIQ.OrderBy(r => r.Name),
+                SortState.NameDesc => RequestsIQ.OrderByDescending(r => r.Name),
+                SortState.DateAsc => RequestsIQ.OrderBy(r => r.Date),
+                SortState.DateDesc => RequestsIQ.OrderByDescending(r => r.Date),
+                SortState.PhoneAsc => RequestsIQ.OrderBy(r => r.Phone),
+                SortState.PhoneDesc => RequestsIQ.OrderByDescending(r => r.Phone),
+                SortState.EmailAsc => RequestsIQ.OrderBy(r => r.Email),
+                SortState.EmailDesc => RequestsIQ.OrderByDescending(r => r.Email),
+                SortState.MessageAsc => RequestsIQ.OrderBy(r => r.Message),
+                SortState.MessageDesc => RequestsIQ.OrderByDescending(r => r.Message),
+                _ => RequestsIQ.OrderBy(r => r.Id),
             };
+            return RequestsIQ;
         }
     }
 }

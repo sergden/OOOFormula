@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Материалы";
+    var prevDisabled = !Model.Materials.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Materials.HasNextPage ? "disabled" : "";
 }
 
 <div class="row justify-content-center">
@@ -60,3 +62,14 @@
         }
     </tbody>
 </table>
+
+<a asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Materials.PageIndex-1)"
+   class="btn btn-primary @prevDisabled">
+    Назад
+</a>
+<a asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Materials.PageIndex+1)"
+   class="btn btn-primary @nextDisabled">
+    Вперед
+</a>

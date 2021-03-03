@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,37 +16,47 @@ namespace OOOFormula.Pages.Administration.ListGallery
             _context = context;
         }
 
-        public IEnumerable<Gallery> Gallery { get; set; }
+        public PaginatedList<Gallery> Gallery { get; set; }
 
-        public async Task OnGetAsync(SortState? sortOrder)
+        public SortState? CurrentSort { get; set; }
+
+        public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
-            Gallery = await _context.Gallery.AsNoTracking().ToListAsync(); //получаем записи из БД
+            CurrentSort = sortOrder; //сохранение состояния сортировки
 
-            Sorting(sortOrder);
+            IQueryable<Gallery> GalleryIQ = from s in _context.Gallery
+                                            select s; //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["DescripSort"] = sortOrder == SortState.DescriptionAsc ? SortState.DescriptionDesc : SortState.DescriptionAsc;
             ViewData["ImageSort"] = sortOrder == SortState.ImageAsc ? SortState.ImageDesc : SortState.ImageAsc;
             ViewData["StatusSort"] = sortOrder == SortState.StatusAsc ? SortState.StatusDesc : SortState.StatusAsc;
             ViewData["DateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+
+            GalleryIQ = Sorting(sortOrder, GalleryIQ); //сортировка
+
+            int pageSize = 2; //количество элементов на странице
+            Gallery = await PaginatedList<Gallery>.CreateAsync(
+                GalleryIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
 
-        private void Sorting(SortState? sortOrder)
+        private static IQueryable<Gallery> Sorting(SortState? sortOrder, IQueryable<Gallery> GalleryIQ)
         {
-            Gallery = sortOrder switch
+            GalleryIQ = sortOrder switch
             {
-                SortState.NameAsc => Gallery.OrderBy(p => p.Name),
-                SortState.NameDesc => Gallery.OrderByDescending(p => p.Name),
-                SortState.DescriptionAsc => Gallery.OrderBy(p => p.Description),
-                SortState.DescriptionDesc => Gallery.OrderByDescending(p => p.Description),
-                SortState.ImageAsc => Gallery.OrderBy(p => p.ImagePath),
-                SortState.ImageDesc => Gallery.OrderByDescending(p => p.ImagePath),
-                SortState.StatusAsc => Gallery.OrderBy(p => p.status),
-                SortState.StatusDesc => Gallery.OrderByDescending(p => p.status),
-                SortState.DateAsc => Gallery.OrderBy(p => p.DateAdd),
-                SortState.DateDesc => Gallery.OrderByDescending(p => p.DateAdd),
-                _ => Gallery.OrderBy(p => p.Id),
+                SortState.NameAsc => GalleryIQ.OrderBy(p => p.Name),
+                SortState.NameDesc => GalleryIQ.OrderByDescending(p => p.Name),
+                SortState.DescriptionAsc => GalleryIQ.OrderBy(p => p.Description),
+                SortState.DescriptionDesc => GalleryIQ.OrderByDescending(p => p.Description),
+                SortState.ImageAsc => GalleryIQ.OrderBy(p => p.ImagePath),
+                SortState.ImageDesc => GalleryIQ.OrderByDescending(p => p.ImagePath),
+                SortState.StatusAsc => GalleryIQ.OrderBy(p => p.status),
+                SortState.StatusDesc => GalleryIQ.OrderByDescending(p => p.status),
+                SortState.DateAsc => GalleryIQ.OrderBy(p => p.DateAdd),
+                SortState.DateDesc => GalleryIQ.OrderByDescending(p => p.DateAdd),
+                _ => GalleryIQ.OrderBy(p => p.Id),
             };
+            return GalleryIQ;
         }
     }
 }

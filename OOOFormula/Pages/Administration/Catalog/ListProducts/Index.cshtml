@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Товары";
+    var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Products.HasNextPage ? "disabled" : "";
 }
 
 <div class="row justify-content-center">
@@ -94,10 +96,6 @@
     </tbody>
 </table>
 
-@{
-    var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
-    var nextDisabled = !Model.Products.HasNextPage ? "disabled" : "";
-}
 
 <a asp-route-sortOrder="@Model.CurrentSort"
    asp-route-pageIndex="@(Model.Products.PageIndex-1)"

@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Галерея";
+    var prevDisabled = !Model.Gallery.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Gallery.HasNextPage ? "disabled" : "";
 }
 
 <div class="row justify-content-center">
@@ -35,7 +37,7 @@
             </th>
             <th>
                 <a asp-route-sortOrder="@ViewBag.ImageSort">Фото</a>
-            </th>     
+            </th>
             <th>
                 <a asp-route-sortOrder="@ViewBag.StatusSort">Статус</a>
             </th>
@@ -57,7 +59,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ImagePath)
-                </td>   
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.status)
                 </td>
@@ -73,3 +75,14 @@
         }
     </tbody>
 </table>
+
+<a asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Gallery.PageIndex-1)"
+   class="btn btn-primary @prevDisabled">
+    Назад
+</a>
+<a asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Gallery.PageIndex+1)"
+   class="btn btn-primary @nextDisabled">
+    Вперед
+</a>

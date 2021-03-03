@@ -17,25 +17,35 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             _context = context;
         }
 
-        public IEnumerable<Manufacturers> Manufacturers { get; set; }
+        public PaginatedList<Manufacturers> Manufacturers { get; set; }
 
-        public async Task OnGetAsync(SortState? sortOrder)
+        public SortState? CurrentSort { get; set; }
+
+        public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
-            Manufacturers = await _context.Manufacturers.AsNoTracking().ToListAsync(); //получаем записи из БД
+            CurrentSort = sortOrder; //сохранение состояния сортировки
 
-            Sorting(sortOrder);
+            IQueryable<Manufacturers> ManufacturersIQ = from s in _context.Manufacturers
+                                                        select s; //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
+
+            ManufacturersIQ = Sorting(sortOrder, ManufacturersIQ); //сортировка
+
+            int pageSize = 2; //количество элементов на странице
+            Manufacturers = await PaginatedList<Manufacturers>.CreateAsync(
+                ManufacturersIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
 
-        private void Sorting(SortState? sortOrder)
+        private static IQueryable<Manufacturers> Sorting(SortState? sortOrder, IQueryable<Manufacturers> ManufacturersIQ)
         {
-            Manufacturers = sortOrder switch
+            ManufacturersIQ = sortOrder switch
             {
-                SortState.NameAsc => Manufacturers.OrderBy(p => p.Name),
-                SortState.NameDesc => Manufacturers.OrderByDescending(p => p.Name),
-                _ => Manufacturers.OrderBy(p => p.Id),
+                SortState.NameAsc => ManufacturersIQ.OrderBy(p => p.Name),
+                SortState.NameDesc => ManufacturersIQ.OrderByDescending(p => p.Name),
+                _ => ManufacturersIQ.OrderBy(p => p.Id),
             };
+            return ManufacturersIQ;
         }
     }
 }

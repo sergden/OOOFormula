@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,13 +22,13 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
         public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
-            CurrentSort = sortOrder; //сохранение порядка сортировки
+            CurrentSort = sortOrder; //сохранение состояния сортировки
 
             IQueryable<Products> ProductsIQ = from s in _context.Products
                                                .Include(p => p.Category)
                                                .Include(p => p.Manufacturers)
                                                .Include(p => p.Materials)
-                                              select s;
+                                              select s; //получаем из БД записи
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PriceSort"] = sortOrder == SortState.PriceAsc ? SortState.PriceDesc : SortState.PriceAsc;
