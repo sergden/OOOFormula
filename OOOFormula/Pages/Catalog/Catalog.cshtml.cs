@@ -80,12 +80,5 @@ namespace OOOFormula.Pages.Catalog
                 _ => Products.OrderBy(p => p.Id),
             };
         }
-
-        public async Task<IActionResult> OnGetResetAsync()
-        {
-            Products = await _context.Products.Where(p => p.status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
-            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
-            return Page();
-        }
     }
 }
