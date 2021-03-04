@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Редактирование";
     string PhotoPath = $"~/images/Products/{Model.Products.ImagesName ?? "noimage.png"}";
+    string MIMEType = ".png, .jpg, .jpeg, .gif";
 }
 
 <div class="col-12 mb-2">
@@ -47,7 +48,13 @@
                     @Html.DisplayFor(model => model.Products.ImagesName)
                 </div>
                 <div class="custom-file mt-2 p-0">
-                    <input asp-for="Photo" class="form-control" />
+                    <input asp-for="Photo" class="form-control" accept="@MIMEType" />
+                    @if (TempData["MIMEType"] != null)
+                    {
+                        <span class="text-danger">
+                            @TempData["MIMEType"]
+                        </span>
+                    }
                 </div>
             </div>
 

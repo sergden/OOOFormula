@@ -49,6 +49,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Name");
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+
             return Page();
         }
 
@@ -62,6 +63,12 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             //удаление старого фото и загрузка нового на сервер
             if (Photo != null)
             {
+                if (!Photo.ContentType.Contains("image"))
+                {
+                    TempData["MIMEType"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
+                    return Page();
+                }
+
                 if (Products.ImagesName != null)
                 {
                     string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Products", Products.ImagesName); //получаем полное имя файла

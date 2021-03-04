@@ -8,12 +8,14 @@
 <partial name="_ManageNav" />
 
 <div class="col-md-9">
-    <div class="alert alert-info text-center col-12">
-        <a asp-page="/Administration/ListRequests/Index" class="nav-link p-0">
-            <p class="m-0">У вас непросмотренно заявок: @TempData["countMessage"]</p>
-        </a>        
-    </div>
-
+    @if (TempData["countMessage"] != null)
+    {
+        <div class="alert alert-info text-center col-12">
+            <a asp-page="/Administration/ListRequests/Index" class="nav-link p-0">
+                <p class="m-0">У вас непросмотренно заявок: @TempData["countMessage"]</p>
+            </a>
+        </div>
+    }
 
     <h4>Профиль</h4>
     <partial name="_StatusMessage" model="Model.StatusMessage" />
