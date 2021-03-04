@@ -65,7 +65,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             {
                 if (!Photo.ContentType.Contains("image"))
                 {
-                    TempData["MIMEType"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
+                    TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
 

@@ -43,6 +43,12 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 return Page();
             }
 
+            if (!Photo.ContentType.Contains("image"))
+            {
+                TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
+                return Page();
+            }
+
             //загрузка нового фото на сервер
             if (Photo != null)
             {

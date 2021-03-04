@@ -32,7 +32,13 @@
             <div class="form-group">
                 <label class="control-label">Фото</label>
                 <div class="custom-file mt-2 p-0">
-                    <input asp-for="Photo" class="form-control" />
+                    <input asp-for="Photo" class="form-control" accept="@MIMEType.Types" />
+                    @if (TempData["MIMETypeError"] != null)
+                    {
+                        <span class="text-danger">
+                            @TempData["MIMETypeError"]
+                        </span>
+                    }
                 </div>
             </div>
             <div class="form-group">
