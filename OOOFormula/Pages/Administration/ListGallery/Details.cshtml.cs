@@ -16,7 +16,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             _context = context;
         }
 
-        public Gallery Gallery { get; set; }
+        public Gallery Gallery { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

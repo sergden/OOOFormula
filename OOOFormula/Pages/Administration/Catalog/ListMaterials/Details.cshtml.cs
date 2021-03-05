@@ -16,7 +16,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             _context = context;
         }
 
-        public Materials Materials { get; set; }
+        public Materials Materials { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

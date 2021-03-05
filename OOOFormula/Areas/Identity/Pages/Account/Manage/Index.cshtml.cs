@@ -51,7 +51,8 @@ namespace OOOFormula.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber
             };
 
-            TempData["countMessage"] = _context.Requests.Where(r => r.Status == false).Count();
+            byte countM = (byte)_context.Requests.Where(r => r.Status == false).Count();
+            if (countM > 0) TempData["countMessage"] = countM;
         }
 
         public async Task<IActionResult> OnGetAsync()

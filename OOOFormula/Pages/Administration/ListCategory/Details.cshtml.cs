@@ -16,7 +16,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
             _context = context;
         }
 
-        public Category Category { get; set; }
+        public Category Category { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

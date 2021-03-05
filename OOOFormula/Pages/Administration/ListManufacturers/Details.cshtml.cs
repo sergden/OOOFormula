@@ -16,7 +16,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             _context = context;
         }
 
-        public Manufacturers Manufacturers { get; set; }
+        public Manufacturers Manufacturers { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

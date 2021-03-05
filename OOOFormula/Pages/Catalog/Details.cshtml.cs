@@ -16,7 +16,7 @@ namespace OOOFormula.Pages.Catalog
             _context = context;
         }
 
-        public Products Products { get; set; }
+        public Products Products { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
