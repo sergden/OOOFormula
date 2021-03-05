@@ -47,7 +47,7 @@
                     @Html.DisplayFor(model => model.Products.ImagesName)
                 </div>
                 <div class="custom-file mt-2 p-0">
-                    <input asp-for="Photo" class="form-control" accept="@MIMEType.Types" />
+                    <input asp-for="Photo" class="form-control" accept="@FilesRepository.Types" />
                     @if (TempData["MIMETypeError"] != null)
                     {
                         <span class="text-danger">

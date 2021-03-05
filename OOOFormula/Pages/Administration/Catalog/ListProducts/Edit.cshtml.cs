@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System;
 using System.IO;
 using System.Linq;
@@ -17,11 +18,13 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly FilesRepository _fileRepository;
 
-        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, FilesRepository fileRepository)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _fileRepository = fileRepository;
         }
 
         [BindProperty]
@@ -49,7 +52,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Name");
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
-
             return Page();
         }
 
@@ -63,7 +65,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             //удаление старого фото и загрузка нового на сервер
             if (Photo != null)
             {
-                if (!Photo.ContentType.Contains("image"))
+                if (!_fileRepository.checkMIMEType(Photo)) //проверка типа файла
                 {
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
@@ -79,7 +81,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                     }
                 }
 
-                Products.ImagesName = ProcessUploadedFile();
+                Products.ImagesName = _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
             }
 
             _context.Attach(Products).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
@@ -108,26 +110,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
         private bool ProductsExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
-        }
-
-        //метод сохранения файла на сервере
-        private string ProcessUploadedFile()
-        {
-            string uniqueFileName = null;
-            if (Photo != null)
-            {
-                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Products"); //webRootPath возвращает путь до каталогаа wwwroot
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + Photo.FileName; //генерация уникального имени файла
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName); //объединение имени файла и сгенерированного уникального имени
-
-                //логика сохранения на сервер фото
-                using (var fs = new FileStream(filePath, FileMode.Create))
-                {
-                    Photo.CopyTo(fs);
-                }
-            }
-
-            return uniqueFileName;
         }
     }
 }

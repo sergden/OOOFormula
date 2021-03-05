@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OOOFormula.Data;
+using OOOFormula.Services;
 
 namespace OOOFormula
 {
@@ -32,7 +33,7 @@ namespace OOOFormula
                 options.Conventions.AuthorizeFolder("/Administration");
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
             });
-
+            services.AddScoped<FilesRepository>();
 
         }
 
