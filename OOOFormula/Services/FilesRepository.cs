@@ -44,7 +44,7 @@ namespace OOOFormula.Services
             }
         }
 
-        public async Task<string> UploadFile(IFormFile photo, string Folder)
+        public string UploadFile(IFormFile photo, string Folder)
         {
             string uniqueFileName = null;
             if (photo != null)
@@ -56,7 +56,7 @@ namespace OOOFormula.Services
                 //логика сохранения на сервер фото
                 using (var fs = new FileStream(filePath, FileMode.Create))
                 {
-                    await photo.CopyToAsync(fs);
+                    photo.CopyTo(fs);
                 }
             }
 
