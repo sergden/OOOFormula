@@ -6,7 +6,6 @@ using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListGallery

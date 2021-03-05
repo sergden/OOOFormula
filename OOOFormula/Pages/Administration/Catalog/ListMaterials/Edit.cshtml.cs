@@ -7,7 +7,6 @@ using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -98,6 +97,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
         private bool MaterialsExists(int id)
         {
             return _context.Materials.Any(e => e.Id == id);
-        }       
+        }
     }
 }

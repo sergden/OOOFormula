@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using OOOFormula.Models;
 
 namespace OOOFormula.Data
@@ -13,7 +10,7 @@ namespace OOOFormula.Data
             : base(options)
         {
         }
-       
+
         //public DbSet<Atributes> Atributes { get; set; }
         //public DbSet<AtributesValues> AtributesValues { get; set; }
         public DbSet<Category> Category { get; set; }

@@ -7,7 +7,6 @@ using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListProducts
@@ -64,6 +63,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно создана";
 
             return RedirectToPage("./Index");
-        }        
+        }
     }
 }
