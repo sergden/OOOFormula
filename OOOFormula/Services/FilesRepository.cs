@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
-    public class FilesRepository
+    public class FilesRepository : IFileRepository
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
 
@@ -34,6 +34,16 @@ namespace OOOFormula.Services
             return true;
         }
 
+        public void deleteFile(string Image, string Folder)
+        {
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Folder, Image); //создаем полное имя файла
+
+            if (Image != "noimage.png") //проверяем, не используется ли заглушка
+            {
+                File.Delete(filePath);
+            }
+        }
+
         public string UploadFile(IFormFile photo, string Folder)
         {
             string uniqueFileName = null;
@@ -53,7 +63,7 @@ namespace OOOFormula.Services
             return uniqueFileName;
         }
 
-        public string UploadFile(IFormCollection photo)
+        public string UploadFile(IFormCollection photo, string Folder)
         {
             return "d";
         }

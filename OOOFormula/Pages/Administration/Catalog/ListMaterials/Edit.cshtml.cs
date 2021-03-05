@@ -66,12 +66,14 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 
                 if (Materials.ImagePath != null)
                 {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials", Materials.ImagePath); //создаем полное имя файла
+                    _fileRepository.deleteFile(Materials.ImagePath, "Materials"); //удаляем старый файл
 
-                    if (Materials.ImagePath != "noimage.png") //проверяем, не используется ли заглушка
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
+                    //string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials", Materials.ImagePath); //создаем полное имя файла
+
+                    //if (Materials.ImagePath != "noimage.png") //проверяем, не используется ли заглушка
+                    //{
+                    //    System.IO.File.Delete(filePath);
+                    //}
                 }
 
                 Materials.ImagePath = _fileRepository.UploadFile(Photo, "Materials"); //загрузка файл на сервер и запись имени файла
