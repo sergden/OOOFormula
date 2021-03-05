@@ -78,6 +78,8 @@ namespace OOOFormula.Pages.Administration.ListGallery
                 Gallery.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Gallery")); //загрузка файл на сервер и запись имени файла
             }
 
+            Gallery.DateAdd = DateTime.Today; //текущая дата
+
             _context.Attach(Gallery).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
 
             try
