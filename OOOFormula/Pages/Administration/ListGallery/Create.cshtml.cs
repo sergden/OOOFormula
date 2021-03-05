@@ -15,9 +15,9 @@ namespace OOOFormula.Pages.Administration.ListGallery
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly FilesRepository _fileRepository;
+        private readonly IFilesRepository _fileRepository;
 
-        public CreateModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, FilesRepository fileRepository)
+        public CreateModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IFilesRepository fileRepository)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
@@ -51,7 +51,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                     return Page();
                 }
 
-                Gallery.ImagePath = _fileRepository.UploadFile(Photo, "Gallery"); //загрузка файл на сервер и запись имени файла
+                Gallery.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Gallery")); //загрузка файл на сервер и запись имени файла
             }
 
             Gallery.DateAdd = DateTime.Today;

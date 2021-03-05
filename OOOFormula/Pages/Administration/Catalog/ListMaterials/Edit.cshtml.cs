@@ -17,9 +17,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly FilesRepository _fileRepository;
+        private readonly IFilesRepository _fileRepository;
 
-        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, FilesRepository fileRepository)
+        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IFilesRepository fileRepository)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
@@ -67,16 +67,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 if (Materials.ImagePath != null)
                 {
                     _fileRepository.deleteFile(Materials.ImagePath, "Materials"); //удаляем старый файл
-
-                    //string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Materials", Materials.ImagePath); //создаем полное имя файла
-
-                    //if (Materials.ImagePath != "noimage.png") //проверяем, не используется ли заглушка
-                    //{
-                    //    System.IO.File.Delete(filePath);
-                    //}
                 }
 
-                Materials.ImagePath = _fileRepository.UploadFile(Photo, "Materials"); //загрузка файл на сервер и запись имени файла
+                Materials.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Materials")); //загрузка файл на сервер и запись имени файла
             }
 
             _context.Attach(Materials).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось

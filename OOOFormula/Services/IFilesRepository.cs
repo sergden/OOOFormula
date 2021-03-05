@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
-    public interface IFileRepository
+    public interface IFilesRepository
     {
         public bool checkMIMEType(IFormFile photo);
 
@@ -15,7 +16,7 @@ namespace OOOFormula.Services
 
         public void deleteFile(string Image, string Folder);
 
-        public string UploadFile(IFormFile photo, string Folder);
+        public Task<string> UploadFile(IFormFile photo, string Folder);
 
         public string UploadFile(IFormCollection photo, string Folder);
     }

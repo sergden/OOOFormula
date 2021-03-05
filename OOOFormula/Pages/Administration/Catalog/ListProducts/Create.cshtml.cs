@@ -16,9 +16,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly FilesRepository _fileRepository;
+        private readonly IFilesRepository _fileRepository;
 
-        public CreateModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, FilesRepository fileRepository)
+        public CreateModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IFilesRepository fileRepository)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
@@ -55,7 +55,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                     return Page();
                 }
 
-                Products.ImagesName = _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
+                Products.ImagesName = Convert.ToString(_fileRepository.UploadFile(Photo, "Products")); //загрузка файл на сервер и запись имени файла
             }
 
             _context.Products.Add(Products); //добавляем новый объект

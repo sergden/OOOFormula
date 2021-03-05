@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
-    public class FilesRepository : IFileRepository
+    public class FilesRepository : IFilesRepository
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
 
@@ -44,7 +44,7 @@ namespace OOOFormula.Services
             }
         }
 
-        public string UploadFile(IFormFile photo, string Folder)
+        public async Task<string> UploadFile(IFormFile photo, string Folder)
         {
             string uniqueFileName = null;
             if (photo != null)
@@ -56,7 +56,7 @@ namespace OOOFormula.Services
                 //логика сохранения на сервер фото
                 using (var fs = new FileStream(filePath, FileMode.Create))
                 {
-                    photo.CopyTo(fs);
+                    await photo.CopyToAsync(fs);
                 }
             }
 
@@ -67,5 +67,6 @@ namespace OOOFormula.Services
         {
             return "d";
         }
+
     }
 }

@@ -18,9 +18,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly FilesRepository _fileRepository;
+        private readonly IFilesRepository _fileRepository;
 
-        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, FilesRepository fileRepository)
+        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IFilesRepository fileRepository)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
@@ -73,15 +73,10 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
                 if (Products.ImagesName != null)
                 {
-                    string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", "Products", Products.ImagesName); //получаем полное имя файла
-
-                    if (Products.ImagesName != "noimage.png")
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
+                    _fileRepository.deleteFile(Products.ImagesName, "Products"); //удаляем старый файл
                 }
 
-                Products.ImagesName = _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
+                Products.ImagesName = Convert.ToString(_fileRepository.UploadFile(Photo, "Products")); //загрузка файл на сервер и запись имени файла
             }
 
             _context.Attach(Products).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
