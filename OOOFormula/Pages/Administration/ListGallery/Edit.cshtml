@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Редактирование";
     string CurrentDate = DateTime.Today.ToString();
-    string PhotoPath = $"~/images/Gallery/{Model.Gallery.ImagePath ?? "noimage.png"}";
+    string PhotoPath = $"/images/Gallery/{Model.Gallery.ImagePath ?? "noimage.png"}";
 }
 
 <div class="col-12 mb-2">

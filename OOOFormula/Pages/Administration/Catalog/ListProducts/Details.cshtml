@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = Model.Products.Name;
-    string PhotoPath = $"~/images/Products/{Model.Products.ImagesName ?? "noimage.png"}";
+    string PhotoPath = $"/images/Products/{Model.Products.ImagesName ?? "noimage.png"}";
 }
 
 <div class="col-12 mb-2">
