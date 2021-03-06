@@ -32,7 +32,7 @@ namespace OOOFormula.Pages.Catalog
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortPrice, int? MaterialId_select)
         {
-            Products = await _context.Products.Where(p => p.status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
+            Products = await _context.Products.Where(p => p.Status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
             ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
 
             //сохраняем состояние фильтрации

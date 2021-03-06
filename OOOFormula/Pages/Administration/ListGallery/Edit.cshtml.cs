@@ -58,7 +58,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             //удаление старого фото и загрузка нового на сервер
             if (Photo != null)
             {
-                if (!_fileRepository.checkMIMEType(Photo)) //проверка типа файла
+                if (!_fileRepository.CheckMIMEType(Photo)) //проверка типа файла
                 {
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();

@@ -16,7 +16,7 @@ namespace OOOFormula.Services
 
         public static string Types { get; } = ".png, .jpg, .jpeg, .gif";
 
-        public bool checkMIMEType(IFormFile photo) //проверка типа файла
+        public bool CheckMIMEType(IFormFile photo) //проверка типа файла
         {
             if (!photo.ContentType.Contains("image"))
             {
@@ -25,12 +25,12 @@ namespace OOOFormula.Services
             return true;
         }
 
-        public bool checkMIMEType(IFormCollection files)
+        public bool CheckMIMEType(IFormCollection files)
         {
             return true;
         }
 
-        public void deleteFile(string Image, string Folder)
+        public void DeleteFile(string Image, string Folder)
         {
             string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Folder, Image); //создаем полное имя файла
 

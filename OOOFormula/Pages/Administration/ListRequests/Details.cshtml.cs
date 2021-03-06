@@ -32,12 +32,12 @@ namespace OOOFormula.Pages.Administration.ListRequests
                 return NotFound();
             }
 
-            await changeStatus(); //меняем статус сообщения на 'Прочитано'
+            await ChangeStatus(); //меняем статус сообщения на 'Прочитано'
 
             return Page();
         }
 
-        private async Task changeStatus()
+        private async Task ChangeStatus()
         {
             if (Requests.Status == false)
             {

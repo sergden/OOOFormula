@@ -21,7 +21,7 @@ namespace OOOFormula.Models
         public string ImagesName { get; set; }
 
         [Display(Name = "Статус")]
-        public bool status { get; set; }
+        public bool Status { get; set; }
 
 
         [Required(ErrorMessage = "Поле 'Категория' не может быть пустым")]

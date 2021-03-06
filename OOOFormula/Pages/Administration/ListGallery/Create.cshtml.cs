@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OOOFormula.Data;
@@ -13,13 +12,11 @@ namespace OOOFormula.Pages.Administration.ListGallery
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IFilesRepository _fileRepository;
 
-        public CreateModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IFilesRepository fileRepository)
+        public CreateModel(ApplicationDbContext context, IFilesRepository fileRepository)
         {
             _context = context;
-            _webHostEnvironment = webHostEnvironment;
             _fileRepository = fileRepository;
         }
 
@@ -44,7 +41,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
             //загрузка нового фото на сервер
             if (Photo != null)
             {
-                if (!_fileRepository.checkMIMEType(Photo)) //проверка типа файла
+                if (!_fileRepository.CheckMIMEType(Photo)) //проверка типа файла
                 {
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();

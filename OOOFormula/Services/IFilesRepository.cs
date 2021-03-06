@@ -4,11 +4,11 @@ namespace OOOFormula.Services
 {
     public interface IFilesRepository
     {
-        public bool checkMIMEType(IFormFile photo);
+        public bool CheckMIMEType(IFormFile photo);
 
-        public bool checkMIMEType(IFormCollection files);
+        public bool CheckMIMEType(IFormCollection files);
 
-        public void deleteFile(string Image, string Folder);
+        public void DeleteFile(string Image, string Folder);
 
         public string UploadFile(IFormFile photo, string Folder);
 

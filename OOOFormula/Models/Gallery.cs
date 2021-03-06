@@ -18,7 +18,7 @@ namespace OOOFormula.Models
         public string ImagePath { get; set; }
 
         [Display(Name = "Статус")]
-        public bool status { get; set; }
+        public bool Status { get; set; }
 
         [Display(Name = "Дата добавления")]
         public DateTime DateAdd { get; set; }

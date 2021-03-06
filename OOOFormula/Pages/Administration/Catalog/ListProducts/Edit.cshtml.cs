@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,13 +15,11 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IFilesRepository _fileRepository;
 
-        public EditModel(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IFilesRepository fileRepository)
+        public EditModel(ApplicationDbContext context, IFilesRepository fileRepository)
         {
             _context = context;
-            _webHostEnvironment = webHostEnvironment;
             _fileRepository = fileRepository;
         }
 
@@ -64,7 +61,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             //удаление старого фото и загрузка нового на сервер
             if (Photo != null)
             {
-                if (!_fileRepository.checkMIMEType(Photo)) //проверка типа файла
+                if (!_fileRepository.CheckMIMEType(Photo)) //проверка типа файла
                 {
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
@@ -72,7 +69,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
                 if (Products.ImagesName != null)
                 {
-                    _fileRepository.deleteFile(Products.ImagesName, "Products"); //удаляем старый файл
+                    _fileRepository.DeleteFile(Products.ImagesName, "Products"); //удаляем старый файл
                 }
 
                 Products.ImagesName = Convert.ToString(_fileRepository.UploadFile(Photo, "Products")); //загрузка файл на сервер и запись имени файла
