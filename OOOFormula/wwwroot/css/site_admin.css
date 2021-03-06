@@ -37,6 +37,15 @@ html {
     }
 }
 
+@media (max-width: 991px) {
+    table {
+        table-layout: fixed;
+        display: block;
+        overflow: auto;
+        width: 100%;
+    }
+}
+
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
@@ -138,7 +147,6 @@ a.text-light:hover, a.text-light:focus {
 
 table {
     table-layout: fixed;
-    width: 100%
 }
 
 td {
