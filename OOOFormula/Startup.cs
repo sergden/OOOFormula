@@ -33,7 +33,10 @@ namespace OOOFormula
                 options.Conventions.AuthorizeFolder("/Administration");
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
             });
+
+
             services.AddScoped<IFilesRepository, FilesRepository>();
+            services.AddScoped<IRequestsRepository, RequestsRepository>();
 
         }
 
