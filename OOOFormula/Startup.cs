@@ -47,13 +47,13 @@ namespace OOOFormula
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Message/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             //Обработка несуществующего адреса
-            app.UseStatusCodePagesWithRedirects("/NotFound");
+            app.UseStatusCodePagesWithRedirects("/Message/NotFound");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
