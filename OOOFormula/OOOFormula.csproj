@@ -34,4 +34,8 @@
     <Folder Include="wwwroot\images\Products\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\lib\bootstrap\dist\css\fonts\bootstrap-icons.woff2" />
+  </ItemGroup>
+
 </Project>

@@ -87,9 +87,17 @@
                     @Html.DisplayFor(modelItem => item.Manufacturers.Name)
                 </td>
                 <td>
-                    <a asp-page="./Details" asp-route-id="@item.Id">Просмотр</a> |
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Изменить</a> |
-                    <a class="text-danger" asp-page="./Delete" asp-route-id="@item.Id">Удалить</a>
+                    <div>
+                        <a class="mr-2" asp-page="./Details" asp-route-id="@item.Id">
+                            <i class="bi bi-binoculars-fill"></i>
+                        </a>
+                        <a class="mr-2" asp-page="./Edit" asp-route-id="@item.Id">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a class="text-danger" asp-page="./Delete" asp-route-id="@item.Id">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
         }
