@@ -54,7 +54,7 @@ namespace OOOFormula.Areas.Identity.Pages.Account
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Thank you for confirming your email change.";
+            StatusMessage = "Спасибо за подтверждение изменения email.";
             return Page();
         }
     }

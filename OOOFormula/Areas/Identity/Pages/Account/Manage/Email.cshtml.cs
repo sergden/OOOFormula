@@ -41,8 +41,8 @@ namespace OOOFormula.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required(ErrorMessage = "Поле 'E-mail' не может быть пустым")]
-            [EmailAddress]
-            [Display(Name = "New email")]
+            [EmailAddress(ErrorMessage = "Пожалуйста, введите действительный адрес электронной почты")]
+            [Display(Name = "Новый email")]
             public string NewEmail { get; set; }
         }
 
@@ -101,11 +101,11 @@ namespace OOOFormula.Areas.Identity.Pages.Account.Manage
                     "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "Ссылка для подтверждения изменения email отправлена. Проверьте ваш email.";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "Ваш email был изменен.";
             return RedirectToPage();
         }
 
@@ -137,7 +137,7 @@ namespace OOOFormula.Areas.Identity.Pages.Account.Manage
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Письмо для подтверждения отправлено. Проверьте ваш email.";
             return RedirectToPage();
         }
     }

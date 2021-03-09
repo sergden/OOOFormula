@@ -44,20 +44,20 @@ namespace OOOFormula.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Поле 'E-mail' не может быть пустым")]
+            [EmailAddress(ErrorMessage = "Пожалуйста, введите действительный адрес электронной почты")]
             [Display(Name = "E-mail")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Поле 'Пароль' не может быть пустым")]
+            [StringLength(100, ErrorMessage = "{0} должен быть не менее {2} символов и не более {1}.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Пароль")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Подтвердите пароль")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Пароли не совпадают")]
             public string ConfirmPassword { get; set; }
         }
 

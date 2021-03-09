@@ -28,8 +28,8 @@ namespace OOOFormula.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Поле 'E-mail' не может быть пустым")]
+            [EmailAddress(ErrorMessage = "Пожалуйста, введите действительный адрес электронной почты")]
             public string Email { get; set; }
         }
 

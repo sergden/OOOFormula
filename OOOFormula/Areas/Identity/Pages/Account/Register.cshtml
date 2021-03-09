@@ -4,10 +4,9 @@
     ViewData["Title"] = "Регистрация";
 }
 
-<h1 class="mt-5">@ViewData["Title"]</h1>
-
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
+        <h1 class="mt-2">@ViewData["Title"]</h1>
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h4>Создайте новый аккаунт.</h4>
             <hr />

@@ -24,6 +24,7 @@ namespace OOOFormula.Areas.Identity.Pages.Account.Manage
             _context = context;
         }
 
+        [Display(Name = "Имя пользователя")]
         public string Username { get; set; }
 
         [TempData]
