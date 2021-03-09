@@ -34,7 +34,7 @@ namespace OOOFormula.Areas.Identity.Pages.Account
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Повторите новый пароль")]
             [Compare("NewPassword", ErrorMessage = "Пароли не совпадают")]
             public string ConfirmPassword { get; set; }
 
