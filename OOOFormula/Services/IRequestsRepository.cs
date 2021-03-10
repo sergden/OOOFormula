@@ -9,6 +9,8 @@ namespace OOOFormula.Services
 
         Requests GetRequest(int id);
 
+        Requests Add(Requests NewRequest);
+
         Requests Delete(int id);
     }
 }

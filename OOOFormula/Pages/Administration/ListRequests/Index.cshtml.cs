@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,11 +11,11 @@ namespace OOOFormula.Pages.Administration.ListRequests
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRequestsRepository _db;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(IRequestsRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         public PaginatedList<Requests> Requests { get; set; }
@@ -24,8 +26,7 @@ namespace OOOFormula.Pages.Administration.ListRequests
         {
             CurrentSort = sortOrder; //сохранение состояния сортировки
 
-            IQueryable<Requests> RequestsIQ = from s in _context.Requests
-                                              select s; //получаем записи из БД
+            IQueryable<Requests> RequestsIQ = _db.GetAllRequests(); //формируем запрос к БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["PhoneSort"] = sortOrder == SortState.PhoneAsc ? SortState.PhoneDesc : SortState.PhoneAsc;
