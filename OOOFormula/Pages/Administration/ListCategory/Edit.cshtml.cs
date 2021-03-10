@@ -53,9 +53,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
                     throw;
                 }
             }
-
             TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно обновлена";
-
             return RedirectToPage("./Index");
         }
     }

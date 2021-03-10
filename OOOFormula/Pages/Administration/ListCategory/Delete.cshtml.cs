@@ -21,7 +21,6 @@ namespace OOOFormula.Pages.Administration.ListCategory
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Category = await _db.GetCategory(id); //получаем из БД запись
-
             if (Category == null)
             {
                 return NotFound();

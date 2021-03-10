@@ -26,7 +26,6 @@ namespace OOOFormula.Services
         public async Task<Category> Delete(int id)
         {
             var CategoryToDelete = await _context.Category.FindAsync(id); //ищем в БД запись
-
             if (CategoryToDelete != null)
             {
                 _context.Category.Remove(CategoryToDelete); //удаляем объект

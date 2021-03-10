@@ -64,7 +64,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 SortState.ManufacturerDesc => ProductsIQ.OrderByDescending(p => p.Manufacturers.Name),
                 _ => ProductsIQ.OrderBy(p => p.Id),
             };
-
             return ProductsIQ;
         }
     }

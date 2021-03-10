@@ -76,9 +76,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                     throw;
                 }
             }
-
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно обновлена";
-
             return RedirectToPage("./Index");
         }
     }

@@ -51,14 +51,10 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
-
                 Materials.ImagePath = Convert.ToString(_filesRepository.UploadFile(Photo, "Materials")); //загрузка файл на сервер и запись имени файла
             }
-
             Materials = await _db.Add(Materials);
-
             TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно создана"; //сообщение пользователю
-
             return RedirectToPage("./Index");
         }
     }

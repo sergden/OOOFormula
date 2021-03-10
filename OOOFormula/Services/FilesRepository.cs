@@ -33,7 +33,6 @@ namespace OOOFormula.Services
         public void DeleteFile(string Image, string Folder)
         {
             string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Folder, Image); //создаем полное имя файла
-
             if (Image != "noimage.png") //проверяем, не используется ли заглушка
             {
                 File.Delete(filePath);
@@ -55,7 +54,6 @@ namespace OOOFormula.Services
                     photo.CopyTo(fs);
                 }
             }
-
             return uniqueFileName;
         }
 

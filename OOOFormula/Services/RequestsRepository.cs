@@ -21,10 +21,8 @@ namespace OOOFormula.Services
         {
             NewRequest.Status = false;
             NewRequest.Date = DateTime.Today;
-
             _context.Requests.Add(NewRequest); //добавляем объект
             await _context.SaveChangesAsync(); //отправляем запрос к БД
-
             return NewRequest;
         }
 

@@ -29,11 +29,8 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             {
                 return Page();
             }
-
             Manufacturers = await _db.Add(Manufacturers);
-
             TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно создана";
-
             return RedirectToPage("./Index");
         }
     }

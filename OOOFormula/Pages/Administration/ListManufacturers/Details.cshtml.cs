@@ -19,9 +19,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-
             Manufacturers = await _db.GetManufacturer(id); //получаем запись из БД
-
             if (Manufacturers == null)
             {
                 return NotFound();

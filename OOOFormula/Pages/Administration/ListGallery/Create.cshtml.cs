@@ -45,13 +45,10 @@ namespace OOOFormula.Pages.Administration.ListGallery
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
-
                 Gallery.ImagePath = Convert.ToString(_filesRepository.UploadFile(Photo, "Gallery")); //загрузка файл на сервер и запись имени файла
             }
-
             Gallery = await _db.Add(Gallery);
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно создана";
-
             return RedirectToPage("./Index");
         }
     }

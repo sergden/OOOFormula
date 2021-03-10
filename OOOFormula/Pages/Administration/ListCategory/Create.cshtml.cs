@@ -29,7 +29,6 @@ namespace OOOFormula.Pages.Administration.ListCategory
             {
                 return Page();
             }
-
             Category = await _db.Add(Category);
             TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно создана";
             return RedirectToPage("./Index");

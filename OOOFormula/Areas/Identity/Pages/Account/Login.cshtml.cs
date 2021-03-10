@@ -62,7 +62,7 @@ namespace OOOFormula.Areas.Identity.Pages.Account
 
             if (_signInManager.IsSignedIn(User))
             {
-               return RedirectToPage("./Manage/Index");
+                return RedirectToPage("./Manage/Index");
             }
 
             // Clear the existing external cookie to ensure a clean login process

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages

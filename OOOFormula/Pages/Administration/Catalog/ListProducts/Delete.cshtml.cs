@@ -23,7 +23,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Products = await _db.GetProduct(id); //получаем из БД запись
-
             if (Products == null)
             {
                 return NotFound();

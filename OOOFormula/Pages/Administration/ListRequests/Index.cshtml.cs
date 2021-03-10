@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,7 +23,6 @@ namespace OOOFormula.Pages.Administration.ListRequests
         public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
             CurrentSort = sortOrder; //сохранение состояния сортировки
-
             IQueryable<Requests> RequestsIQ = _db.GetAllRequests(); //формируем запрос к БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;

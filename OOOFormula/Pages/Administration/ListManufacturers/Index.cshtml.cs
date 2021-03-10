@@ -23,7 +23,6 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
         public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
             CurrentSort = sortOrder; //сохранение состояния сортировки
-
             IQueryable<Manufacturers> ManufacturersIQ = _db.GetAllManuf(); //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;

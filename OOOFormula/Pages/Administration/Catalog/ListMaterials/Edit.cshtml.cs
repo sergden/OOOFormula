@@ -57,7 +57,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 {
                     _fileRepository.DeleteFile(Materials.ImagePath, "Materials"); //удаляем старый файл
                 }
-
                 Materials.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Materials")); //загрузка файл на сервер и запись имени файла
             }
 
@@ -76,7 +75,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                     throw;
                 }
             }
-
             TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно обновлена";
             return RedirectToPage("./Index");
         }

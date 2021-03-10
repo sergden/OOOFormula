@@ -23,7 +23,6 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Materials = await _db.GetMaterial(id); //получаем из БД запись
-
             if (Materials == null)
             {
                 return NotFound();

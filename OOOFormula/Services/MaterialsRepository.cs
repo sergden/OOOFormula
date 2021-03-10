@@ -50,7 +50,6 @@ namespace OOOFormula.Services
             _context.Attach(UpdatedMater).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
             await _context.SaveChangesAsync(); //запрос к БД на изменение записи
             return UpdatedMater;
-
         }
 
         public bool MaterialsExists(int id)

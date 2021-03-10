@@ -23,7 +23,6 @@ namespace OOOFormula.Pages.Administration.ListGallery
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Gallery = await _db.GetGallery(id); //получаем запись из БД
-
             if (Gallery == null)
             {
                 return NotFound();
@@ -32,7 +31,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
-        {            
+        {
             Gallery = await _db.Delete(id); //удаляем запись
             if (Gallery.ImagePath != null) _filesRepository.DeleteFile(Gallery.ImagePath, "Gallery"); //удаляем фото
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно удалена";

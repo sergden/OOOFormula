@@ -21,7 +21,6 @@ namespace OOOFormula.Pages.Administration.ListRequests
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Requests = await _db.GetRequest(id); //получаем запись из БД
-
             if (Requests == null)
             {
                 return NotFound();
@@ -32,14 +31,11 @@ namespace OOOFormula.Pages.Administration.ListRequests
         public async Task<IActionResult> OnPostAsync(int id)
         {
             Requests DeletedRequest = await _db.Delete(id);
-
             if (DeletedRequest == null)
             {
                 return NotFound();
             }
-
             TempData["SuccessMessage"] = "Запись удалена";
-
             return RedirectToPage("./Index");
         }
     }

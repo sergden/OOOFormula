@@ -33,7 +33,6 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
         {
             Manufacturers = await _db.Delete(id);
             TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно удалена";
-
             return RedirectToPage("./Index");
         }
     }
