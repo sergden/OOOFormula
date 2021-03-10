@@ -17,7 +17,7 @@ namespace OOOFormula.Pages.Administration.ListRequests
             _db = db;
         }
 
-        public Requests Requests { get; set; }
+        public Requests Requests { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {

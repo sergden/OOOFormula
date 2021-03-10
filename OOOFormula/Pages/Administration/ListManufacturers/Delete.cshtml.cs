@@ -1,33 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListManufacturers
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(ApplicationDbContext context)
+        private readonly IManufacturersRepostory _db;
+
+        public DeleteModel(IManufacturersRepostory db)
         {
-            _context = context;
+            _db = db;
         }
 
         [BindProperty]
         public Manufacturers Manufacturers { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Manufacturers = await _context.Manufacturers.FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
-
+            Manufacturers = await _db.GetManufacturer(id); //получаем запись из БД
             if (Manufacturers == null)
             {
                 return NotFound();
@@ -35,21 +29,9 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Manufacturers = await _context.Manufacturers.FindAsync(id); //ищем запись в БД
-
-            if (Manufacturers != null)
-            {
-                _context.Manufacturers.Remove(Manufacturers); //удаляем объект
-                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
-            }
-
+            Manufacturers = await _db.Delete(id);
             TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно удалена";
 
             return RedirectToPage("./Index");

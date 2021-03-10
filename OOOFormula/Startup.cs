@@ -36,6 +36,12 @@ namespace OOOFormula
 
 
             services.AddScoped<IFilesRepository, FilesRepository>();
+
+            services.AddScoped<IMaterialsRepository, MaterialsRepository>();
+            services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IGalleryRepository, GalleryRepository>();
+            services.AddScoped<IManufacturersRepostory, ManufacturersRepostory>();
             services.AddScoped<IRequestsRepository, RequestsRepository>();
 
         }

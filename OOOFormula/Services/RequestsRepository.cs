@@ -42,12 +42,12 @@ namespace OOOFormula.Services
 
         public IQueryable<Requests> GetAllRequests()
         {
-            return _context.Requests.AsQueryable();
+            return _context.Requests.AsNoTracking().AsQueryable();
         }
 
         public async Task<Requests> GetRequest(int id)
         {
-            return await _context.Requests.FirstOrDefaultAsync(r => r.Id == id);
+            return await _context.Requests.AsNoTracking().FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public async Task UpdateStatus(Requests UpdatedRequest)

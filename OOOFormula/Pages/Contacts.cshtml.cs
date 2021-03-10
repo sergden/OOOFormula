@@ -10,12 +10,10 @@ namespace OOOFormula.Pages
 {
     public class ContactsModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
         private readonly IRequestsRepository _db;
 
-        public ContactsModel(ApplicationDbContext context, IRequestsRepository db)
+        public ContactsModel(IRequestsRepository db)
         {
-            _context = context;
             _db = db;
         }
 

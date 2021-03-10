@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListManufacturers
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IManufacturersRepostory _db;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(IManufacturersRepostory db)
         {
-            _context = context;
+            _db = db;
         }
 
         public IActionResult OnGet()
@@ -30,8 +30,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
                 return Page();
             }
 
-            _context.Manufacturers.Add(Manufacturers); //добавляем новый объект
-            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
+            Manufacturers = await _db.Add(Manufacturers);
 
             TempData["SuccessMessage"] = $"Запись \"{Manufacturers.Name}\" успешно создана";
 

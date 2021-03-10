@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,11 +9,11 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IManufacturersRepostory _db;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(IManufacturersRepostory db)
         {
-            _context = context;
+            _db = db;
         }
 
         public PaginatedList<Manufacturers> Manufacturers { get; set; }
@@ -24,8 +24,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
         {
             CurrentSort = sortOrder; //сохранение состояния сортировки
 
-            IQueryable<Manufacturers> ManufacturersIQ = from s in _context.Manufacturers
-                                                        select s; //получаем записи из БД
+            IQueryable<Manufacturers> ManufacturersIQ = _db.GetAllManuf(); //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
 

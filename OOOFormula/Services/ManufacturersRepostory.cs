@@ -1,37 +1,60 @@
-﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using OOOFormula.Data;
+using OOOFormula.Models;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
     public class ManufacturersRepostory : IManufacturersRepostory
     {
-        public Manufacturers Add(Manufacturers NewManuf)
+        private readonly ApplicationDbContext _context;
+
+        public ManufacturersRepostory(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Manufacturers Delete(int id)
+        public async Task<Manufacturers> Add(Manufacturers NewManuf)
         {
-            throw new NotImplementedException();
+            _context.Manufacturers.Add(NewManuf); //добавляем новый объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
+            return NewManuf;
+        }
+
+        public async Task<Manufacturers> Delete(int id)
+        {
+            var ManufacturerToDelete = await _context.Manufacturers.FindAsync(id); //ищем запись в БД
+
+            if (ManufacturerToDelete != null)
+            {
+                _context.Manufacturers.Remove(ManufacturerToDelete); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
+            }
+
+            return ManufacturerToDelete;
         }
 
         public IQueryable<Manufacturers> GetAllManuf()
         {
-            throw new NotImplementedException();
+            return _context.Manufacturers.AsNoTracking().AsQueryable();
         }
 
-        public Manufacturers GetManufacturer(int id)
+        public async Task<Manufacturers> GetManufacturer(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Manufacturers.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public Manufacturers Update(Manufacturers updatedManuf)
+        public async Task<Manufacturers> Update(Manufacturers updatedManuf)
         {
-            throw new NotImplementedException();
+            _context.Attach(updatedManuf).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на изменение
+            return updatedManuf;
+        }
+
+        public bool ManufacturersExists(int id)
+        {
+            return _context.Manufacturers.Any(e => e.Id == id);
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
@@ -11,12 +8,14 @@ namespace OOOFormula.Services
     {
         IQueryable<Manufacturers> GetAllManuf();
 
-        Manufacturers GetManufacturer(int id);
+        Task<Manufacturers> GetManufacturer(int id);
 
-        Manufacturers Update(Manufacturers updatedManuf);
+        Task<Manufacturers> Update(Manufacturers updatedManuf);
 
-        Manufacturers Add(Manufacturers NewManuf);
+        Task<Manufacturers> Add(Manufacturers NewManuf);
 
-        Manufacturers Delete(int id);        
+        Task<Manufacturers> Delete(int id);
+
+        bool ManufacturersExists(int id);
     }
 }
