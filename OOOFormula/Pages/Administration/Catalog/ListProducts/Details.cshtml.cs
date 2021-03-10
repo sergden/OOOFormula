@@ -1,41 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 {
     public class DetailsModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductsRepository _db;
 
-        public DetailsModel(ApplicationDbContext context)
+        public DetailsModel(IProductsRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         public Products Products { get; private set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
-
-            if (Products == null)
-            {
-                return NotFound();
-            }
+            Products = await _db.GetProduct(id); //получаем из БД запись
+            if (Products == null) return NotFound();
             return Page();
         }
     }

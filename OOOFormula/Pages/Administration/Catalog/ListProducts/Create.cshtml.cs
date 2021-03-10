@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
@@ -12,13 +10,24 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
         private readonly IFilesRepository _fileRepository;
+        private readonly IProductsRepository _db;
+        private readonly ICategoryRepository _category;
+        private readonly IManufacturersRepostory _manufacturers;
+        private readonly IMaterialsRepository _materials;
 
-        public CreateModel(ApplicationDbContext context, IFilesRepository fileRepository)
+        public CreateModel(
+            IFilesRepository fileRepository,
+            IProductsRepository db,
+            ICategoryRepository category,
+            IManufacturersRepostory manufacturers,
+            IMaterialsRepository materials)
         {
-            _context = context;
             _fileRepository = fileRepository;
+            _db = db;
+            _category = category;
+            _manufacturers = manufacturers;
+            _materials = materials;
         }
 
         [BindProperty]
@@ -29,9 +38,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
         public IActionResult OnGet()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
-            ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Name");
-            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+            ViewData["CategoryId"] = _category.CategoryToList();
+            ViewData["ManufacturersId"] = _manufacturers.ManufToList();
+            ViewData["MaterialsId"] = _materials.MaterialToList();
             return Page();
         }
 
@@ -54,11 +63,8 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 Products.ImagesName = Convert.ToString(_fileRepository.UploadFile(Photo, "Products")); //загрузка файл на сервер и запись имени файла
             }
 
-            _context.Products.Add(Products); //добавляем новый объект
-            await _context.SaveChangesAsync(); //отправляем запрос к БД на сохранение
-
+            Products = await _db.Add(Products); //создаем запись
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно создана";
-
             return RedirectToPage("./Index");
         }
     }

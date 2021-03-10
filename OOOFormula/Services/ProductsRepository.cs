@@ -1,4 +1,6 @@
-﻿using OOOFormula.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OOOFormula.Data;
+using OOOFormula.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,29 +11,63 @@ namespace OOOFormula.Services
 {
     public class ProductsRepository : IProductsRepository
     {
-        public Products Add(Products NewProduct)
+        private readonly ApplicationDbContext _context;
+
+        public ProductsRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Products Delete(int id)
+        public async Task<Products> Add(Products NewProduct)
         {
-            throw new NotImplementedException();
+            _context.Products.Add(NewProduct); //добавляем новый объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на сохранение
+            return NewProduct;
+        }
+
+        public async Task<Products> Delete(int id)
+        {
+            var ProductToDelete = await _context.Products.FindAsync(id); //ищем в БД запись
+
+            if (ProductToDelete != null)
+            {
+                _context.Products.Remove(ProductToDelete); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
+            }
+            return ProductToDelete;
         }
 
         public IQueryable<Products> GetAllProducts()
         {
-            throw new NotImplementedException();
+            return _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Manufacturers)
+                .Include(p => p.Materials)
+                .AsNoTracking()
+                .AsQueryable();
         }
 
-        public Products GetProduct(int id)
+        public async Task<Products> GetProduct(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.Manufacturers)
+                .Include(p => p.Materials)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
         }
 
-        public Products Update(Products updatedProduct)
+        public async Task<Products> Update(Products UpdatedProduct)
         {
-            throw new NotImplementedException();
+            _context.Attach(UpdatedProduct).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
+            await _context.SaveChangesAsync(); //отпраляем запрос к БД на изменение
+            return UpdatedProduct;
+
+        }
+
+        public bool ProductsExists(int id)
+        {
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

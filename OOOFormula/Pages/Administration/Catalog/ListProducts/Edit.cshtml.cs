@@ -1,26 +1,34 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 {
     public class EditModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductsRepository _db;
+        private readonly ICategoryRepository _category;
+        private readonly IManufacturersRepostory _manufacturers;
+        private readonly IMaterialsRepository _materials;
         private readonly IFilesRepository _fileRepository;
 
-        public EditModel(ApplicationDbContext context, IFilesRepository fileRepository)
+        public EditModel(
+            IFilesRepository fileRepository,
+            IProductsRepository db,
+            ICategoryRepository category,
+            IManufacturersRepostory manufacturers,
+            IMaterialsRepository materials)
         {
-            _context = context;
             _fileRepository = fileRepository;
+            _db = db;
+            _category = category;
+            _manufacturers = manufacturers;
+            _materials = materials;
         }
 
         [BindProperty]
@@ -29,25 +37,17 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
         [BindProperty]
         public IFormFile Photo { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials).FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
+            Products = await _db.GetProduct(id); //получаем из БД запись
 
             if (Products == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
-            ViewData["ManufacturersId"] = new SelectList(_context.Manufacturers, "Id", "Name");
-            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name");
+            ViewData["CategoryId"] = _category.CategoryToList();
+            ViewData["ManufacturersId"] = _manufacturers.ManufToList();
+            ViewData["MaterialsId"] = _materials.MaterialToList();
             return Page();
         }
 
@@ -75,15 +75,13 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 Products.ImagesName = Convert.ToString(_fileRepository.UploadFile(Photo, "Products")); //загрузка файл на сервер и запись имени файла
             }
 
-            _context.Attach(Products).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
-
             try
             {
-                await _context.SaveChangesAsync(); //отпраляем запрос к БД на изменение
+                Products = await _db.Update(Products); //отпраляем запрос к БД на изменение
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductsExists(Products.Id))
+                if (!_db.ProductsExists(Products.Id))
                 {
                     return NotFound();
                 }
@@ -92,15 +90,8 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                     throw;
                 }
             }
-
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно обновлена";
-
             return RedirectToPage("./Index");
-        }
-
-        private bool ProductsExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

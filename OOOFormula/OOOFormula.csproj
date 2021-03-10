@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Administration\test\" />
     <Folder Include="wwwroot\images\Gallery\" />
     <Folder Include="wwwroot\images\Materials\" />
     <Folder Include="wwwroot\images\OurServices\" />

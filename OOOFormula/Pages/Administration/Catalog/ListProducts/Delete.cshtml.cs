@@ -1,37 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductsRepository _db;
+        private readonly IFilesRepository _fileRepository;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(IProductsRepository db, IFilesRepository fileRepository)
         {
-            _context = context;
+            _db = db;
+            _fileRepository = fileRepository;
         }
 
         [BindProperty]
         public Products Products { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
+            Products = await _db.GetProduct(id); //получаем из БД запись
 
             if (Products == null)
             {
@@ -40,23 +31,11 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Products = await _context.Products.FindAsync(id); //ищем в БД запись
-
-            if (Products != null)
-            {
-                _context.Products.Remove(Products); //удаляем объект
-                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
-            }
-
+            Products = await _db.Delete(id); //удаление записи
+            if (Products.ImagesName != null) _fileRepository.DeleteFile(Products.ImagesName, "Products"); //удаление фото
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно удалена";
-
             return RedirectToPage("./Index");
         }
     }

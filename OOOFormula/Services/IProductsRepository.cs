@@ -11,12 +11,14 @@ namespace OOOFormula.Services
     {
         IQueryable<Products> GetAllProducts();
 
-        Products GetProduct(int id);
+        Task<Products> GetProduct(int id);
 
-        Products Update(Products updatedProduct);
+        Task<Products> Update(Products updatedProduct);
 
-        Products Add(Products NewProduct);
+        Task<Products> Add(Products NewProduct);
 
-        Products Delete(int id);
+        Task<Products> Delete(int id);
+
+        bool ProductsExists(int id);
     }
 }

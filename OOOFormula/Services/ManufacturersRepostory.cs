@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
 using OOOFormula.Models;
 using System.Linq;
@@ -55,6 +56,11 @@ namespace OOOFormula.Services
         public bool ManufacturersExists(int id)
         {
             return _context.Manufacturers.Any(e => e.Id == id);
+        }
+
+        public SelectList ManufToList()
+        {
+            return new SelectList(_context.Manufacturers, "Id", "Name");
         }
     }
 }

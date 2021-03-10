@@ -1,4 +1,5 @@
-﻿using OOOFormula.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using OOOFormula.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,8 @@ namespace OOOFormula.Services
         IQueryable<Materials> GetAllMater();
 
         Task<Materials> GetMaterial(int id);
+
+        SelectList MaterialToList();
 
         Task<Materials> Update(Materials updatedMater);
 
