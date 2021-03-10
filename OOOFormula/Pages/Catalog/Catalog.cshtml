@@ -2,6 +2,8 @@
 @model OOOFormula.Pages.Catalog.CatalogModel
 @{
     ViewData["Title"] = "Каталог товаров";
+    var prevDisabled = !Model.Products.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Products.HasNextPage ? "disabled" : "";
 }
 
 <div class="row mt-5">
@@ -110,6 +112,23 @@
                 </div>
             }
         </div>
+        <!--Переход по страницам-->
+        <a asp-route-sortPrice="@Model.PriceState"
+           asp-route-pageIndex="@(Model.Products.PageIndex-1)"
+           asp-route-MaterialId_select="@Model.MaterialIdState"
+           asp-route-PriceFrom="@Model.PriceFromState"
+           asp-route-PriceTo="@Model.PriceToState"
+           class="btn btn-primary @prevDisabled">
+            Назад
+        </a>
+        <a asp-route-sortPrice="@Model.PriceState"
+           asp-route-pageIndex="@(Model.Products.PageIndex-1)"
+           asp-route-MaterialId_select="@Model.MaterialIdState"
+           asp-route-PriceFrom="@Model.PriceFromState"
+           asp-route-PriceTo="@Model.PriceToState"
+           class="btn btn-primary @nextDisabled">
+            Вперед
+        </a>
     </div>
 </div>
 
@@ -120,14 +139,3 @@
         $("#mater").val("@Model.MaterialIdState").change()
     </script>
 }
-
-
-<!--Переход по страницам-->
-@*<div class="row justify-content-center">
-        @for (int i = 1; i <= 3; i++)
-        {
-            <div class="col-1 text-center">
-                <a class="nav-link nav-link-hover btn" asp-area="" asp-page="">@i</a>
-            </div>
-        }
-    </div>*@

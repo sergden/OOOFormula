@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,16 +16,20 @@ namespace OOOFormula.Pages
             _db = db;
         }
 
-        public IEnumerable<Gallery> Gallery { get; set; }
+        //public IEnumerable<Gallery> Gallery { get; set; }
+        public PaginatedList<Gallery> Gallery { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? pageIndex)
         {
             IQueryable<Gallery> GalleryIQ = _db.GetAllGallery().Where(g => g.Status == true);
-            Gallery = await GalleryIQ.ToListAsync();
-            if (!Gallery.Any())
+            //  Gallery = await GalleryIQ.ToListAsync();
+            if (!GalleryIQ.Any())
             {
                 TempData["Message"] = "Здесь пока ничего нет"; //сообщение пользователю
             }
+            int pageSize = 12; //количество элементов на странице
+            Gallery = await PaginatedList<Gallery>.CreateAsync(
+                GalleryIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
     }
 }

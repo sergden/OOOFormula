@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,10 +19,8 @@ namespace OOOFormula.Pages.Catalog
             _materials = materials;
         }
 
-        public IEnumerable<Products> Products { get; set; }
+        public PaginatedList<Products> Products { get; set; }
         public IQueryable<Products> ProductsIQ { get; set; }
-
-        public IEnumerable<Materials> Materials { get; set; }
 
         //For save state sorting
         [BindProperty]
@@ -31,8 +28,12 @@ namespace OOOFormula.Pages.Catalog
 
         [BindProperty(SupportsGet = true)]
         public int? MaterialIdState { get; set; }
+        public decimal PriceFromState { get; set; }
+        public decimal PriceToState { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortPrice, int? MaterialId_select)
+        public async Task<IActionResult> OnGetAsync(decimal PriceFrom,
+            decimal PriceTo, SortState? sortPrice,
+            int? MaterialId_select, int? pageIndex)
         {
             ProductsIQ = _db.GetAllProducts().Where(p => p.Status == true);
             ViewData["MaterialsId"] = _materials.MaterialToList(); //получаем материалы
@@ -40,6 +41,8 @@ namespace OOOFormula.Pages.Catalog
             //сохраняем состояние фильтрации
             if (sortPrice != null) PriceState = sortPrice;
             if (MaterialId_select != null) MaterialIdState = MaterialId_select;
+            PriceFromState = PriceFrom;
+            PriceToState = PriceTo;
 
             //обрабатываем по фильтрам
             FilterPrice(PriceFrom, PriceTo);
@@ -48,10 +51,12 @@ namespace OOOFormula.Pages.Catalog
                 TempData["Message"] = "Ничего не найдено";
                 return Page();
             }
-            //сортировка
-            Sorting();
+            Sorting(); //сортировка
 
-            Products = await ProductsIQ.ToListAsync();
+            //пагинация
+            int pageSize = 9;
+            Products = await PaginatedList<Products>.CreateAsync(
+                ProductsIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
             return Page();
         }
 
