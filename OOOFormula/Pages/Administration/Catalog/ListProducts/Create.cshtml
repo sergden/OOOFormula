@@ -57,18 +57,21 @@
                     <!--Добавляем начальный элемент выпадающего списка-->
                     <option value="">Выберите категорию</option>
                 </select>
+                <span asp-validation-for="Products.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Products.MaterialsId" class="control-label">Материал</label>
                 <select asp-for="Products.MaterialsId" class="form-control" asp-items="ViewBag.MaterialsId">
                     <option value="">Выберите материал</option>
                 </select>
+                <span asp-validation-for="Products.MaterialsId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Products.ManufacturersId" class="control-label">Производитель</label>
                 <select asp-for="Products.ManufacturersId" class="form-control" asp-items="ViewBag.ManufacturersId">
                     <option value="">Выберите производителя</option>
                 </select>
+                <span asp-validation-for="Products.ManufacturersId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <a class="btn btn-primary" asp-page="Index">Назад</a> |
