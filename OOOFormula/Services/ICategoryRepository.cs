@@ -1,8 +1,5 @@
 ﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
@@ -11,12 +8,14 @@ namespace OOOFormula.Services
     {
         IQueryable<Category> GetAllCategories();
 
-        Category GetCategory(int id);
+        Task<Category> GetCategory(int id);
 
-        Category Update(Category updatedCateg);
+        Task<Category> Update(Category updatedCateg);
 
-        Category Add(Category NewCateg);
+        Task<Category> Add(Category NewCateg);
 
-        Category Delete(int id);
+        Task<Category> Delete(int id);
+
+        bool CategoryExists(int id);
     }
 }

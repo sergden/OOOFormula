@@ -1,32 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListCategory
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _db;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(ICategoryRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         [BindProperty]
         public Category Category { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Category = await _context.Category.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
+            Category = await _db.GetCategory(id); //получаем из БД запись
 
             if (Category == null)
             {
@@ -35,23 +29,10 @@ namespace OOOFormula.Pages.Administration.ListCategory
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Category = await _context.Category.FindAsync(id); //ищем в БД запись
-
-            if (Category != null)
-            {
-                _context.Category.Remove(Category); //удаляем объект
-                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
-            }
-
+            Category = await _db.Delete(id); //удаляем запись
             TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно удалена";
-
             return RedirectToPage("./Index");
         }
     }

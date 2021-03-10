@@ -1,37 +1,60 @@
-﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using OOOFormula.Data;
+using OOOFormula.Models;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
     public class CategoryRepository : ICategoryRepository
     {
-        public Category Add(Category NewCateg)
+        private readonly ApplicationDbContext _context;
+
+        public CategoryRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Category Delete(int id)
+        public async Task<Category> Add(Category NewCateg)
         {
-            throw new NotImplementedException();
+            _context.Category.Add(NewCateg); //добавляем объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на сохранение
+            return NewCateg;
+        }
+
+        public async Task<Category> Delete(int id)
+        {
+            var CategoryToDelete = await _context.Category.FindAsync(id); //ищем в БД запись
+
+            if (CategoryToDelete != null)
+            {
+                _context.Category.Remove(CategoryToDelete); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
+            }
+            return CategoryToDelete;
         }
 
         public IQueryable<Category> GetAllCategories()
         {
-            throw new NotImplementedException();
+            return _context.Category.AsNoTracking().AsQueryable();
         }
 
-        public Category GetCategory(int id)
+        public async Task<Category> GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Category.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
         }
 
-        public Category Update(Category updatedCateg)
+        public async Task<Category> Update(Category UpdatedCateg)
         {
-            throw new NotImplementedException();
+            _context.Attach(UpdatedCateg).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на изменение
+            return UpdatedCateg;
+
+        }
+
+        public bool CategoryExists(int id)
+        {
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }

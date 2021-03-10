@@ -63,6 +63,5 @@ namespace OOOFormula.Services
         {
             return "d";
         }
-
     }
 }

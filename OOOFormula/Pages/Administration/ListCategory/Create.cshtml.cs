@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListCategory
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICategoryRepository _db;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(ICategoryRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         public IActionResult OnGet()
@@ -30,11 +30,8 @@ namespace OOOFormula.Pages.Administration.ListCategory
                 return Page();
             }
 
-            _context.Category.Add(Category); //добавляем объект
-            await _context.SaveChangesAsync(); //отправляем запрос к БД на сохранение
-
+            Category = await _db.Add(Category);
             TempData["SuccessMessage"] = $"Запись \"{Category.Name}\" успешно создана";
-
             return RedirectToPage("./Index");
         }
     }
