@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
@@ -11,13 +10,13 @@ namespace OOOFormula.Pages.Administration.ListGallery
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IFilesRepository _fileRepository;
+        private readonly IFilesRepository _filesRepository;
+        private readonly IGalleryRepository _db;
 
-        public CreateModel(ApplicationDbContext context, IFilesRepository fileRepository)
+        public CreateModel(IFilesRepository filesRepository, IGalleryRepository db)
         {
-            _context = context;
-            _fileRepository = fileRepository;
+            _filesRepository = filesRepository;
+            _db = db;
         }
 
         public IActionResult OnGet()
@@ -41,20 +40,16 @@ namespace OOOFormula.Pages.Administration.ListGallery
             //загрузка нового фото на сервер
             if (Photo != null)
             {
-                if (!_fileRepository.CheckMIMEType(Photo)) //проверка типа файла
+                if (!_filesRepository.CheckMIMEType(Photo)) //проверка типа файла
                 {
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
 
-                Gallery.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Gallery")); //загрузка файл на сервер и запись имени файла
+                Gallery.ImagePath = Convert.ToString(_filesRepository.UploadFile(Photo, "Gallery")); //загрузка файл на сервер и запись имени файла
             }
 
-            Gallery.DateAdd = DateTime.Today;
-
-            _context.Gallery.Add(Gallery); //добавляем объект
-            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
-
+            Gallery = await _db.Add(Gallery);
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно создана";
 
             return RedirectToPage("./Index");

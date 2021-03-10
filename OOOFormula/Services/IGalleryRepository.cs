@@ -1,8 +1,5 @@
 ﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
@@ -11,12 +8,14 @@ namespace OOOFormula.Services
     {
         IQueryable<Gallery> GetAllGallery();
 
-        Gallery GetGallery(int id);
+        Task<Gallery> GetGallery(int id);
 
-        Gallery Update(Gallery UpdatedGallery);
+        Task<Gallery> Update(Gallery UpdatedGallery);
 
-        Gallery Add(Gallery Newallery);
+        Task<Gallery> Add(Gallery NewGallery);
 
-        Gallery Delete(int id);
+        Task<Gallery> Delete(int id);
+
+        public bool GalleryExists(int id);
     }
 }

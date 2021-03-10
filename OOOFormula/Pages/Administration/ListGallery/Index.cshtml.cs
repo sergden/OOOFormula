@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,11 +9,11 @@ namespace OOOFormula.Pages.Administration.ListGallery
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IGalleryRepository _db;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(IGalleryRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         public PaginatedList<Gallery> Gallery { get; set; }
@@ -24,8 +24,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
         {
             CurrentSort = sortOrder; //сохранение состояния сортировки
 
-            IQueryable<Gallery> GalleryIQ = from s in _context.Gallery
-                                            select s; //получаем записи из БД
+            IQueryable<Gallery> GalleryIQ = _db.GetAllGallery(); //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["DescripSort"] = sortOrder == SortState.DescriptionAsc ? SortState.DescriptionDesc : SortState.DescriptionAsc;
