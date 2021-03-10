@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,14 +11,17 @@ namespace OOOFormula.Pages.Catalog
 {
     public class CatalogModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductsRepository _db;
+        private readonly IMaterialsRepository _materials;
 
-        public CatalogModel(ApplicationDbContext context)
+        public CatalogModel(IProductsRepository db, IMaterialsRepository materials)
         {
-            _context = context;
+            _db = db;
+            _materials = materials;
         }
 
         public IEnumerable<Products> Products { get; set; }
+        public IQueryable<Products> ProductsIQ { get; set; }
 
         public IEnumerable<Materials> Materials { get; set; }
 
@@ -32,8 +34,8 @@ namespace OOOFormula.Pages.Catalog
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom, decimal PriceTo, SortState? sortPrice, int? MaterialId_select)
         {
-            Products = await _context.Products.Where(p => p.Status == true).AsNoTracking().ToListAsync(); //извлекаем из БД все записи
-            ViewData["MaterialsId"] = new SelectList(_context.Materials, "Id", "Name"); //получаем материалы
+            ProductsIQ = _db.GetAllProducts().Where(p => p.Status == true);
+            ViewData["MaterialsId"] = _materials.MaterialToList(); //получаем материалы
 
             //сохраняем состояние фильтрации
             if (sortPrice != null) PriceState = sortPrice;
@@ -41,16 +43,15 @@ namespace OOOFormula.Pages.Catalog
 
             //обрабатываем по фильтрам
             FilterPrice(PriceFrom, PriceTo);
-
-            if (!Products.Any()) //проверяем, есть ли что-то
+            if (!ProductsIQ.Any()) //проверяем, есть ли что-то
             {
                 TempData["Message"] = "Ничего не найдено";
                 return Page();
             }
-
             //сортировка
             Sorting();
 
+            Products = await ProductsIQ.ToListAsync();
             return Page();
         }
 
@@ -58,26 +59,26 @@ namespace OOOFormula.Pages.Catalog
         {
             if (PriceFrom >= 0 && PriceTo > 0)
             {
-                Products = Products.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo);
+                ProductsIQ = ProductsIQ.Where(x => x.Price >= PriceFrom && x.Price <= PriceTo);
             }
             else if (PriceFrom > 0 && PriceTo == 0)
             {
-                Products = Products.Where(x => x.Price >= PriceFrom);
+                ProductsIQ = ProductsIQ.Where(x => x.Price >= PriceFrom);
             }
 
             if (MaterialIdState != null)
             {
-                Products = Products.Where(x => x.MaterialsId == MaterialIdState);
+                ProductsIQ = ProductsIQ.Where(x => x.MaterialsId == MaterialIdState);
             }
         }
 
         private void Sorting()
         {
-            Products = PriceState switch
+            ProductsIQ = PriceState switch
             {
-                SortState.PriceAsc => Products.OrderBy(p => p.Price),
-                SortState.PriceDesc => Products.OrderByDescending(p => p.Price),
-                _ => Products.OrderBy(p => p.Id),
+                SortState.PriceAsc => ProductsIQ.OrderBy(p => p.Price),
+                SortState.PriceDesc => ProductsIQ.OrderByDescending(p => p.Price),
+                _ => ProductsIQ.OrderBy(p => p.Id),
             };
         }
     }

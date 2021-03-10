@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,25 +10,23 @@ namespace OOOFormula.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IGalleryRepository _db;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(IGalleryRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         public IEnumerable<Gallery> Gallery { get; set; }
 
         public async Task OnGetAsync()
         {
-            if (_context.Gallery.Count() > 4) //выбираем последние 4 записи из таблицы
+            IQueryable<Gallery> GalleryIQ = _db.GetAllGallery();
+            if (GalleryIQ.Count() > 4)
             {
-                Gallery = await _context.Gallery.Skip(_context.Gallery.Count() - 4).AsNoTracking().ToListAsync();
+                GalleryIQ = GalleryIQ.Skip(Gallery.Count() - 4);
             }
-            else
-            {
-                Gallery = await _context.Gallery.AsNoTracking().ToListAsync();
-            }
+            Gallery = await GalleryIQ.ToListAsync();
         }
     }
 }
