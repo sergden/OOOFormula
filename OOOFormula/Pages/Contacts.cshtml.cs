@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System;
 using System.Threading.Tasks;
 
@@ -10,10 +11,12 @@ namespace OOOFormula.Pages
     public class ContactsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IRequestsRepository _db;
 
-        public ContactsModel(ApplicationDbContext context)
+        public ContactsModel(ApplicationDbContext context, IRequestsRepository db)
         {
             _context = context;
+            _db = db;
         }
 
         [BindProperty]
@@ -31,11 +34,7 @@ namespace OOOFormula.Pages
                 return Page();
             }
 
-            Requests.Status = false;
-            Requests.Date = DateTime.Today;
-
-            _context.Requests.Add(Requests); //добавляем объект
-            await _context.SaveChangesAsync(); //отправляем запрос к БД
+            Requests = await _db.Add(Requests);
 
             TempData["SuccessMessage"] = "Сообщение отправлено";
 

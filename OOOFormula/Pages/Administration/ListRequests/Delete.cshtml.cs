@@ -1,32 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListRequests
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IRequestsRepository _db;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(IRequestsRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         [BindProperty]
         public Requests Requests { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Requests = await _context.Requests.FirstOrDefaultAsync(m => m.Id == id); //получаем запись из БД
+            Requests = await _db.GetRequest(id); //получаем запись из БД
 
             if (Requests == null)
             {
@@ -35,20 +29,16 @@ namespace OOOFormula.Pages.Administration.ListRequests
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
+            Requests DeletedRequest = await _db.Delete(id);
+
+            if (DeletedRequest == null)
             {
                 return NotFound();
             }
 
-            Requests = await _context.Requests.FindAsync(id); //ищем запись в БД
-
-            if (Requests != null)
-            {
-                _context.Requests.Remove(Requests); //удаляем объект
-                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
-            }
+            TempData["SuccessMessage"] = "Запись удалена";
 
             return RedirectToPage("./Index");
         }

@@ -1,5 +1,6 @@
 ﻿using OOOFormula.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
@@ -7,10 +8,12 @@ namespace OOOFormula.Services
     {
         IQueryable<Requests> GetAllRequests();
 
-        Requests GetRequest(int id);
+        Task<Requests> GetRequest(int id);
 
-        Requests Add(Requests NewRequest);
+        Task UpdateStatus(Requests UpdatedRequest);
 
-        Requests Delete(int id);
+        Task<Requests> Add(Requests NewRequest);
+
+        Task<Requests> Delete(int id);
     }
 }

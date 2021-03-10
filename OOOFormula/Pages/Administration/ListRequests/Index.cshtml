@@ -13,6 +13,13 @@
     </div>
 </div>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="col-12 alert alert-danger text-center">
+        @TempData["SuccessMessage"];
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>

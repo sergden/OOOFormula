@@ -1,10 +1,10 @@
-﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using OOOFormula.Data;
-using System.Text;
+using OOOFormula.Models;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace OOOFormula.Services
 {
@@ -17,14 +17,27 @@ namespace OOOFormula.Services
             _context = context;
         }
 
-        public Requests Add(Requests NewRequest)
+        public async Task<Requests> Add(Requests NewRequest)
         {
-            throw new NotImplementedException();
+            NewRequest.Status = false;
+            NewRequest.Date = DateTime.Today;
+
+            _context.Requests.Add(NewRequest); //добавляем объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД
+
+            return NewRequest;
         }
 
-        public Requests Delete(int id)
+        public async Task<Requests> Delete(int id)
         {
-            throw new NotImplementedException();
+            var RequestToDelete = await _context.Requests.FindAsync(id); //ищем запись в БД
+
+            if (RequestToDelete != null)
+            {
+                _context.Requests.Remove(RequestToDelete); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
+            }
+            return RequestToDelete;
         }
 
         public IQueryable<Requests> GetAllRequests()
@@ -32,9 +45,19 @@ namespace OOOFormula.Services
             return _context.Requests.AsQueryable();
         }
 
-        public Requests GetRequest(int id)
+        public async Task<Requests> GetRequest(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Requests.FirstOrDefaultAsync(r => r.Id == id);
+        }
+
+        public async Task UpdateStatus(Requests UpdatedRequest)
+        {
+            if (UpdatedRequest.Status == false)
+            {
+                UpdatedRequest.Status = true;
+                _context.Attach(UpdatedRequest).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на изменение
+            }
         }
     }
 }
