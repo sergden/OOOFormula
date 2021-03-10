@@ -1,31 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 {
     public class DetailsModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMaterialsRepository _db;
 
-        public DetailsModel(ApplicationDbContext context)
+        public DetailsModel(IMaterialsRepository db)
         {
-            _context = context;
+            _db = db;
         }
 
         public Materials Materials { get; private set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Materials = await _context.Materials.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
+            Materials = await _db.GetMaterial(id); //получаем из БД запись
 
             if (Materials == null)
             {

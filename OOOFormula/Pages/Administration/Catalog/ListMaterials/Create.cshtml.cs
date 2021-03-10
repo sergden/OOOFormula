@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
@@ -11,13 +10,13 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IFilesRepository _fileRepository;
+        private readonly IFilesRepository _filesRepository;
+        private readonly IMaterialsRepository _db;
 
-        public CreateModel(ApplicationDbContext context, IFilesRepository fileRepository)
+        public CreateModel(IFilesRepository filesRepository, IMaterialsRepository db)
         {
-            _context = context;
-            _fileRepository = fileRepository;
+            _filesRepository = filesRepository;
+            _db = db;
         }
 
         public IActionResult OnGet()
@@ -47,17 +46,16 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             //загрузка нового фото на сервер
             if (Photo != null)
             {
-                if (!_fileRepository.CheckMIMEType(Photo)) //проверка типа файла
+                if (!_filesRepository.CheckMIMEType(Photo)) //проверка типа файла
                 {
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
 
-                Materials.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Materials")); //загрузка файл на сервер и запись имени файла
+                Materials.ImagePath = Convert.ToString(_filesRepository.UploadFile(Photo, "Materials")); //загрузка файл на сервер и запись имени файла
             }
 
-            _context.Materials.Add(Materials); //добавляем объект
-            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
+            Materials = await _db.Add(Materials);
 
             TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно создана"; //сообщение пользователю
 

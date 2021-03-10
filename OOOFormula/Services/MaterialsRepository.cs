@@ -1,37 +1,60 @@
-﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using OOOFormula.Data;
+using OOOFormula.Models;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
     public class MaterialsRepository : IMaterialsRepository
     {
-        public Materials Add(Materials NewMater)
+        private readonly ApplicationDbContext _context;
+
+        public MaterialsRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Materials Delete(int id)
+        public async Task<Materials> Add(Materials NewMater)
         {
-            throw new NotImplementedException();
+            _context.Materials.Add(NewMater); //добавляем объект
+            await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
+            return NewMater;
+        }
+
+        public async Task<Materials> Delete(int id)
+        {
+            var MaterialToDelete = await _context.Materials.FindAsync(id); //ищем в БД нужную запись
+
+            if (MaterialToDelete != null)
+            {
+                _context.Materials.Remove(MaterialToDelete); //удаляем объект
+                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
+            }
+            return MaterialToDelete;
         }
 
         public IQueryable<Materials> GetAllMater()
         {
-            throw new NotImplementedException();
+            return _context.Materials.AsNoTracking().AsQueryable();
         }
 
-        public Materials GetMaterial(int id)
+        public async Task<Materials> GetMaterial(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Materials.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public Materials Update(Materials updatedMater)
+        public async Task<Materials> Update(Materials UpdatedMater)
         {
-            throw new NotImplementedException();
+            _context.Attach(UpdatedMater).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
+            await _context.SaveChangesAsync(); //запрос к БД на изменение записи
+            return UpdatedMater;
+
+        }
+
+        public bool MaterialsExists(int id)
+        {
+            return _context.Materials.Any(e => e.Id == id);
         }
     }
 }

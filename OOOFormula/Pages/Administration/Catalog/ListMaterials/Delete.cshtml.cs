@@ -1,32 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
+using OOOFormula.Services;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMaterialsRepository _db;
+        private readonly IFilesRepository _fileRepository;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(IMaterialsRepository db, IFilesRepository fileRepository)
         {
-            _context = context;
+            _db = db;
+            _fileRepository = fileRepository;
         }
 
         [BindProperty]
         public Materials Materials { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Materials = await _context.Materials.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
+            Materials = await _db.GetMaterial(id); //получаем из БД запись
 
             if (Materials == null)
             {
@@ -35,23 +31,11 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Materials = await _context.Materials.FindAsync(id); //ищем в БД нужную запись
-
-            if (Materials != null)
-            {
-                _context.Materials.Remove(Materials); //удаляем объект
-                await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
-            }
-
+            Materials = await _db.Delete(id); //удаление записи
+            if (Materials.ImagePath != null) _fileRepository.DeleteFile(Materials.ImagePath, "Materials"); //удаление фото
             TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно удалена"; //сообщение пользователю
-
             return RedirectToPage("./Index");
         }
     }

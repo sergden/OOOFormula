@@ -2,24 +2,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
 using OOOFormula.Services;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 {
     public class EditModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
         private readonly IFilesRepository _fileRepository;
+        private readonly IMaterialsRepository _db;
 
-        public EditModel(ApplicationDbContext context, IFilesRepository fileRepository)
+        public EditModel(IFilesRepository fileRepository, IMaterialsRepository db)
         {
-            _context = context;
             _fileRepository = fileRepository;
+            _db = db;
         }
 
         [BindProperty]
@@ -28,14 +26,9 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
         [BindProperty]
         public IFormFile Photo { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Materials = await _context.Materials.FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
+            Materials = await _db.GetMaterial(id); //получаем из БД запись
 
             if (Materials == null)
             {
@@ -68,15 +61,13 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 Materials.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Materials")); //загрузка файл на сервер и запись имени файла
             }
 
-            _context.Attach(Materials).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
-
             try
             {
-                await _context.SaveChangesAsync(); //запрос к БД на изменение записи
+                await _db.Update(Materials); //запрос к БД на изменение записи
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MaterialsExists(Materials.Id))
+                if (!_db.MaterialsExists(Materials.Id))
                 {
                     return NotFound();
                 }
@@ -87,13 +78,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
             }
 
             TempData["SuccessMessage"] = $"Запись \"{Materials.Name}\" успешно обновлена";
-
             return RedirectToPage("./Index");
-        }
-
-        private bool MaterialsExists(int id)
-        {
-            return _context.Materials.Any(e => e.Id == id);
         }
     }
 }

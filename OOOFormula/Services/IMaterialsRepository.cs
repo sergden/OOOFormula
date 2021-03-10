@@ -1,8 +1,5 @@
 ﻿using OOOFormula.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Services
@@ -11,12 +8,14 @@ namespace OOOFormula.Services
     {
         IQueryable<Materials> GetAllMater();
 
-        Materials GetMaterial(int id);
+        Task<Materials> GetMaterial(int id);
 
-        Materials Update(Materials updatedMater);
+        Task<Materials> Update(Materials updatedMater);
 
-        Materials Add(Materials NewMater);
+        Task<Materials> Add(Materials NewMater);
 
-        Materials Delete(int id);
+        Task<Materials> Delete(int id);
+
+        public bool MaterialsExists(int id);
     }
 }
