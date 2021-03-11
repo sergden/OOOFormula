@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OOOFormula.Models
 {
@@ -9,5 +10,8 @@ namespace OOOFormula.Models
         [Required(ErrorMessage = "Поле 'Имя' не может быть пустым")]
         [Display(Name = "Название")]
         public string Name { get; set; }
+
+
+        public List<Products> Products { get; set; }
     }
 }

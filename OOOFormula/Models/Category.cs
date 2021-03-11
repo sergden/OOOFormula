@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OOOFormula.Models
 {
@@ -10,5 +11,7 @@ namespace OOOFormula.Models
         [Display(Name = "Название")]
         public string Name { get; set; }
 
+
+        public List<Products> Products{ get; set; }
     }
 }
