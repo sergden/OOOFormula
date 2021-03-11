@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Administration\test\**" />
+    <Compile Remove="wwwroot\images\OurServices\**" />
     <Compile Remove="wwwroot\images\Products\**" />
     <Content Remove="Pages\Administration\test\**" />
+    <Content Remove="wwwroot\images\OurServices\**" />
     <Content Remove="wwwroot\images\Products\**" />
     <EmbeddedResource Remove="Pages\Administration\test\**" />
+    <EmbeddedResource Remove="wwwroot\images\OurServices\**" />
     <EmbeddedResource Remove="wwwroot\images\Products\**" />
     <None Remove="Pages\Administration\test\**" />
+    <None Remove="wwwroot\images\OurServices\**" />
     <None Remove="wwwroot\images\Products\**" />
   </ItemGroup>
 
@@ -33,9 +37,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\Gallery\" />
-    <Folder Include="wwwroot\images\Materials\" />
-    <Folder Include="wwwroot\images\OurServices\" />
-    <Folder Include="wwwroot\images\Products\" />
+    <Folder Include="wwwroot\images\Materials\Gallery\" />
+    <Folder Include="wwwroot\images\Products\Gallery\" />
   </ItemGroup>
 
   <ItemGroup>

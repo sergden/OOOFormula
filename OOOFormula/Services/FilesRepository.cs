@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace OOOFormula.Services
@@ -37,6 +38,11 @@ namespace OOOFormula.Services
             {
                 File.Delete(filePath);
             }
+        }
+
+        public void DeleteFile(List<string> Images, string Folder)
+        {
+            
         }
 
         public string UploadFile(IFormFile photo, string Folder)
