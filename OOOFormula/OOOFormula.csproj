@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Administration\test\**" />
     <Compile Remove="wwwroot\images\Products\**" />
+    <Content Remove="Pages\Administration\test\**" />
     <Content Remove="wwwroot\images\Products\**" />
+    <EmbeddedResource Remove="Pages\Administration\test\**" />
     <EmbeddedResource Remove="wwwroot\images\Products\**" />
+    <None Remove="Pages\Administration\test\**" />
     <None Remove="wwwroot\images\Products\**" />
   </ItemGroup>
 
@@ -28,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Administration\test\" />
     <Folder Include="wwwroot\images\Gallery\" />
     <Folder Include="wwwroot\images\Materials\" />
     <Folder Include="wwwroot\images\OurServices\" />

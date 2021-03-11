@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OOOFormula.Models
 {
@@ -41,5 +42,7 @@ namespace OOOFormula.Models
         public int ManufacturersId { get; set; }
         public Manufacturers Manufacturers { get; set; }
 
+
+        public List<ProductImages> Images{ get; set; }
     }
 }
