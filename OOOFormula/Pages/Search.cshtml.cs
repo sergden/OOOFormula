@@ -36,14 +36,12 @@ namespace OOOFormula.Pages
                .AsNoTracking()
                .ToListAsync();
 
-                if (Products.Count() == 0 && Gallery.Count() == 0) //сообщение пользователю, если списки пустые
+                if (!Products.Any() && !Gallery.Any()) //сообщение пользователю, если списки пустые
                 {
                     TempData["Message"] = $"Ничего не найдено";
                 }
-
                 return Page();
             }
-
             return NotFound();
         }
     }

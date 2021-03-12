@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
@@ -57,7 +56,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
                 {
                     _fileRepository.DeleteFile(Materials.ImagePath, "Materials"); //удаляем старый файл
                 }
-                Materials.ImagePath = Convert.ToString(_fileRepository.UploadFile(Photo, "Materials")); //загрузка файл на сервер и запись имени файла
+                Materials.ImagePath = await _fileRepository.UploadFile(Photo, "Materials"); //загрузка файл на сервер и запись имени файла
             }
 
             try

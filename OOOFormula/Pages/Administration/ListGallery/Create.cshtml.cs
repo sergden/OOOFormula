@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.ListGallery
@@ -45,7 +44,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
-                Gallery.ImagePath = Convert.ToString(_filesRepository.UploadFile(Photo, "Gallery")); //загрузка файл на сервер и запись имени файла
+                Gallery.ImagePath = await _filesRepository.UploadFile(Photo, "Gallery"); //загрузка файл на сервер и запись имени файла
             }
             Gallery = await _db.Add(Gallery);
             TempData["SuccessMessage"] = $"Запись \"{Gallery.Name}\" успешно создана";

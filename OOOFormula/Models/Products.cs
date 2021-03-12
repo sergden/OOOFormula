@@ -43,6 +43,6 @@ namespace OOOFormula.Models
         public Manufacturers Manufacturers { get; set; }
 
 
-        public List<ProductImages> Images{ get; set; }
+        public List<ProductImages> Images { get; set; }
     }
 }

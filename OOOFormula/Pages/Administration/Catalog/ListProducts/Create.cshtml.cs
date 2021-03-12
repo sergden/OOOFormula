@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages.Administration.Catalog.ListProducts
@@ -59,7 +58,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
-                Products.ImagesName = Convert.ToString(_fileRepository.UploadFile(Photo, "Products")); //загрузка файл на сервер и запись имени файла
+                Products.ImagesName = await _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
             }
             Products = await _db.Add(Products); //создаем запись
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно создана";
