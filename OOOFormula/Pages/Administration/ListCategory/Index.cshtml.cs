@@ -27,23 +27,11 @@ namespace OOOFormula.Pages.Administration.ListCategory
             IQueryable<Category> CategoryIQ = _db.GetAllCategories(); //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
-
-            CategoryIQ = Sorting(sortOrder, CategoryIQ); //сортировка
+            CategoryIQ = _db.Sorting(CategoryIQ, sortOrder); //сортировка
 
             int pageSize = 2; //количество элементов на странице
             Category = await PaginatedList<Category>.CreateAsync(
                 CategoryIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
-        }
-
-        private static IQueryable<Category> Sorting(SortState? sortOrder, IQueryable<Category> CategoryIQ)
-        {
-            CategoryIQ = sortOrder switch
-            {
-                SortState.NameAsc => CategoryIQ.OrderBy(p => p.Name),
-                SortState.NameDesc => CategoryIQ.OrderByDescending(p => p.Name),
-                _ => CategoryIQ.OrderBy(p => p.Id),
-            };
-            return CategoryIQ;
         }
     }
 }

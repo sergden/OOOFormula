@@ -35,36 +35,11 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             ViewData["MaterialSort"] = sortOrder == SortState.MaterialAsc ? SortState.MaterialDesc : SortState.MaterialAsc;
             ViewData["ManufacturerSort"] = sortOrder == SortState.ManufacturerAsc ? SortState.ManufacturerDesc : SortState.ManufacturerAsc;
 
-            ProductsIQ = Sorting(sortOrder, ProductsIQ); //сортировка
+            ProductsIQ = _db.Sorting(ProductsIQ, sortOrder); //сортировка
 
             int pageSize = 2; //количество элементов на странице
             Products = await PaginatedList<Products>.CreateAsync(
                 ProductsIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
-        }
-
-        private static IQueryable<Products> Sorting(SortState? sortOrder, IQueryable<Products> ProductsIQ)
-        {
-            ProductsIQ = sortOrder switch
-            {
-                SortState.NameAsc => ProductsIQ.OrderBy(p => p.Name),
-                SortState.NameDesc => ProductsIQ.OrderByDescending(p => p.Name),
-                SortState.PriceAsc => ProductsIQ.OrderBy(p => p.Price),
-                SortState.PriceDesc => ProductsIQ.OrderByDescending(p => p.Price),
-                SortState.DescriptionAsc => ProductsIQ.OrderBy(p => p.Description),
-                SortState.DescriptionDesc => ProductsIQ.OrderByDescending(p => p.Description),
-                SortState.ImageAsc => ProductsIQ.OrderBy(p => p.ImagesName),
-                SortState.ImageDesc => ProductsIQ.OrderByDescending(p => p.ImagesName),
-                SortState.StatusAsc => ProductsIQ.OrderBy(p => p.Status),
-                SortState.StatusDesc => ProductsIQ.OrderByDescending(p => p.Status),
-                SortState.CategoryAsc => ProductsIQ.OrderBy(p => p.Category.Name),
-                SortState.CategoryDesc => ProductsIQ.OrderByDescending(p => p.Category.Name),
-                SortState.MaterialAsc => ProductsIQ.OrderBy(p => p.Materials.Name),
-                SortState.MaterialDesc => ProductsIQ.OrderByDescending(p => p.Materials.Name),
-                SortState.ManufacturerAsc => ProductsIQ.OrderBy(p => p.Manufacturers.Name),
-                SortState.ManufacturerDesc => ProductsIQ.OrderByDescending(p => p.Manufacturers.Name),
-                _ => ProductsIQ.OrderBy(p => p.Id),
-            };
-            return ProductsIQ;
         }
     }
 }

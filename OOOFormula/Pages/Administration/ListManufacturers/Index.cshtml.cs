@@ -26,23 +26,11 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             IQueryable<Manufacturers> ManufacturersIQ = _db.GetAllManuf(); //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
-
-            ManufacturersIQ = Sorting(sortOrder, ManufacturersIQ); //сортировка
+            ManufacturersIQ = _db.Sortig(ManufacturersIQ, sortOrder); //сортировка
 
             int pageSize = 2; //количество элементов на странице
             Manufacturers = await PaginatedList<Manufacturers>.CreateAsync(
                 ManufacturersIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
-        }
-
-        private static IQueryable<Manufacturers> Sorting(SortState? sortOrder, IQueryable<Manufacturers> ManufacturersIQ)
-        {
-            ManufacturersIQ = sortOrder switch
-            {
-                SortState.NameAsc => ManufacturersIQ.OrderBy(p => p.Name),
-                SortState.NameDesc => ManufacturersIQ.OrderByDescending(p => p.Name),
-                _ => ManufacturersIQ.OrderBy(p => p.Id),
-            };
-            return ManufacturersIQ;
         }
     }
 }

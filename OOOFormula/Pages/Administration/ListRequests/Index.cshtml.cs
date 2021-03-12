@@ -31,30 +31,11 @@ namespace OOOFormula.Pages.Administration.ListRequests
             ViewData["MessageSort"] = sortOrder == SortState.MessageAsc ? SortState.MessageDesc : SortState.MessageAsc;
             ViewData["DateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
 
-            RequestsIQ = Sorting(sortOrder, RequestsIQ); //сортировка
+            RequestsIQ = _db.Sorting(RequestsIQ, sortOrder); //сортировка
 
             int pageSize = 2; //количество элементов на странице
             Requests = await PaginatedList<Requests>.CreateAsync(
                 RequestsIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
-        }
-
-        private static IQueryable<Requests> Sorting(SortState? sortOrder, IQueryable<Requests> RequestsIQ)
-        {
-            RequestsIQ = sortOrder switch
-            {
-                SortState.NameAsc => RequestsIQ.OrderBy(r => r.Name),
-                SortState.NameDesc => RequestsIQ.OrderByDescending(r => r.Name),
-                SortState.DateAsc => RequestsIQ.OrderBy(r => r.Date),
-                SortState.DateDesc => RequestsIQ.OrderByDescending(r => r.Date),
-                SortState.PhoneAsc => RequestsIQ.OrderBy(r => r.Phone),
-                SortState.PhoneDesc => RequestsIQ.OrderByDescending(r => r.Phone),
-                SortState.EmailAsc => RequestsIQ.OrderBy(r => r.Email),
-                SortState.EmailDesc => RequestsIQ.OrderByDescending(r => r.Email),
-                SortState.MessageAsc => RequestsIQ.OrderBy(r => r.Message),
-                SortState.MessageDesc => RequestsIQ.OrderByDescending(r => r.Message),
-                _ => RequestsIQ.OrderBy(r => r.Id),
-            };
-            return RequestsIQ;
         }
     }
 }

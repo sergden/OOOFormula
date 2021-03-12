@@ -52,6 +52,17 @@ namespace OOOFormula.Services
 
         }
 
+        public IQueryable<Category> Sorting(IQueryable<Category> items, SortState? sortState)
+        {
+            items = sortState switch
+            {
+                SortState.NameAsc => items.OrderBy(p => p.Name),
+                SortState.NameDesc => items.OrderByDescending(p => p.Name),
+                _ => items.OrderBy(p => p.Id),
+            };
+            return items;
+        }
+
         public bool CategoryExists(int id)
         {
             return _context.Category.Any(e => e.Id == id);

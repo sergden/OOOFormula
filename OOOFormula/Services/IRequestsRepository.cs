@@ -15,5 +15,7 @@ namespace OOOFormula.Services
         Task<Requests> Add(Requests NewRequest);
 
         Task<Requests> Delete(int id);
+
+        IQueryable<Requests> Sorting(IQueryable<Requests> items, SortState? sortState);
     }
 }

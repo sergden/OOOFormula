@@ -32,14 +32,14 @@ namespace OOOFormula.Pages.Catalog
         public decimal PriceToState { get; set; }
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom,
-            decimal PriceTo, SortState? sortPrice,
+            decimal PriceTo, SortState? sortState,
             int? MaterialId_select, int? pageIndex)
         {
             ProductsIQ = _db.GetAllProducts().Where(p => p.Status == true);
             ViewData["MaterialsId"] = _materials.MaterialToList(); //получаем материалы
 
             //сохраняем состояние фильтрации
-            if (sortPrice != null) PriceState = sortPrice;
+            if (sortState != null) PriceState = sortState;
             if (MaterialId_select != null) MaterialIdState = MaterialId_select;
             PriceFromState = PriceFrom;
             PriceToState = PriceTo;
@@ -51,7 +51,7 @@ namespace OOOFormula.Pages.Catalog
                 TempData["Message"] = "Ничего не найдено";
                 return Page();
             }
-            Sorting(); //сортировка
+            ProductsIQ = _db.Sorting(ProductsIQ, sortState); //сортировка
 
             //пагинация
             int pageSize = 9;
@@ -75,16 +75,6 @@ namespace OOOFormula.Pages.Catalog
             {
                 ProductsIQ = ProductsIQ.Where(x => x.MaterialsId == MaterialIdState);
             }
-        }
-
-        private void Sorting()
-        {
-            ProductsIQ = PriceState switch
-            {
-                SortState.PriceAsc => ProductsIQ.OrderBy(p => p.Price),
-                SortState.PriceDesc => ProductsIQ.OrderByDescending(p => p.Price),
-                _ => ProductsIQ.OrderBy(p => p.Id),
-            };
         }
     }
 }

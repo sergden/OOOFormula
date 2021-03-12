@@ -62,5 +62,16 @@ namespace OOOFormula.Services
         {
             return new SelectList(_context.Manufacturers, "Id", "Name");
         }
+
+        public IQueryable<Manufacturers> Sortig(IQueryable<Manufacturers> items, SortState? sortState)
+        {
+            items = sortState switch
+            {
+                SortState.NameAsc => items.OrderBy(p => p.Name),
+                SortState.NameDesc => items.OrderByDescending(p => p.Name),
+                _ => items.OrderBy(p => p.Id),
+            };
+            return items;
+        }
     }
 }

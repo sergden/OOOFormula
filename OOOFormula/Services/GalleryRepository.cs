@@ -55,6 +55,25 @@ namespace OOOFormula.Services
             return UpdatedGallery;
         }
 
+        public IQueryable<Gallery> Sorting(IQueryable<Gallery> items, SortState? sortState)
+        {
+            items = sortState switch
+            {
+                SortState.NameAsc => items.OrderBy(p => p.Name),
+                SortState.NameDesc => items.OrderByDescending(p => p.Name),
+                SortState.DescriptionAsc => items.OrderBy(p => p.Description),
+                SortState.DescriptionDesc => items.OrderByDescending(p => p.Description),
+                SortState.ImageAsc => items.OrderBy(p => p.ImagePath),
+                SortState.ImageDesc => items.OrderByDescending(p => p.ImagePath),
+                SortState.StatusAsc => items.OrderBy(p => p.Status),
+                SortState.StatusDesc => items.OrderByDescending(p => p.Status),
+                SortState.DateAsc => items.OrderBy(p => p.DateAdd),
+                SortState.DateDesc => items.OrderByDescending(p => p.DateAdd),
+                _ => items.OrderBy(p => p.Id),
+            };
+            return items;
+        }
+
         public bool GalleryExists(int id)
         {
             return _context.Gallery.Any(e => e.Id == id);

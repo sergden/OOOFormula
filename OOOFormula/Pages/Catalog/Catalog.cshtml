@@ -31,22 +31,22 @@
                         <div class="col col-sm-7 pl-3 pr-0">
                             @if (Model.PriceState == SortState.PriceAsc)
                             {
-                                <input type="radio" name="sortPrice" value="@SortState.PriceAsc" checked />
+                                <input type="radio" name="sortState" value="@SortState.PriceAsc" checked />
                             }
                             else
                             {
-                                <input type="radio" name="sortPrice" value="@SortState.PriceAsc" />
+                                <input type="radio" name="sortState" value="@SortState.PriceAsc" />
                             }
                             <label>По возрастанию</label>
                         </div>
                         <div class="col col-sm-7 pl-3 pr-0">
                             @if (Model.PriceState == SortState.PriceDesc)
                             {
-                                <input type="radio" name="sortPrice" value="@SortState.PriceDesc" checked />
+                                <input type="radio" name="sortState" value="@SortState.PriceDesc" checked />
                             }
                             else
                             {
-                                <input type="radio" name="sortPrice" value="@SortState.PriceDesc" />
+                                <input type="radio" name="sortState" value="@SortState.PriceDesc" />
                             }
                             <label>По убыванию</label>
                         </div>
@@ -113,7 +113,7 @@
             }
         </div>
         <!--Переход по страницам-->
-        <a asp-route-sortPrice="@Model.PriceState"
+        <a asp-route-sortState="@Model.PriceState"
            asp-route-pageIndex="@(Model.Products.PageIndex-1)"
            asp-route-MaterialId_select="@Model.MaterialIdState"
            asp-route-PriceFrom="@Model.PriceFromState"
@@ -121,7 +121,7 @@
            class="btn btn-primary @prevDisabled">
             Назад
         </a>
-        <a asp-route-sortPrice="@Model.PriceState"
+        <a asp-route-sortState="@Model.PriceState"
            asp-route-pageIndex="@(Model.Products.PageIndex-1)"
            asp-route-MaterialId_select="@Model.MaterialIdState"
            asp-route-PriceFrom="@Model.PriceFromState"

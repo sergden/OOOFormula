@@ -32,30 +32,11 @@ namespace OOOFormula.Pages.Administration.ListGallery
             ViewData["StatusSort"] = sortOrder == SortState.StatusAsc ? SortState.StatusDesc : SortState.StatusAsc;
             ViewData["DateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
 
-            GalleryIQ = Sorting(sortOrder, GalleryIQ); //сортировка
+            GalleryIQ = _db.Sorting(GalleryIQ, sortOrder); //сортировка
 
             int pageSize = 2; //количество элементов на странице
             Gallery = await PaginatedList<Gallery>.CreateAsync(
                 GalleryIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
-        }
-
-        private static IQueryable<Gallery> Sorting(SortState? sortOrder, IQueryable<Gallery> GalleryIQ)
-        {
-            GalleryIQ = sortOrder switch
-            {
-                SortState.NameAsc => GalleryIQ.OrderBy(p => p.Name),
-                SortState.NameDesc => GalleryIQ.OrderByDescending(p => p.Name),
-                SortState.DescriptionAsc => GalleryIQ.OrderBy(p => p.Description),
-                SortState.DescriptionDesc => GalleryIQ.OrderByDescending(p => p.Description),
-                SortState.ImageAsc => GalleryIQ.OrderBy(p => p.ImagePath),
-                SortState.ImageDesc => GalleryIQ.OrderByDescending(p => p.ImagePath),
-                SortState.StatusAsc => GalleryIQ.OrderBy(p => p.Status),
-                SortState.StatusDesc => GalleryIQ.OrderByDescending(p => p.Status),
-                SortState.DateAsc => GalleryIQ.OrderBy(p => p.DateAdd),
-                SortState.DateDesc => GalleryIQ.OrderByDescending(p => p.DateAdd),
-                _ => GalleryIQ.OrderBy(p => p.Id),
-            };
-            return GalleryIQ;
         }
     }
 }

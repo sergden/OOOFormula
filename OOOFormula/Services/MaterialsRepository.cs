@@ -52,6 +52,21 @@ namespace OOOFormula.Services
             return UpdatedMater;
         }
 
+        public IQueryable<Materials> Sorting(IQueryable<Materials> items, SortState? sortState)
+        {
+            items = sortState switch
+            {
+                SortState.NameAsc => items.OrderBy(p => p.Name),
+                SortState.NameDesc => items.OrderByDescending(p => p.Name),
+                SortState.PriceAsc => items.OrderBy(p => p.Price),
+                SortState.PriceDesc => items.OrderByDescending(p => p.Price),
+                SortState.ImageAsc => items.OrderBy(p => p.ImagePath),
+                SortState.ImageDesc => items.OrderByDescending(p => p.ImagePath),
+                _ => items.OrderBy(p => p.Id),
+            };
+            return items;
+        }
+
         public bool MaterialsExists(int id)
         {
             return _context.Materials.Any(e => e.Id == id);

@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace OOOFormula.Services
 {
     public class RequestsRepository : IRequestsRepository
@@ -56,6 +55,25 @@ namespace OOOFormula.Services
                 _context.Attach(UpdatedRequest).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
                 await _context.SaveChangesAsync(); //отправляем запрос к БД на изменение
             }
+        }
+
+        public IQueryable<Requests> Sorting(IQueryable<Requests> items, SortState? sortState)
+        {
+            items = sortState switch
+            {
+                SortState.NameAsc => items.OrderBy(r => r.Name),
+                SortState.NameDesc => items.OrderByDescending(r => r.Name),
+                SortState.DateAsc => items.OrderBy(r => r.Date),
+                SortState.DateDesc => items.OrderByDescending(r => r.Date),
+                SortState.PhoneAsc => items.OrderBy(r => r.Phone),
+                SortState.PhoneDesc => items.OrderByDescending(r => r.Phone),
+                SortState.EmailAsc => items.OrderBy(r => r.Email),
+                SortState.EmailDesc => items.OrderByDescending(r => r.Email),
+                SortState.MessageAsc => items.OrderBy(r => r.Message),
+                SortState.MessageDesc => items.OrderByDescending(r => r.Message),
+                _ => items.OrderBy(r => r.Id),
+            };
+            return items;
         }
     }
 }

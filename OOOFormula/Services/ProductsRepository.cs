@@ -62,6 +62,31 @@ namespace OOOFormula.Services
 
         }
 
+        public IQueryable<Products> Sorting(IQueryable<Products> items, SortState? sortState)
+        {
+            items = sortState switch
+            {
+                SortState.NameAsc => items.OrderBy(p => p.Name),
+                SortState.NameDesc => items.OrderByDescending(p => p.Name),
+                SortState.PriceAsc => items.OrderBy(p => p.Price),
+                SortState.PriceDesc => items.OrderByDescending(p => p.Price),
+                SortState.DescriptionAsc => items.OrderBy(p => p.Description),
+                SortState.DescriptionDesc => items.OrderByDescending(p => p.Description),
+                SortState.ImageAsc => items.OrderBy(p => p.ImagesName),
+                SortState.ImageDesc => items.OrderByDescending(p => p.ImagesName),
+                SortState.StatusAsc => items.OrderBy(p => p.Status),
+                SortState.StatusDesc => items.OrderByDescending(p => p.Status),
+                SortState.CategoryAsc => items.OrderBy(p => p.Category.Name),
+                SortState.CategoryDesc => items.OrderByDescending(p => p.Category.Name),
+                SortState.MaterialAsc => items.OrderBy(p => p.Materials.Name),
+                SortState.MaterialDesc => items.OrderByDescending(p => p.Materials.Name),
+                SortState.ManufacturerAsc => items.OrderBy(p => p.Manufacturers.Name),
+                SortState.ManufacturerDesc => items.OrderByDescending(p => p.Manufacturers.Name),
+                _ => items.OrderBy(p => p.Id),
+            };
+            return items;
+        }
+
         public bool ProductsExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
