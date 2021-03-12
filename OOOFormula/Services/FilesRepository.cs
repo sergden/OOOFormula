@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
@@ -26,8 +26,15 @@ namespace OOOFormula.Services
             return true;
         }
 
-        public bool CheckMIMEType(IFormCollection files)
+        public bool CheckMIMEType(IFormFileCollection files)
         {
+            foreach (var file in files)
+            {
+                if (!file.ContentType.Contains("image"))
+                {
+                    return false;
+                }
+            }
             return true;
         }
 
@@ -40,12 +47,7 @@ namespace OOOFormula.Services
             }
         }
 
-        public void DeleteFile(List<string> Images, string Folder)
-        {
-            
-        }
-
-        public string UploadFile(IFormFile photo, string Folder)
+        public async Task<string> UploadFile(IFormFile photo, string Folder)
         {
             string uniqueFileName = null;
             if (photo != null)
@@ -57,15 +59,10 @@ namespace OOOFormula.Services
                 //логика сохранения на сервер фото
                 using (var fs = new FileStream(filePath, FileMode.Create))
                 {
-                    photo.CopyTo(fs);
+                    await photo.CopyToAsync(fs);
                 }
             }
             return uniqueFileName;
-        }
-
-        public string UploadFile(IFormCollection photo, string Folder)
-        {
-            return "d";
         }
     }
 }

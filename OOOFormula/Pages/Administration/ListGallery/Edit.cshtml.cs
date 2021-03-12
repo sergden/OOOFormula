@@ -58,7 +58,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
                     _filesRepository.DeleteFile(Gallery.ImagePath, "Gallery");
                 }
 
-                Gallery.ImagePath = Convert.ToString(_filesRepository.UploadFile(Photo, "Gallery")); //загрузка файл на сервер и запись имени файла
+                Gallery.ImagePath = await _filesRepository.UploadFile(Photo, "Gallery"); //загрузка файл на сервер и запись имени файла
             }
 
             try

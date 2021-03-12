@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OOOFormula.Services
 {
@@ -7,14 +8,10 @@ namespace OOOFormula.Services
     {
         public bool CheckMIMEType(IFormFile photo);
 
-        public bool CheckMIMEType(IFormCollection files);
+        public bool CheckMIMEType(IFormFileCollection files);
 
         public void DeleteFile(string Image, string Folder);
 
-        public void DeleteFile(List<string> Images, string Folder);
-
-        public string UploadFile(IFormFile photo, string Folder);
-
-        public string UploadFile(IFormCollection photo, string Folder);
+        public Task<string> UploadFile(IFormFile photo, string Folder);
     }
 }
