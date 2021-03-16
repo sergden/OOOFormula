@@ -19,12 +19,6 @@ namespace OOOFormula.Pages.Catalog
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            //Сообщение об отключенном JS
-            if (!(Request.Cookies.ContainsKey("JavaScript") && Request.Cookies["JavaScript"] == "true"))
-            {
-                TempData["JsError"] = "Ваш браузер не поддерживает JavaScript. Сайт может работать неправильно";
-            }
-
             Products = await _db.GetProduct(id); //извлекаем из БД все записи каталога, а также производителя и материал
             if (Products == null)
             {

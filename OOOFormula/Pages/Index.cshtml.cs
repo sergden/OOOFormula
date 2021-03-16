@@ -21,12 +21,6 @@ namespace OOOFormula.Pages
 
         public async Task OnGetAsync()
         {
-            //Сообщение об отключенном JS
-            if (!(Request.Cookies.ContainsKey("JavaScript") && Request.Cookies["JavaScript"] == "true"))
-            {
-                TempData["JsError"] = "Ваш браузер не поддерживает JavaScript. Сайт может работать неправильно";
-            }
-
             IQueryable<Gallery> GalleryIQ = _db.GetAllGallery();
             if (GalleryIQ.Count() > 4)
             {

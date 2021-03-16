@@ -23,12 +23,6 @@ namespace OOOFormula.Pages
 
         public async Task<IActionResult> OnGetAsync(string searchString)
         {
-            //Сообщение об отключенном JS
-            if (!(Request.Cookies.ContainsKey("JavaScript") && Request.Cookies["JavaScript"] == "true"))
-            {
-                TempData["JsError"] = "Ваш браузер не поддерживает JavaScript. Сайт может работать неправильно";
-            }
-
             if (!string.IsNullOrWhiteSpace(searchString))
             {
                 Products = await _context.Products.Where(p =>

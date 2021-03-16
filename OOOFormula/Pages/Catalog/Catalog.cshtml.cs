@@ -35,12 +35,6 @@ namespace OOOFormula.Pages.Catalog
             decimal PriceTo, SortState? sortState,
             int? MaterialId_select, int? pageIndex)
         {
-            //Сообщение об отключенном JS
-            if (!(Request.Cookies.ContainsKey("JavaScript") && Request.Cookies["JavaScript"] == "true"))
-            {
-                TempData["JsError"] = "Ваш браузер не поддерживает JavaScript. Сайт может работать неправильно";
-            }
-
             ProductsIQ = _db.GetAllProducts().Where(p => p.Status == true);
             ViewData["MaterialsId"] = _materials.MaterialToList(); //получаем материалы
 
