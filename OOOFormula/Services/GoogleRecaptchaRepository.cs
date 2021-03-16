@@ -17,8 +17,10 @@ namespace OOOFormula.Services
 
         public GoogleRecaptchaRepository(IOptions<AppOptions> optionsAccessor)
         {
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://www.google.com");
+            _httpClient = new HttpClient
+            {
+                BaseAddress = new Uri("https://www.google.com")
+            };
 
             _options = optionsAccessor.Value.ReCaptcha;
         }
