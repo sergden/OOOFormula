@@ -1,5 +1,11 @@
 ﻿@page
 @model OOOFormula.Pages.ContactsModel
+
+@using Microsoft.Extensions.Options
+@using OOOFormula.Options
+
+@inject IOptions<AppOptions> AppOptions
+
 @{
     ViewData["Title"] = "Контакты";
 }
@@ -51,6 +57,12 @@
 
     <div class="col-md-8">
         <form method="post">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success text-center col-12 m-0">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
             <p class="mb-0 text-center">
                 <span style="font-size:14pt;">
                     <strong>Связаться  с нами</strong>
@@ -70,17 +82,12 @@
                     <span asp-validation-for="Requests.Message" class="text-danger"></span>
                 </div>
                 <div class="form-group col-9">
-                    Captcha
+                    <div class="g-recaptcha" data-sitekey="@AppOptions.Value.ReCaptcha.SiteKey"></div>
+                    @Html.ValidationMessage("reCaptchaError", new { @class = "text-danger" })
                 </div>
                 <div class="form-group col-3 text-right">
                     <button type="submit" class="btn btn-primary text-light">Отправить</button>
                 </div>
-                @if (TempData["SuccessMessage"] != null)
-                {
-                    <div class="alert alert-success text-center col-12">
-                        @TempData["SuccessMessage"]
-                    </div>
-                }
             </div>
         </form>
     </div>
@@ -88,4 +95,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 }

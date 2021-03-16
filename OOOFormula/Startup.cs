@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OOOFormula.Data;
+using OOOFormula.Options;
 using OOOFormula.Services;
 
 namespace OOOFormula
@@ -34,6 +35,8 @@ namespace OOOFormula
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
             });
 
+            services.Configure<AppOptions>(Configuration);
+            services.AddSingleton<IGoogleRecaptchaRepository, GoogleRecaptchaRepository>();
 
             services.AddScoped<IFilesRepository, FilesRepository>();
 
