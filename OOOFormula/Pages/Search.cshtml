@@ -38,7 +38,7 @@ else
                             <div class="card m-3">
                                 <div class="text-center">
                                     <a asp-page="/Catalog/Details" asp-route-id="@item.Id">
-                                        <img class="card-img-bottom" src="~/images/Products/@item.ImagesName" asp-append-version="true" />
+                                        <img class="card-img-bottom" src="~/images/Products/@item.ImagesName" asp-append-version="true" loading="lazy" />
                                     </a>
                                 </div>
                                 <div class="text-left mt-3">
@@ -77,7 +77,7 @@ else
                                 </div>
                                 <div class="text-center">
                                     <a asp-area="" asp-page="/Gallery_works">
-                                        <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" />
+                                        <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" loading="lazy" />
                                     </a>
                                 </div>
                             </div>

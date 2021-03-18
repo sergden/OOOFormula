@@ -29,7 +29,7 @@
             <dt class="col-sm-2">Фото</dt>
             <dd class="col-sm-10">
                 <a href="@PhotoPath" data-fancybox>
-                    <img src="@PhotoPath" asp-append-version="true" width="200" height="150" />
+                    <img src="@PhotoPath" asp-append-version="true" width="200" height="150" loading="lazy" />
                 </a>
                 <div class="col-lg-6 mt-2 p-0">
                     @Html.DisplayFor(model => model.Products.ImagesName)
@@ -55,6 +55,7 @@
     </div>
     <div class="col-12">
         <a class="btn btn-primary" asp-page="./Index">Назад</a> |
-        <a class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Products.Id">Изменить</a>
+        <a class="btn btn-success" asp-page="./Edit" asp-route-id="@Model.Products.Id">Изменить</a> |
+        <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@Model.Products.Id">Удалить</a>
     </div>
 </div>

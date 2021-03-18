@@ -18,7 +18,7 @@ namespace OOOFormula.Services
 
         public async Task<Gallery> Add(Gallery NewGallery)
         {
-            NewGallery.DateAdd = DateTime.Today;
+            NewGallery.DateAdd = DateTime.Now;
             _context.Gallery.Add(NewGallery); //добавляем объект
             await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
 

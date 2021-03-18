@@ -77,6 +77,21 @@
                     <input asp-for="Requests.Phone" class="form-control mr-2" type="tel" placeholder="Телефон" />
                     <span asp-validation-for="Requests.Phone" class="text-danger"></span>
                 </div>
+                <div class="form-group col-6">
+                    <input asp-for="Requests.Email" class="form-control mr-2" type="email" placeholder="Email" />
+                    <span asp-validation-for="Requests.Email"></span>
+                </div>
+                <div class="form-group col-6">
+                    <div class="row">
+                        <div class="col-3 text-center">
+                            <label>Желаемая дата</label>
+                        </div>
+                        <div class="col-9">
+                            <input asp-for="Requests.DesiredDate" class="form-control mr-2" type="date" />
+                            <span asp-validation-for="Requests.DesiredDate"></span>
+                        </div>
+                    </div>                    
+                </div>
                 <div class="form-group col-12">
                     <textarea asp-for="Requests.Message" class="form-control mr-2" placeholder="Текст сообщения" rows="5"></textarea>
                     <span asp-validation-for="Requests.Message" class="text-danger"></span>

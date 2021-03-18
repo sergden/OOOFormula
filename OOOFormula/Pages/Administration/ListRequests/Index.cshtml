@@ -39,6 +39,11 @@
                 </a>
             </th>
             <th>
+                <a asp-route-sortOrder="@ViewBag.DateSort">
+                    @Html.DisplayNameFor(model=>model.Requests[0].DesiredDate)
+                </a>
+            </th>
+            <th>
                 <a asp-route-sortOrder="@ViewBag.MessageSort">
                     @Html.DisplayNameFor(model => model.Requests[0].Message)
                 </a>
@@ -66,6 +71,9 @@
                     <th>
                         @Html.DisplayFor(modelItem => item.Email)
                     </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.DesiredDate)
+                    </th>
                 }
                 else
                 {
@@ -77,6 +85,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DesiredDate)
                     </td>
                 }
                 <td>
