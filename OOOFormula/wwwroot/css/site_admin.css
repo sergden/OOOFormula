@@ -156,3 +156,21 @@ table {
 td {
     word-wrap: break-word;
 }
+
+.password {
+    position: relative;
+}
+
+.password-control, .password-control-new, .password-control-confirm {
+    position: absolute;
+    top: 9px;
+    right: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(/images/view.svg) 0 0 no-repeat;
+}
+
+    .password-control.view, .password-control-new.view, .password-control-confirm.view {
+        background: url(/images/no-view.svg);
+    }

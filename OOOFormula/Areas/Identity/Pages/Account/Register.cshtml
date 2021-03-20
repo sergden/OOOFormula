@@ -18,12 +18,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
+                <div class="password">
+                    <input asp-for="Input.Password" id="password-input" class="form-control" />
+                    <a href="#" class="password-control"></a>
+                </div>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <div class="password">
+                    <input asp-for="Input.ConfirmPassword" id="password-input-confirm" class="form-control" />
+                    <a href="#" class="password-control-confirm"></a>
+                </div>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
