@@ -26,35 +26,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
+                    Сортировать по
                     <div class="row">
-                        <div class="col col-sm-7 pl-3 pr-0">
-                            @if (Model.PriceState == SortState.PriceAsc)
-                            {
-                                <input type="radio" name="sortState" value="@SortState.PriceAsc" checked />
-                            }
-                            else
-                            {
-                                <input type="radio" name="sortState" value="@SortState.PriceAsc" />
-                            }
-                            <label>По возрастанию</label>
+                        <div class="col col-sm-12">
+                            <div class="form-check mt-1 p-0">
+                                <select id="SortState" class="form-control" name="sortState">
+                                    <!--Добавляем начальный элемент выпадающего списка-->
+                                    <option value="">Выберите</option>
+                                    <option value="@SortState.PriceAsc">Цена по возрастанию</option>
+                                    <option value="@SortState.PriceDesc">Цена по убыванию</option>
+                                    <option value="@SortState.NameAsc">Название по возрастанию</option>
+                                    <option value="@SortState.NameDesc">Название по убыванию</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col col-sm-7 pl-3 pr-0">
-                            @if (Model.PriceState == SortState.PriceDesc)
-                            {
-                                <input type="radio" name="sortState" value="@SortState.PriceDesc" checked />
-                            }
-                            else
-                            {
-                                <input type="radio" name="sortState" value="@SortState.PriceDesc" />
-                            }
-                            <label>По убыванию</label>
-                        </div>
-                        <input hidden asp-for="PriceState" value="@Model.PriceState" />
                     </div>
                 </div>
                 <div class="mb-2">
-                    Материал
+                    Материал фасада
                     <div class="row">
                         <div class="col col-sm-12">
                             <div class="form-check mt-1 p-0">
@@ -62,7 +52,19 @@
                                     <!--Добавляем начальный элемент выпадающего списка-->
                                     <option value="">Выберите материал</option>
                                 </select>
-                                <input hidden asp-for="MaterialIdState" value="@Model.MaterialIdState" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    Производитель фурнитуры
+                    <div class="row">
+                        <div class="col col-sm-12">
+                            <div class="form-check mt-1 p-0">
+                                <select id="manuf" class="form-control" asp-items="ViewBag.ManufId" name="ManufId_select">
+                                    <!--Добавляем начальный элемент выпадающего списка-->
+                                    <option value="">Выберите производителя</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -112,23 +114,29 @@
                 </div>
             }
         </div>
-        <!--Переход по страницам-->
-        <a asp-route-sortState="@Model.PriceState"
-           asp-route-pageIndex="@(Model.Products.PageIndex-1)"
-           asp-route-MaterialId_select="@Model.MaterialIdState"
-           asp-route-PriceFrom="@Model.PriceFromState"
-           asp-route-PriceTo="@Model.PriceToState"
-           class="btn btn-primary @prevDisabled">
-            Назад
-        </a>
-        <a asp-route-sortState="@Model.PriceState"
-           asp-route-pageIndex="@(Model.Products.PageIndex-1)"
-           asp-route-MaterialId_select="@Model.MaterialIdState"
-           asp-route-PriceFrom="@Model.PriceFromState"
-           asp-route-PriceTo="@Model.PriceToState"
-           class="btn btn-primary @nextDisabled">
-            Вперед
-        </a>
+
+        @if (TempData["Message"] == null)
+        {
+            <!--Переход по страницам-->
+            <a asp-route-sortState="@Model.SortState"
+               asp-route-pageIndex="@(Model.Products.PageIndex-1)"
+               asp-route-MaterialId_select="@Model.MaterialIdState"
+               asp-route-ManufId_select="@Model.ManufIdState"
+               asp-route-PriceFrom="@Model.PriceFromState"
+               asp-route-PriceTo="@Model.PriceToState"
+               class="btn btn-primary @prevDisabled">
+                Назад
+            </a>
+            <a asp-route-sortState="@Model.SortState"
+               asp-route-pageIndex="@(Model.Products.PageIndex-1)"
+               asp-route-MaterialId_select="@Model.MaterialIdState"
+               asp-route-ManufId_select="@Model.ManufIdState"
+               asp-route-PriceFrom="@Model.PriceFromState"
+               asp-route-PriceTo="@Model.PriceToState"
+               class="btn btn-primary @nextDisabled">
+                Вперед
+            </a>
+        }
     </div>
 </div>
 
@@ -136,6 +144,8 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
-        $("#mater").val("@Model.MaterialIdState").change()
+        $("#mater").val("@Model.MaterialIdState").change();
+        $("#manuf").val("@Model.ManufIdState").change();
+        $("#SortState").val("@Model.SortState").change();
     </script>
 }

@@ -12,11 +12,13 @@ namespace OOOFormula.Pages.Catalog
     {
         private readonly IProductsRepository _db;
         private readonly IMaterialsRepository _materials;
+        private readonly IManufacturersRepostory _manuf;
 
-        public CatalogModel(IProductsRepository db, IMaterialsRepository materials)
+        public CatalogModel(IProductsRepository db, IMaterialsRepository materials, IManufacturersRepostory manuf)
         {
             _db = db;
             _materials = materials;
+            _manuf = manuf;
         }
 
         public PaginatedList<Products> Products { get; set; }
@@ -24,23 +26,28 @@ namespace OOOFormula.Pages.Catalog
 
         //For save state sorting
         [BindProperty]
-        public SortState? PriceState { get; set; }
+        public SortState? SortState { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int? MaterialIdState { get; set; }
+        public int? MaterialIdState { get; set; }   
+        [BindProperty(SupportsGet = true)]
+        public int? ManufIdState { get; set; }
         public decimal PriceFromState { get; set; }
         public decimal PriceToState { get; set; }
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom,
             decimal PriceTo, SortState? sortState,
-            int? MaterialId_select, int? pageIndex)
+            int? MaterialId_select, int? ManufId_select,
+            int? pageIndex)
         {
             ProductsIQ = _db.GetAllProducts().Where(p => p.Status == true);
             ViewData["MaterialsId"] = _materials.MaterialToList(); //получаем материалы
+            ViewData["ManufId"] = _manuf.ManufToList();
 
             //сохраняем состояние фильтрации
-            if (sortState != null) PriceState = sortState;
+            if (sortState != null) SortState = sortState;
             if (MaterialId_select != null) MaterialIdState = MaterialId_select;
+            if (ManufId_select != null) ManufIdState = ManufId_select;
             PriceFromState = PriceFrom;
             PriceToState = PriceTo;
 
@@ -49,7 +56,6 @@ namespace OOOFormula.Pages.Catalog
             if (!ProductsIQ.Any()) //проверяем, есть ли что-то
             {
                 TempData["Message"] = "Ничего не найдено";
-                return Page();
             }
             ProductsIQ = _db.Sorting(ProductsIQ, sortState); //сортировка
 
@@ -73,7 +79,12 @@ namespace OOOFormula.Pages.Catalog
 
             if (MaterialIdState != null)
             {
-                ProductsIQ = ProductsIQ.Where(x => x.MaterialsId == MaterialIdState);
+                ProductsIQ = ProductsIQ.Where(x => x.FacadeMaterialsId == MaterialIdState);
+            }
+
+            if (ManufIdState != null)
+            {
+                ProductsIQ = ProductsIQ.Where(x => x.FurnitureManufacturersId == ManufIdState);
             }
         }
     }

@@ -14,19 +14,27 @@
 <div class="row">
     <div class="col-12">
         <dl class="row">
-            <dt class="col-sm-2">Название</dt>
+            <dt class="col-sm-2">
+                <label asp-for="Products.Name" class="control-label"></label>
+            </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Products.Name)
             </dd>
-            <dt class="col-sm-2">Стоимость</dt>
+            <dt class="col-sm-2">
+                <label asp-for="Products.Price" class="control-label"></label>
+            </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Products.Price)
             </dd>
-            <dt class="col-sm-2">Описание</dt>
+            <dt class="col-sm-2">
+                <label asp-for="Products.Description" class="control-label"></label>
+            </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Products.Description)
             </dd>
-            <dt class="col-sm-2">Фото</dt>
+            <dt class="col-sm-2">
+                <label asp-for="Products.ImagesName" class="control-label"></label>
+            </dt>
             <dd class="col-sm-10">
                 <a href="@PhotoPath" data-fancybox>
                     <img src="@PhotoPath" asp-append-version="true" width="200" height="150" loading="lazy" />
@@ -39,17 +47,23 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Products.Status)
             </dd>
-            <dt class="col-sm-2">Категория</dt>
+            <dt class="col-sm-2">
+                <label asp-for="Products.CategoryId" class="control-label"></label>
+            </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Products.Category.Name)
             </dd>
-            <dt class="col-sm-2">Материал</dt>
+            <dt class="col-sm-2">
+                <label asp-for="Products.FacadeMaterialsId" class="control-label"></label>
+            </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Products.Materials.Name)
+                @Html.DisplayFor(model => model.Products.FacadeMaterials.Name)
             </dd>
-            <dt class="col-sm-2">Производитель</dt>
+            <dt class="col-sm-2">
+                <label asp-for="Products.FurnitureManufacturersId" class="control-label"></label>
+            </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Products.Manufacturers.Name)
+                @Html.DisplayFor(model => model.Products.FurnitureManufacturers.Name)
             </dd>
         </dl>
     </div>

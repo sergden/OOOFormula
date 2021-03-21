@@ -51,9 +51,6 @@
             <th>
                 <a asp-route-sortOrder="@ViewBag.MaterialSort">Материал</a>
             </th>
-            <th>
-                <a asp-route-sortOrder="@ViewBag.ManufacturerSort">Производитель</a>
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -81,10 +78,7 @@
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Materials.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Manufacturers.Name)
+                    @Html.DisplayFor(modelItem => item.FacadeMaterials.Name)
                 </td>
                 <td>
                     <div>

@@ -38,8 +38,8 @@ namespace OOOFormula.Services
         {
             return _context.Products
                 .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials)
+                .Include(p => p.FurnitureManufacturers)
+                .Include(p => p.FacadeMaterials)
                 .AsNoTracking()
                 .AsQueryable();
         }
@@ -48,8 +48,8 @@ namespace OOOFormula.Services
         {
             return await _context.Products
                 .Include(p => p.Category)
-                .Include(p => p.Manufacturers)
-                .Include(p => p.Materials)
+                .Include(p => p.FurnitureManufacturers)
+                .Include(p => p.FacadeMaterials)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
         }
@@ -78,10 +78,10 @@ namespace OOOFormula.Services
                 SortState.StatusDesc => items.OrderByDescending(p => p.Status),
                 SortState.CategoryAsc => items.OrderBy(p => p.Category.Name),
                 SortState.CategoryDesc => items.OrderByDescending(p => p.Category.Name),
-                SortState.MaterialAsc => items.OrderBy(p => p.Materials.Name),
-                SortState.MaterialDesc => items.OrderByDescending(p => p.Materials.Name),
-                SortState.ManufacturerAsc => items.OrderBy(p => p.Manufacturers.Name),
-                SortState.ManufacturerDesc => items.OrderByDescending(p => p.Manufacturers.Name),
+                SortState.MaterialAsc => items.OrderBy(p => p.FacadeMaterials.Name),
+                SortState.MaterialDesc => items.OrderByDescending(p => p.FacadeMaterials.Name),
+                SortState.ManufacturerAsc => items.OrderBy(p => p.FurnitureManufacturers.Name),
+                SortState.ManufacturerDesc => items.OrderByDescending(p => p.FurnitureManufacturers.Name),
                 _ => items.OrderBy(p => p.Id),
             };
             return items;

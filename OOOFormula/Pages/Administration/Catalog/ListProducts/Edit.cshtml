@@ -20,17 +20,17 @@
             <input type="hidden" asp-for="Products.ImagesName" />
 
             <div class="form-group">
-                <label asp-for="Products.Name" class="control-label">Название</label>
+                <label asp-for="Products.Name" class="control-label"></label>
                 <input asp-for="Products.Name" class="form-control" />
                 <span asp-validation-for="Products.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Products.Price" class="control-label">Стоимость</label>
+                <label asp-for="Products.Price" class="control-label"></label>
                 <input asp-for="Products.Price" class="form-control" type="number" min="0" step="1" />
                 <span asp-validation-for="Products.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Products.Description" class="control-label">Описание</label>
+                <label asp-for="Products.Description" class="control-label"></label>
                 <textarea asp-for="Products.Description" class="form-control"></textarea>
                 <span asp-validation-for="Products.Description" class="text-danger"></span>
             </div>
@@ -59,23 +59,23 @@
 
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Products.Status" /> Отображать
+                    <input class="form-check-input" asp-for="Products.Status" />Отображать
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="Products.CategoryId" class="control-label">Категория</label>
+                <label asp-for="Products.CategoryId" class="control-label"></label>
                 <select asp-for="Products.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="Products.CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Products.MaterialsId" class="control-label">Материал</label>
-                <select asp-for="Products.MaterialsId" class="form-control" asp-items="ViewBag.MaterialsId"></select>
-                <span asp-validation-for="Products.MaterialsId" class="text-danger"></span>
+                <label asp-for="Products.FacadeMaterialsId" class="control-label"></label>
+                <select asp-for="Products.FacadeMaterialsId" class="form-control" asp-items="ViewBag.MaterialsId"></select>
+                <span asp-validation-for="Products.FacadeMaterialsId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Products.ManufacturersId" class="control-label">Производитель</label>
-                <select asp-for="Products.ManufacturersId" class="form-control" asp-items="ViewBag.ManufacturersId"></select>
-                <span asp-validation-for="Products.ManufacturersId" class="text-danger"></span>
+                <label asp-for="Products.FurnitureManufacturersId" class="control-label"></label>
+                <select asp-for="Products.FurnitureManufacturersId" class="form-control" asp-items="ViewBag.ManufacturersId"></select>
+                <span asp-validation-for="Products.FurnitureManufacturersId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <a class="btn btn-danger" asp-page="./Index">Отмена</a> |
