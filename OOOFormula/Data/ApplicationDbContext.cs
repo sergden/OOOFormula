@@ -11,8 +11,12 @@ namespace OOOFormula.Data
         {
         }
 
-        //public DbSet<Atributes> Atributes { get; set; }
-        //public DbSet<AtributesValues> AtributesValues { get; set; }
+        //Debug message to console
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message));
+        //}
+
         public DbSet<Category> Category { get; set; }
         public DbSet<Gallery> Gallery { get; set; }
         public DbSet<Manufacturers> Manufacturers { get; set; }
