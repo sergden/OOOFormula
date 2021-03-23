@@ -11,6 +11,6 @@ namespace OOOFormula.Services
 
         public void DeleteFile(string Image, string Folder);
 
-        public Task<string> UploadFile(IFormFile photo, string Folder);
+        public Task<string> UploadFile(IFormFile photo, string Folder, string subFolder=null);
     }
 }

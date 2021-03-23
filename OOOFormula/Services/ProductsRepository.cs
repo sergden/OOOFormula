@@ -59,7 +59,6 @@ namespace OOOFormula.Services
             _context.Attach(UpdatedProduct).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
             await _context.SaveChangesAsync(); //отпраляем запрос к БД на изменение
             return UpdatedProduct;
-
         }
 
         public IQueryable<Products> Sorting(IQueryable<Products> items, SortState? sortState)
