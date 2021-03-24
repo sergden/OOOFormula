@@ -13,9 +13,13 @@
     </div>
 </div>
 
+<!--Вывод сообщения об результате операции из моделей Create и Edit-->
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="col-12 alert alert-success text-center">
+    <div class="col-12 alert alert-success text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
         @TempData["SuccessMessage"]
     </div>
 }
@@ -40,7 +44,7 @@
             </th>
             <th>
                 <a asp-route-sortOrder="@ViewBag.DateSort">
-                    @Html.DisplayNameFor(model=>model.Requests[0].DesiredDate)
+                    @Html.DisplayNameFor(model => model.Requests[0].DesiredDate)
                 </a>
             </th>
             <th>
