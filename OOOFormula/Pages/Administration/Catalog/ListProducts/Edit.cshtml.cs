@@ -79,22 +79,22 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
             //загрузка галереи
             if (Gallery_img.Count != 0)
-            {
-                foreach (var item in Gallery_img)
+            {               
+                foreach (var item in Gallery_img) //проверка типа файла
                 {
-                    if (!_fileRepository.CheckMIMEType(item)) //проверка типа файла
+                    if (!_fileRepository.CheckMIMEType(item))
                     {
                         TempData["MIMETypeErrorGal"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                         return Page();
                     }
                 }
-                foreach (var item in Products.Images)
+                foreach (var item in Products.Images) //удаление фото из ФС
                 {
-                    _fileRepository.DeleteFile(item.ImageName, "Products", "Gallery"); //удаление фото из ФС
+                    _fileRepository.DeleteFile(item.ImageName, "Products", "Gallery");
                 }
                 await _db.DeleteGallery(Products.Id);//удаляем записи из таблицы
                 Products.Images.Clear(); //Очищаем лист с фото
-                foreach (var item in Gallery_img)
+                foreach (var item in Gallery_img) //Добавление записей в модель
                 {
                     string imageName = await _fileRepository.UploadFile(item, "Products", "Gallery");
                     ProductImages productImages = new ProductImages()
