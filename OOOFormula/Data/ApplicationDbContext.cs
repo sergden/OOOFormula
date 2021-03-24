@@ -14,7 +14,9 @@ namespace OOOFormula.Data
         //Debug message to console
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
-        //    optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message));
+        //    //optionsBuilder.LogTo(message => System.Diagnostics.Debug.WriteLine(message)); //Messages to Degub console
+        //    //  optionsBuilder.LogTo(System.Console.WriteLine); 
+        //    optionsBuilder.LogTo(System.Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }); //Message to console app
         //}
 
         public DbSet<Category> Category { get; set; }

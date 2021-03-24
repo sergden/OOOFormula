@@ -37,7 +37,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
             ProductsIQ = _db.Sorting(ProductsIQ, sortOrder); //сортировка
 
-            int pageSize = 2; //количество элементов на странице
+            int pageSize = 10; //количество элементов на странице
             Products = await PaginatedList<Products>.CreateAsync(
                 ProductsIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }

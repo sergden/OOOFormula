@@ -32,7 +32,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListMaterials
 
             MaterialsIQ = _db.Sorting(MaterialsIQ, sortOrder); //сортировка
 
-            int pageSize = 2; //количество элементов на странице
+            int pageSize = 10; //количество элементов на странице
             Materials = await PaginatedList<Materials>.CreateAsync(
                 MaterialsIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }

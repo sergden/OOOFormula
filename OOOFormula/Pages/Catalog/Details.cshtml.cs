@@ -19,7 +19,7 @@ namespace OOOFormula.Pages.Catalog
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Products = await _db.GetProduct(id); //извлекаем из БД все записи каталога, а также производителя и материал
+            Products = await _db.GetProduct(id); //извлекаем из БД все записи каталога
             if (Products == null)
             {
                 return NotFound();

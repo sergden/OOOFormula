@@ -50,6 +50,7 @@ namespace OOOFormula.Services
                 .Include(p => p.Category)
                 .Include(p => p.FurnitureManufacturers)
                 .Include(p => p.FacadeMaterials)
+                .Include(p => p.Images)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
         }
@@ -89,6 +90,13 @@ namespace OOOFormula.Services
         public bool ProductsExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
+        }
+
+        public async Task DeleteGallery(int id)
+        {
+            //_context.ProductImages.RemoveRange(_context.ProductImages.Where(x => x.ProductsId == id));
+            _context.ProductImages.RemoveRange(_context.ProductImages.Where(x => x.ProductsId == id));
+            await _context.SaveChangesAsync();
         }
     }
 }

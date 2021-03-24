@@ -28,7 +28,7 @@ namespace OOOFormula.Pages.Administration.ListManufacturers
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ManufacturersIQ = _db.Sortig(ManufacturersIQ, sortOrder); //сортировка
 
-            int pageSize = 2; //количество элементов на странице
+            int pageSize = 10; //количество элементов на странице
             Manufacturers = await PaginatedList<Manufacturers>.CreateAsync(
                 ManufacturersIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }

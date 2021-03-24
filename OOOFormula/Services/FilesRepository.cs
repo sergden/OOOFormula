@@ -38,9 +38,9 @@ namespace OOOFormula.Services
             return true;
         }
 
-        public void DeleteFile(string Image, string Folder)
+        public void DeleteFile(string Image, string Folder, string subFolder = "")
         {
-            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Folder, Image); //создаем полное имя файла
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", Folder, subFolder, Image); //создаем полное имя файла
             if (Image != "noimage.png")//проверяем, не используется ли заглушка
             {
                 if (File.Exists(filePath)) //проверяем существует ли файл
@@ -50,7 +50,7 @@ namespace OOOFormula.Services
             }
         }
 
-        public async Task<string> UploadFile(IFormFile photo, string Folder, string subFolder = null)
+        public async Task<string> UploadFile(IFormFile photo, string Folder, string subFolder = "")
         {
             string uniqueFileName = null;
             if (photo != null)

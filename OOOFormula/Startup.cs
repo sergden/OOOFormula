@@ -46,7 +46,6 @@ namespace OOOFormula
             services.AddScoped<IGalleryRepository, GalleryRepository>();
             services.AddScoped<IManufacturersRepostory, ManufacturersRepostory>();
             services.AddScoped<IRequestsRepository, RequestsRepository>();
-            services.AddScoped<IProductImagesRepository, ProductImagesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

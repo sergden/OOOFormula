@@ -16,6 +16,8 @@ namespace OOOFormula.Services
 
         Task<Products> Delete(int id);
 
+        Task DeleteGallery(int id);
+
         IQueryable<Products> Sorting(IQueryable<Products> items, SortState? sortState);
 
         bool ProductsExists(int id);

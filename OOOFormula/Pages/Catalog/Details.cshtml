@@ -2,7 +2,7 @@
 @model OOOFormula.Pages.Catalog.DetailsModel
 @{
     ViewData["Title"] = Model.Products.Name;
-    string ImagePath = "/images/Products/" + Model.Products.ImagesName;
+    string ImagePathMain = "/images/Products/" + Model.Products.ImagesName;
 }
 
 <div class="row mt-5">
@@ -10,22 +10,26 @@
         <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
             <ol class="carousel-indicators">
                 <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel" data-slide-to="1"></li>
-                <li data-target="#carousel" data-slide-to="2"></li>
+                @for (int i = 1; i <= Model.Products.Images.Count(); i++)
+                {
+                    <li data-target="#carousel" data-slide-to="@i"></li>
+                }
             </ol>
             <div class="carousel-inner">
+                @*Главное фото*@
                 <div class="carousel-item active">
-                    <a href="@ImagePath" data-fancybox="Gallery_Product">
-                        <img class="card-img-bottom" src="@ImagePath" asp-append-version="true" alt="1 слайд" loading="lazy" width="445" height="296" />
+                    <a href="@ImagePathMain" data-fancybox="Gallery_Product">
+                        <img class="card-img-bottom" src="@ImagePathMain" asp-append-version="true" alt="1 слайд" loading="lazy" width="445" height="296" />
                     </a>
                 </div>
-                @for (int i = 2; i <= 3; i++)
+                @*Галерея*@
+                @foreach (var item in Model.Products.Images)
                 {
-                    string Path = Convert.ToString(i) + ".jpg";
+                    string Path = "/images/Products/Gallery/" + item.ImageName;
 
                     <div class="carousel-item">
-                        <a href="/images/Examples/@Path" data-fancybox="Gallery_Product">
-                            <img class="card-img-bottom" src="/images/Examples/@Path" asp-append-version="true" loading="lazy" alt="@i слайд" width="445" height="296" />
+                        <a href="@Path" data-fancybox="Gallery_Product">
+                            <img class="card-img-bottom" src="@Path" asp-append-version="true" alt="@item.ImageName" loading="lazy" width="445" height="296" />
                         </a>
                     </div>
                 }
@@ -70,13 +74,27 @@
                 </strong>
             </h3>
         </div>
-        <div class="col-12 pl-2">
-            <dl class="row">
-                <dt class="col-sm-2">Материал</dt>
-                <dd class="col-sm-10">
-                    @Model.Products.FacadeMaterials.Name
-                </dd>
-            </dl>
-        </div>
+    </div>
+    <div class="col-12 pl-2 offset-sm-1 offset-sm-0">
+        <dl class="row">
+            <dt class="col-sm-2">
+                <label asp-for="Products.Name" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Products.Name)
+            </dd>
+            <dt class="col-sm-2">
+                <label asp-for="Products.FacadeMaterialsId" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Products.FacadeMaterials.Name)
+            </dd>
+            <dt class="col-sm-2">
+                <label asp-for="Products.FurnitureManufacturersId" class="control-label"></label>
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Products.FurnitureManufacturers.Name)
+            </dd>
+        </dl>
     </div>
 </div>

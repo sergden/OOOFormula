@@ -34,7 +34,7 @@ namespace OOOFormula.Pages.Administration.ListGallery
 
             GalleryIQ = _db.Sorting(GalleryIQ, sortOrder); //сортировка
 
-            int pageSize = 2; //количество элементов на странице
+            int pageSize = 10; //количество элементов на странице
             Gallery = await PaginatedList<Gallery>.CreateAsync(
                 GalleryIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }

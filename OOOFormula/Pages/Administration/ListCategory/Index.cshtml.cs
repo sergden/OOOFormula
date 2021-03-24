@@ -29,7 +29,7 @@ namespace OOOFormula.Pages.Administration.ListCategory
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             CategoryIQ = _db.Sorting(CategoryIQ, sortOrder); //сортировка
 
-            int pageSize = 2; //количество элементов на странице
+            int pageSize = 10; //количество элементов на странице
             Category = await PaginatedList<Category>.CreateAsync(
                 CategoryIQ.AsNoTracking(), pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
