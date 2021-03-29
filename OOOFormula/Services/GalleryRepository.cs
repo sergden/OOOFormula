@@ -21,14 +21,12 @@ namespace OOOFormula.Services
             NewGallery.DateAdd = DateTime.Now;
             _context.Gallery.Add(NewGallery); //добавляем объект
             await _context.SaveChangesAsync(); //отправляем запрос к БД на добавление
-
             return NewGallery;
         }
 
         public async Task<Gallery> Delete(int id)
         {
             var GalleryToDelete = await _context.Gallery.FindAsync(id); //ищем запись в БД
-
             if (GalleryToDelete != null)
             {
                 _context.Gallery.Remove(GalleryToDelete); //удаляем объект

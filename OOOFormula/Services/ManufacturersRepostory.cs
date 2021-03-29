@@ -26,13 +26,11 @@ namespace OOOFormula.Services
         public async Task<Manufacturers> Delete(int id)
         {
             var ManufacturerToDelete = await _context.Manufacturers.FindAsync(id); //ищем запись в БД
-
             if (ManufacturerToDelete != null)
             {
                 _context.Manufacturers.Remove(ManufacturerToDelete); //удаляем объект
                 await _context.SaveChangesAsync(); //отправляем запрос к БД на удаление
             }
-
             return ManufacturerToDelete;
         }
 

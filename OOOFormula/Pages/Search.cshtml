@@ -30,28 +30,28 @@ else
                             </span>
                         </p>
                     </div>
-                }
-                @foreach (var item in Model.Products)
-                {
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="card-deck">
-                            <div class="card m-3">
-                                <div class="text-center">
-                                    <a asp-page="/Catalog/Details" asp-route-id="@item.Id">
-                                        <img class="card-img-bottom" src="~/images/Products/@item.Profile.ImagesName" asp-append-version="true" loading="lazy" />
-                                    </a>
-                                </div>
-                                <div class="text-left mt-3">
-                                    <a class="nav-link text-dark pb-0" asp-page="/Catalog/Details" asp-route-id="@item.Id">
-                                        <h6>@item.Name</h6>
-                                    </a>
-                                </div>
-                                <div class="text-left mt-3 ml-3">
-                                    <h5>@item.Price ₽</h5>
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card-deck">
+                                <div class="card m-3">
+                                    <div class="text-center">
+                                        <a asp-page="/Catalog/Details" asp-route-id="@item.Id">
+                                            <img class="card-img-bottom" src="~/images/Products/@item.Profile.ImagesName" asp-append-version="true" loading="lazy" />
+                                        </a>
+                                    </div>
+                                    <div class="text-left mt-3">
+                                        <a class="nav-link text-dark pb-0" asp-page="/Catalog/Details" asp-route-id="@item.Id">
+                                            <h6>@item.Name</h6>
+                                        </a>
+                                    </div>
+                                    <div class="text-left mt-3 ml-3">
+                                        <h5>@item.Price ₽</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
             <div class="row">
@@ -64,25 +64,25 @@ else
                             </span>
                         </p>
                     </div>
-                }
-                @foreach (var item in Model.Gallery)
-                {
-                    <div class="col-12 col-sm-6 col-lg-3">
-                        <div class="card-deck">
-                            <div class="card m-3">
-                                <div class="text-center">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/Gallery_works">
-                                        <h6>@item.Name</h6>
-                                    </a>
-                                </div>
-                                <div class="text-center">
-                                    <a asp-area="" asp-page="/Gallery_works">
-                                        <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" loading="lazy" />
-                                    </a>
+                    @foreach (var item in Model.Gallery)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="card-deck">
+                                <div class="card m-3">
+                                    <div class="text-center">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Gallery_works">
+                                            <h6>@item.Name</h6>
+                                        </a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a asp-area="" asp-page="/Gallery_works">
+                                            <img class="card-img-top" src="~/images/Gallery/@item.ImagePath" asp-append-version="true" loading="lazy" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>

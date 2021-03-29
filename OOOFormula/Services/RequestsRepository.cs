@@ -28,7 +28,6 @@ namespace OOOFormula.Services
         public async Task<Requests> Delete(int id)
         {
             var RequestToDelete = await _context.Requests.FindAsync(id); //ищем запись в БД
-
             if (RequestToDelete != null)
             {
                 _context.Requests.Remove(RequestToDelete); //удаляем объект

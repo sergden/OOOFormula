@@ -26,7 +26,6 @@ namespace OOOFormula.Services
         public async Task<Materials> Delete(int id)
         {
             var MaterialToDelete = await _context.Materials.FindAsync(id); //ищем в БД нужную запись
-
             if (MaterialToDelete != null)
             {
                 _context.Materials.Remove(MaterialToDelete); //удаляем объект
