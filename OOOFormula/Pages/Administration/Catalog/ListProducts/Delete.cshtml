@@ -68,6 +68,7 @@
 
         <form method="post">
             <input type="hidden" asp-for="Products.Id" />
+            <input type="hidden" asp-for="Products.Profile.ImagesName" />
             <a class="btn btn-success" asp-page="./Index">Отмена</a> |
             <input type="submit" value="Удалить" class="btn btn-danger" />
         </form>

@@ -32,8 +32,8 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            Products = await _db.Delete(id); //удаление записи
             if (Products.Profile.ImagesName != null) _fileRepository.DeleteFile(Products.Profile.ImagesName, "Products"); //удаление фото
+            Products = await _db.Delete(id); //удаление записи            
             TempData["SuccessMessage"] = $"Запись \"{Products.Name}\" успешно удалена";
             return RedirectToPage("./Index");
         }
