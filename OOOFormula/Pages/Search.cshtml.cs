@@ -27,7 +27,7 @@ namespace OOOFormula.Pages
             {
                 Products = await _context.Products.Where(p =>
                                  p.Name.ToLower().Contains(searchString.ToLower()) ||
-                                 p.Description.ToLower().Contains(searchString.ToLower()))
+                                 p.Profile.Description.ToLower().Contains(searchString.ToLower()))
                             .AsNoTracking()
                             .ToListAsync(); //выбираем из БД записи по критерию
 

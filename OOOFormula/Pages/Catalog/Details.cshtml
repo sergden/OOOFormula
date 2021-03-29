@@ -2,7 +2,7 @@
 @model OOOFormula.Pages.Catalog.DetailsModel
 @{
     ViewData["Title"] = Model.Products.Name;
-    string ImagePathMain = "/images/Products/" + Model.Products.ImagesName;
+    string ImagePathMain = "/images/Products/" + Model.Products.Profile.ImagesName;
 }
 
 <div class="row mt-5">
@@ -59,7 +59,7 @@
                 <h6>
                     <strong>Описание</strong>
                 </h6>
-                <p>@Model.Products.Description</p>
+                <p>@Model.Products.Profile.Description</p>
             </div>
         </div>
     </div>

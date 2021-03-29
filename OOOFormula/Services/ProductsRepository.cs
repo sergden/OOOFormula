@@ -37,6 +37,7 @@ namespace OOOFormula.Services
         public IQueryable<Products> GetAllProducts()
         {
             return _context.Products
+                .Include(p => p.Profile)
                 .Include(p => p.Category)
                 .Include(p => p.FurnitureManufacturers)
                 .Include(p => p.FacadeMaterials)
@@ -47,17 +48,17 @@ namespace OOOFormula.Services
         public async Task<Products> GetProduct(int id)
         {
             return await _context.Products
+                .Include(p => p.Profile)
                 .Include(p => p.Category)
                 .Include(p => p.FurnitureManufacturers)
                 .Include(p => p.FacadeMaterials)
                 .Include(p => p.Images)
-                .AsNoTracking()
+                // .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
         }
 
         public async Task<Products> Update(Products UpdatedProduct)
         {
-            _context.Attach(UpdatedProduct).State = EntityState.Modified; //уведомляем EF, что состояние объекта изменилось
             await _context.SaveChangesAsync(); //отпраляем запрос к БД на изменение
             return UpdatedProduct;
         }
@@ -70,12 +71,12 @@ namespace OOOFormula.Services
                 SortState.NameDesc => items.OrderByDescending(p => p.Name),
                 SortState.PriceAsc => items.OrderBy(p => p.Price),
                 SortState.PriceDesc => items.OrderByDescending(p => p.Price),
-                SortState.DescriptionAsc => items.OrderBy(p => p.Description),
-                SortState.DescriptionDesc => items.OrderByDescending(p => p.Description),
-                SortState.ImageAsc => items.OrderBy(p => p.ImagesName),
-                SortState.ImageDesc => items.OrderByDescending(p => p.ImagesName),
-                SortState.StatusAsc => items.OrderBy(p => p.Status),
-                SortState.StatusDesc => items.OrderByDescending(p => p.Status),
+                SortState.DescriptionAsc => items.OrderBy(p => p.Profile.Description),
+                SortState.DescriptionDesc => items.OrderByDescending(p => p.Profile.Description),
+                SortState.ImageAsc => items.OrderBy(p => p.Profile.ImagesName),
+                SortState.ImageDesc => items.OrderByDescending(p => p.Profile.ImagesName),
+                SortState.StatusAsc => items.OrderBy(p => p.Profile.Status),
+                SortState.StatusDesc => items.OrderByDescending(p => p.Profile.Status),
                 SortState.CategoryAsc => items.OrderBy(p => p.Category.Name),
                 SortState.CategoryDesc => items.OrderByDescending(p => p.Category.Name),
                 SortState.MaterialAsc => items.OrderBy(p => p.FacadeMaterials.Name),
@@ -94,7 +95,6 @@ namespace OOOFormula.Services
 
         public async Task DeleteGallery(int id)
         {
-            //_context.ProductImages.RemoveRange(_context.ProductImages.Where(x => x.ProductsId == id));
             _context.ProductImages.RemoveRange(_context.ProductImages.Where(x => x.ProductsId == id));
             await _context.SaveChangesAsync();
         }

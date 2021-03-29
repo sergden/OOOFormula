@@ -15,8 +15,8 @@ namespace OOOFormula.Models
         [Display(Name = "Телефон")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage ="Поле 'Желаемая дата' не может быть пустым")]
-        [Display(Name ="Желаемая дата замера")]
+        [Required(ErrorMessage = "Поле 'Желаемая дата' не может быть пустым")]
+        [Display(Name = "Желаемая дата замера")]
         [DataType(DataType.Date)]
         public DateTime DesiredDate { get; set; }
 

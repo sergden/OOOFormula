@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Редактирование";
-    string PhotoPath = $"/images/Products/{Model.Products.ImagesName ?? "noimage.png"}";
+    string PhotoPath = $"/images/Products/{Model.Products.Profile.ImagesName ?? "noimage.png"}";
 }
 
 <div class="col-12 mb-2">
@@ -19,7 +19,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <input type="hidden" asp-for="Products.Id" />
-                    <input type="hidden" asp-for="Products.ImagesName" />
+                    <input type="hidden" asp-for="Products.Profile.ImagesName" />
                     @for (int i = 0; i < Model.Products.Images.Count; i++)
                     {
                         <input type="hidden" asp-for="Products.Images[i].ImageName" />
@@ -36,9 +36,9 @@
                         <span asp-validation-for="Products.Price" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Products.Description" class="control-label"></label>
-                        <textarea asp-for="Products.Description" class="form-control"></textarea>
-                        <span asp-validation-for="Products.Description" class="text-danger"></span>
+                        <label asp-for="Products.Profile.Description" class="control-label"></label>
+                        <textarea asp-for="Products.Profile.Description" class="form-control"></textarea>
+                        <span asp-validation-for="Products.Profile.Description" class="text-danger"></span>
                     </div>
 
                     @* Upload Image *@
@@ -50,7 +50,7 @@
                             </a>
                         </div>
                         <div class="col-lg-6 mt-2 p-0">
-                            @Html.DisplayFor(model => model.Products.ImagesName)
+                            @Html.DisplayFor(model => model.Products.Profile.ImagesName)
                         </div>
                         <div class="custom-file mt-2 p-0">
                             <input asp-for="Photo" class="form-control" accept="@FilesRepository.Types" />
@@ -65,7 +65,7 @@
 
                     <div class="form-group form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Products.Status" />Отображать
+                            <input class="form-check-input" asp-for="Products.Profile.Status" />Отображать
                         </label>
                     </div>
                     <div class="form-group">

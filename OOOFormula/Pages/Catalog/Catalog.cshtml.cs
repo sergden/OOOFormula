@@ -29,7 +29,7 @@ namespace OOOFormula.Pages.Catalog
         public SortState? SortState { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int? MaterialIdState { get; set; }   
+        public int? MaterialIdState { get; set; }
         [BindProperty(SupportsGet = true)]
         public int? ManufIdState { get; set; }
         public decimal PriceFromState { get; set; }
@@ -40,7 +40,7 @@ namespace OOOFormula.Pages.Catalog
             int? MaterialId_select, int? ManufId_select,
             int? pageIndex)
         {
-            ProductsIQ = _db.GetAllProducts().Where(p => p.Status == true);
+            ProductsIQ = _db.GetAllProducts().Where(p => p.Profile.Status == true);
             ViewData["MaterialsId"] = _materials.MaterialToList(); //получаем материалы
             ViewData["ManufId"] = _manuf.ManufToList();
 

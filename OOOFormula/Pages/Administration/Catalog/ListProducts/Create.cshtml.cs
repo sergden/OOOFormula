@@ -62,12 +62,12 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                     TempData["MIMETypeError"] = "Разрешены только файлы с типом .jpg .jpeg .png .gif";
                     return Page();
                 }
-                Products.ImagesName = await _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
+                Products.Profile.ImagesName = await _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
             }
 
             //загрузка галереи
             if (Gallery_img.Count != 0)
-            {                
+            {
                 foreach (var item in Gallery_img) //проверка типа файла
                 {
                     if (!_fileRepository.CheckMIMEType(item))

@@ -15,15 +15,6 @@ namespace OOOFormula.Models
         [Display(Name = "Стоимость")]
         public int Price { get; set; }
 
-        [Display(Name = "Описание")]
-        public string Description { get; set; }
-
-        [Display(Name = "Фото")]
-        public string ImagesName { get; set; }
-
-        [Display(Name = "Статус")]
-        public bool Status { get; set; }
-
 
         [Required(ErrorMessage = "Поле 'Категория' не может быть пустым")]
         [Display(Name = "Категория")]
@@ -42,7 +33,7 @@ namespace OOOFormula.Models
         public int FurnitureManufacturersId { get; set; }
         public Manufacturers FurnitureManufacturers { get; set; }
 
-
+        public Profile Profile { get; set; }
         public List<ProductImages> Images { get; set; }
     }
 }

@@ -53,7 +53,7 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -69,17 +69,17 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                     return Page();
                 }
 
-                if (Products.ImagesName != null)
+                if (Products.Profile.ImagesName != null)
                 {
-                    _fileRepository.DeleteFile(Products.ImagesName, "Products"); //удаляем старый файл
+                    _fileRepository.DeleteFile(Products.Profile.ImagesName, "Products"); //удаляем старый файл
                 }
 
-                Products.ImagesName = await _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
+                Products.Profile.ImagesName = await _fileRepository.UploadFile(Photo, "Products"); //загрузка файл на сервер и запись имени файла
             }
 
             //загрузка галереи
             if (Gallery_img.Count != 0)
-            {               
+            {
                 foreach (var item in Gallery_img) //проверка типа файла
                 {
                     if (!_fileRepository.CheckMIMEType(item))
@@ -106,9 +106,17 @@ namespace OOOFormula.Pages.Administration.Catalog.ListProducts
                 }
             }
 
+            var productToUpdate = await _db.GetProduct(id);
+            if (productToUpdate == null)
+            {
+                return NotFound();
+            }
             try
             {
-                Products = await _db.Update(Products); //отпраляем запрос к БД на изменение
+                if (await TryUpdateModelAsync<Products>(productToUpdate, "Products"))
+                {
+                    await _db.Update(productToUpdate); //отпраляем запрос к БД на изменение
+                }
             }
             catch (DbUpdateConcurrencyException)
             {
