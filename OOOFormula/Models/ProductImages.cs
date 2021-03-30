@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace OOOFormula.Models
+﻿namespace OOOFormula.Models
 {
     public class ProductImages
     {

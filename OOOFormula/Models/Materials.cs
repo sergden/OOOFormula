@@ -18,6 +18,6 @@ namespace OOOFormula.Models
         public string ImagePath { get; set; }
 
 
-        public List<Products> Products { get; set; }
+        public List<Profile> Profile { get; set; }
     }
 }

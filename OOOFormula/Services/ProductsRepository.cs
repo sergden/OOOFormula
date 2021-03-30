@@ -37,9 +37,9 @@ namespace OOOFormula.Services
         {
             return _context.Products
                 .Include(p => p.Profile)
-                .Include(p => p.Category)
-                .Include(p => p.FurnitureManufacturers)
-                .Include(p => p.FacadeMaterials)
+                .Include(p => p.Profile.Category)
+                .Include(p => p.Profile.FurnitureManufacturers)
+                .Include(p => p.Profile.FacadeMaterials)
                 .AsNoTracking()
                 .AsQueryable();
         }
@@ -48,9 +48,9 @@ namespace OOOFormula.Services
         {
             return await _context.Products
                 .Include(p => p.Profile)
-                .Include(p => p.Category)
-                .Include(p => p.FurnitureManufacturers)
-                .Include(p => p.FacadeMaterials)
+                .Include(p => p.Profile.Category)
+                .Include(p => p.Profile.FurnitureManufacturers)
+                .Include(p => p.Profile.FacadeMaterials)
                 .Include(p => p.Images)
                 // .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id); //получаем из БД запись
@@ -76,12 +76,12 @@ namespace OOOFormula.Services
                 SortState.ImageDesc => items.OrderByDescending(p => p.Profile.ImagesName),
                 SortState.StatusAsc => items.OrderBy(p => p.Profile.Status),
                 SortState.StatusDesc => items.OrderByDescending(p => p.Profile.Status),
-                SortState.CategoryAsc => items.OrderBy(p => p.Category.Name),
-                SortState.CategoryDesc => items.OrderByDescending(p => p.Category.Name),
-                SortState.MaterialAsc => items.OrderBy(p => p.FacadeMaterials.Name),
-                SortState.MaterialDesc => items.OrderByDescending(p => p.FacadeMaterials.Name),
-                SortState.ManufacturerAsc => items.OrderBy(p => p.FurnitureManufacturers.Name),
-                SortState.ManufacturerDesc => items.OrderByDescending(p => p.FurnitureManufacturers.Name),
+                SortState.CategoryAsc => items.OrderBy(p => p.Profile.Category.Name),
+                SortState.CategoryDesc => items.OrderByDescending(p => p.Profile.Category.Name),
+                SortState.MaterialAsc => items.OrderBy(p => p.Profile.FacadeMaterials.Name),
+                SortState.MaterialDesc => items.OrderByDescending(p => p.Profile.FacadeMaterials.Name),
+                SortState.ManufacturerAsc => items.OrderBy(p => p.Profile.FurnitureManufacturers.Name),
+                SortState.ManufacturerDesc => items.OrderByDescending(p => p.Profile.FurnitureManufacturers.Name),
                 _ => items.OrderBy(p => p.Id),
             };
             return items;

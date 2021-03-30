@@ -15,24 +15,6 @@ namespace OOOFormula.Models
         [Display(Name = "Стоимость")]
         public int Price { get; set; }
 
-
-        [Required(ErrorMessage = "Поле 'Категория' не может быть пустым")]
-        [Display(Name = "Категория")]
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
-
-
-        [Required(ErrorMessage = "Поле 'Материал фасада' не может быть пустым")]
-        [Display(Name = "Материал фасада")]
-        public int FacadeMaterialsId { get; set; }
-        public Materials FacadeMaterials { get; set; }
-
-
-        [Required(ErrorMessage = "Поле 'Производитель фурнитуры' не может быть пустым")]
-        [Display(Name = "Производитель фурнитуры")]
-        public int FurnitureManufacturersId { get; set; }
-        public Manufacturers FurnitureManufacturers { get; set; }
-
         public Profile Profile { get; set; }
         public List<ProductImages> Images { get; set; }
     }

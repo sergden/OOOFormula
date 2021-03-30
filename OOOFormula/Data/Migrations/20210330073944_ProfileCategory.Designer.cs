@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OOOFormula.Data;
 
 namespace OOOFormula.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210330073944_ProfileCategory")]
+    partial class ProfileCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -328,6 +330,12 @@ namespace OOOFormula.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("FacadeMaterialsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FurnitureManufacturersId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -336,6 +344,10 @@ namespace OOOFormula.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FacadeMaterialsId");
+
+                    b.HasIndex("FurnitureManufacturersId");
 
                     b.ToTable("Products");
                 });
@@ -351,12 +363,6 @@ namespace OOOFormula.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FacadeMaterialsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FurnitureManufacturersId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ImagesName")
                         .HasColumnType("nvarchar(max)");
 
@@ -366,10 +372,6 @@ namespace OOOFormula.Data.Migrations
                     b.HasKey("ProductsId");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("FacadeMaterialsId");
-
-                    b.HasIndex("FurnitureManufacturersId");
 
                     b.ToTable("Profile");
                 });
@@ -472,23 +474,30 @@ namespace OOOFormula.Data.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("OOOFormula.Models.Profile", b =>
+            modelBuilder.Entity("OOOFormula.Models.Products", b =>
                 {
-                    b.HasOne("OOOFormula.Models.Category", "Category")
-                        .WithMany("Profile")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("OOOFormula.Models.Materials", "FacadeMaterials")
-                        .WithMany("Profile")
+                        .WithMany("Products")
                         .HasForeignKey("FacadeMaterialsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("OOOFormula.Models.Manufacturers", "FurnitureManufacturers")
-                        .WithMany("Profile")
+                        .WithMany("Products")
                         .HasForeignKey("FurnitureManufacturersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FacadeMaterials");
+
+                    b.Navigation("FurnitureManufacturers");
+                });
+
+            modelBuilder.Entity("OOOFormula.Models.Profile", b =>
+                {
+                    b.HasOne("OOOFormula.Models.Category", "Category")
+                        .WithMany("Profile")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -500,10 +509,6 @@ namespace OOOFormula.Data.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("FacadeMaterials");
-
-                    b.Navigation("FurnitureManufacturers");
-
                     b.Navigation("Products");
                 });
 
@@ -514,12 +519,12 @@ namespace OOOFormula.Data.Migrations
 
             modelBuilder.Entity("OOOFormula.Models.Manufacturers", b =>
                 {
-                    b.Navigation("Profile");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("OOOFormula.Models.Materials", b =>
                 {
-                    b.Navigation("Profile");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("OOOFormula.Models.Products", b =>

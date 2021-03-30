@@ -12,6 +12,6 @@ namespace OOOFormula.Models
         public string Name { get; set; }
 
 
-        public List<Products> Products { get; set; }
+        public List<Profile> Profile { get; set; }
     }
 }

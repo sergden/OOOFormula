@@ -79,12 +79,12 @@ namespace OOOFormula.Pages.Catalog
 
             if (MaterialIdState != null)
             {
-                ProductsIQ = ProductsIQ.Where(x => x.FacadeMaterialsId == MaterialIdState);
+                ProductsIQ = ProductsIQ.Where(x => x.Profile.FacadeMaterialsId == MaterialIdState);
             }
 
             if (ManufIdState != null)
             {
-                ProductsIQ = ProductsIQ.Where(x => x.FurnitureManufacturersId == ManufIdState);
+                ProductsIQ = ProductsIQ.Where(x => x.Profile.FurnitureManufacturersId == ManufIdState);
             }
         }
     }

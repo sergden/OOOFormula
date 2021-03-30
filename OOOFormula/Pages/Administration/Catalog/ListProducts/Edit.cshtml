@@ -69,19 +69,19 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Products.CategoryId" class="control-label"></label>
-                        <select asp-for="Products.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                        <span asp-validation-for="Products.CategoryId" class="text-danger"></span>
+                        <label asp-for="Products.Profile.CategoryId" class="control-label"></label>
+                        <select asp-for="Products.Profile.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                        <span asp-validation-for="Products.Profile.CategoryId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Products.FacadeMaterialsId" class="control-label"></label>
-                        <select asp-for="Products.FacadeMaterialsId" class="form-control" asp-items="ViewBag.MaterialsId"></select>
-                        <span asp-validation-for="Products.FacadeMaterialsId" class="text-danger"></span>
+                        <label asp-for="Products.Profile.FacadeMaterialsId" class="control-label"></label>
+                        <select asp-for="Products.Profile.FacadeMaterialsId" class="form-control" asp-items="ViewBag.MaterialsId"></select>
+                        <span asp-validation-for="Products.Profile.FacadeMaterialsId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Products.FurnitureManufacturersId" class="control-label"></label>
-                        <select asp-for="Products.FurnitureManufacturersId" class="form-control" asp-items="ViewBag.ManufacturersId"></select>
-                        <span asp-validation-for="Products.FurnitureManufacturersId" class="text-danger"></span>
+                        <label asp-for="Products.Profile.FurnitureManufacturersId" class="control-label"></label>
+                        <select asp-for="Products.Profile.FurnitureManufacturersId" class="form-control" asp-items="ViewBag.ManufacturersId"></select>
+                        <span asp-validation-for="Products.Profile.FurnitureManufacturersId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <a class="btn btn-danger" asp-page="./Index">Отмена</a> |
