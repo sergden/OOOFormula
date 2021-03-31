@@ -56,18 +56,18 @@
                 <h4>@Model.Products.Price ₽</h4>
             </div>
             <div class="col-12 ml-2 mt-3">
-                <h6>
+                <h5>
                     <strong>Описание</strong>
-                </h6>
+                </h5>
                 <p>@Model.Products.Profile.Description</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row mt-5">
+<div class="row mt-5 pl-1">
     <div class="col-md-8 offset-sm-1 offset-sm-0">
-        <div class="col-6 pl-2">
+        <div class="col-6 pl-0">
             <h3>
                 <strong>
                     Характеристики
@@ -76,7 +76,7 @@
         </div>
     </div>
     <div class="col-12 pl-2 offset-sm-1 offset-sm-0">
-        <dl class="row">
+        <dl class="row ml-2">
             <dt class="col-sm-2">
                 <label asp-for="Products.Name" class="control-label"></label>
             </dt>
