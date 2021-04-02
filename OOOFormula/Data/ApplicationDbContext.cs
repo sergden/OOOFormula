@@ -26,5 +26,6 @@ namespace OOOFormula.Data
         public DbSet<ProductImages> ProductImages { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Requests> Requests { get; set; }
+        public DbSet<_Pages> Pages { get; set; }
     }
 }

@@ -1,69 +1,74 @@
 ﻿@page
 @model OOOFormula.Pages.DeliveryModel
 @{
-    ViewData["Title"] = "Доставка и оплата";
+    ViewData["Title"] = Model._page.Title;
 }
 
 <div class="text-center mt-5">
-    <h1>Доставка и оплата</h1>
+    <h1>
+        @Html.DisplayFor(model => model._page.Title)
+    </h1>
 </div>
 
 <div class="row justify-content-center mt-2">
     <div class="col-10 mt-1">
-        <p class="mb-2 text-center">
-            <span style="font-size:14pt;">
-                <strong>Доставка</strong>
-            </span>
-        </p>
-        <p class="text-justify">
-            Мы осуществляем доставку по всей Ростовской области. Доставка товара производится до ворот дома или подъезда.
-        </p>
+        @Html.Raw(Model._page.Body)
 
-        <p class="mb-0">
-            <span style="font-size:12pt;">
-                <strong>Стоимость доставки</strong>
-            </span>
-        </p>
-        <p class="text-justify">
-            <ol>
-                <li>
-                    Стоимость доставки в следующие населенные пункты (до подъезда) – 1500 рублей:
-                    <ul type="disc">
-                        <li>г. Ростов-на-Дону</li>
-                        <li>г. Аксай</li>
-                        <li>г. Батайск</li>
-                        <li>х. Красный Крым</li>
-                        <li>с. Чалтырь</li>
-                    </ul>
-                </li>
-                <li>Доставка по области (до подъезда) – 30 руб/км </li>
-            </ol>
-        </p>
-        <p class="mb-2 mt-4 text-center">
-            <span style="font-size:14pt;">
-                <strong>Оплата</strong>
-            </span>
-        </p>
-        <p class="text-justify mb-0">
-            При заключении договора необходимо внести предоплату в размере 50% от общей стоимости заказа.
-        </p>      
-        <p class="text-justify">
-            Окончательный расчет осуществляется после оповещения заказчика за три дня до готовности изделия.
-        </p>
-        <p class="mb-0">
-            <span style="font-size:12pt;">
-                <strong>Способы оплаты</strong>
-            </span>
-        </p>
-        <p class="text-justify">
-            Заказ можно оплатить следующими способами:
-            <ul typeof="disc">
-                <li>Наличные</li>
-                <li>Перевод на банковский счет</li>
-            </ul>
-        </p>
-        <p class="text-justify">
-            Помимо всего, в нашем магазине можно оформить рассрочку с нашими банками-партнерами
-        </p>
+
+        @*<p class="mb-2 text-center">
+                <span style="font-size:14pt;">
+                    <strong>Доставка</strong>
+                </span>
+            </p>
+            <p class="text-justify">
+                Мы осуществляем доставку по всей Ростовской области. Доставка товара производится до ворот дома или подъезда.
+            </p>
+
+            <p class="mb-0">
+                <span style="font-size:12pt;">
+                    <strong>Стоимость доставки</strong>
+                </span>
+            </p>
+            <p class="text-justify">
+                <ol>
+                    <li>
+                        Стоимость доставки в следующие населенные пункты (до подъезда) – 1500 рублей:
+                        <ul type="disc">
+                            <li>г. Ростов-на-Дону</li>
+                            <li>г. Аксай</li>
+                            <li>г. Батайск</li>
+                            <li>х. Красный Крым</li>
+                            <li>с. Чалтырь</li>
+                        </ul>
+                    </li>
+                    <li>Доставка по области (до подъезда) – 30 руб/км </li>
+                </ol>
+            </p>
+            <p class="mb-2 mt-4 text-center">
+                <span style="font-size:14pt;">
+                    <strong>Оплата</strong>
+                </span>
+            </p>
+            <p class="text-justify mb-0">
+                При заключении договора необходимо внести предоплату в размере 50% от общей стоимости заказа.
+            </p>
+            <p class="text-justify">
+                Окончательный расчет осуществляется после оповещения заказчика за три дня до готовности изделия.
+            </p>
+            <p class="mb-0">
+                <span style="font-size:12pt;">
+                    <strong>Способы оплаты</strong>
+                </span>
+            </p>
+            <p class="text-justify">
+                Заказ можно оплатить следующими способами:
+                <ul typeof="disc">
+                    <li>Наличные</li>
+                    <li>Перевод на банковский счет</li>
+                </ul>
+            </p>
+            <p class="text-justify">
+                Помимо всего, в нашем магазине можно оформить рассрочку с нашими банками-партнерами
+            </p>*@
     </div>
 </div>

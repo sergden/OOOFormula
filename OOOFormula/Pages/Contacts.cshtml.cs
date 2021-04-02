@@ -10,19 +10,30 @@ namespace OOOFormula.Pages
     {
         private readonly IRequestsRepository _db;
         private readonly IGoogleRecaptchaRepository _recaptcha;
+        private readonly IPagesRepository _db_pages;
 
-        public ContactsModel(IRequestsRepository db, IGoogleRecaptchaRepository recaptcha)
+        public ContactsModel(IRequestsRepository db,
+            IGoogleRecaptchaRepository recaptcha,
+            IPagesRepository db_pages)
         {
             _db = db;
             _recaptcha = recaptcha;
+            _db_pages = db_pages;
         }
 
         [BindProperty]
         public Requests Requests { get; set; }
 
-        public void OnGet()
-        {
+        public _Pages _page { get; set; }
 
+        public async Task<IActionResult> OnGet()
+        {
+            _page = await _db_pages.GetPage("Contacts");
+            if (_page == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

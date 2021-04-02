@@ -37,6 +37,9 @@
         EmailDesc,
 
         MessageAsc,
-        MessageDesc
+        MessageDesc,
+
+        TitleAsc,
+        TitleDesc
     }
 }

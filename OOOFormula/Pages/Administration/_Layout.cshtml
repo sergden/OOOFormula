@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OOOFormula</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-icons.css" />
     <link rel="stylesheet" href="~/css/site_admin.css" />
 </head>
@@ -44,8 +44,12 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    @*Подключение FancyBox*@
     <link rel="stylesheet" href="~/lib/fancybox/dist/jquery.fancybox.min.css" asp-append-version="true" />
     <script src="~/lib/fancybox/dist/jquery.fancybox.min.js" asp-append-version="true"></script>
+
+    @*Подключение CKEditor*@
+    <script src="https://cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

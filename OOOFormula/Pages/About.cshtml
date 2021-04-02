@@ -1,20 +1,17 @@
 ﻿@page
 @model OOOFormula.Pages.AboutModel
 @{
-    ViewData["Title"] = "О нас";
+    ViewData["Title"] = Model._page.Title;
 }
 
 <div class="text-center mt-5">
-    <h1>О нас</h1>
+    <h1>
+        @Html.DisplayFor(model => model._page.Title)
+    </h1>
 </div>
 
 <div class="row justify-content-center mt-2">
     <div class="col-10">
-        <p class="text-justify">Shops are an easy way for you to create a customized digital storefront across our family of apps. Your shop gives you the ability to inspire your customers and help them find the products that are right for them. Shops are simple to set up, seamless to use, load faster relative to a mobile website and are global in scale.</p>
-        <p class="text-justify">Shops are an easy way for you to create a customized digital storefront across our family of apps. Your shop gives you the ability to inspire your customers and help them find the products that are right for them. Shops are simple to set up, seamless to use, load faster relative to a mobile website and are global in scale.</p>
-        <p class="text-justify">Shops are an easy way for you to create a customized digital storefront across our family of apps. Your shop gives you the ability to inspire your customers and help them find the products that are right for them. Shops are simple to set up, seamless to use, load faster relative to a mobile website and are global in scale.</p>
-        <p class="text-justify">Shops are an easy way for you to create a customized digital storefront across our family of apps. Your shop gives you the ability to inspire your customers and help them find the products that are right for them. Shops are simple to set up, seamless to use, load faster relative to a mobile website and are global in scale.</p>
-        <p class="text-justify">Shops are an easy way for you to create a customized digital storefront across our family of apps. Your shop gives you the ability to inspire your customers and help them find the products that are right for them. Shops are simple to set up, seamless to use, load faster relative to a mobile website and are global in scale.</p>
-        <p class="text-justify">Shops are an easy way for you to create a customized digital storefront across our family of apps. Your shop gives you the ability to inspire your customers and help them find the products that are right for them. Shops are simple to set up, seamless to use, load faster relative to a mobile website and are global in scale.</p>
+        @Html.Raw(Model._page.Body)
     </div>
 </div>

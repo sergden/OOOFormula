@@ -1,0 +1,68 @@
+﻿@page
+@model OOOFormula.Pages.Administration.ListPages.IndexModel
+
+@{
+    ViewData["Title"] = "Страницы";
+}
+
+<div class="row justify-content-center">
+    <div class="col-8 text-center">
+        <h1>Страницы</h1>
+    </div>
+</div>
+
+<!--Вывод сообщения об результате операции из моделей Create и Edit-->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="col-12 alert alert-success text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@*
+    <div class="col-12">
+        <p>
+            <a class="btn btn-primary" asp-page="Create">Добавить новую запись</a>
+        </p>
+    </div>
+*@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-route-sortOrder="@ViewBag.NameSort">Имя страницы</a>
+            </th>
+            <th>
+                <a asp-route-sortOrder="@ViewBag.TitleSort">Название</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model._Pages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <div>
+                        <a class="mr-2" asp-page="./Details" asp-route-id="@item.Id">
+                            <i class="bi bi-binoculars-fill"></i>
+                        </a>
+                        <a class="mr-2" asp-page="./Edit" asp-route-id="@item.Id">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -7,15 +7,19 @@
 @inject IOptions<AppOptions> AppOptions
 
 @{
-    ViewData["Title"] = "Контакты";
+    ViewData["Title"] = Model._page.Title;
 }
 
 <div class="text-center mt-5">
-    <h1>Контакты</h1>
+    <h1>
+        @Html.DisplayFor(model => model._page.Title)
+    </h1>
 </div>
 
 <div class="row mt-2">
-    <div class="col-md-4">
+    @Html.Raw(Model._page.Body)
+
+    @*<div class="col-md-4">
         <p class="mb-0">
             <span style="font-size:14pt;">
                 <strong>Наш адрес:</strong>
@@ -53,7 +57,7 @@
             Пн - Выходной<br />
             Вт-Вс - c 9:00 до 17:00
         </p>
-    </div>
+    </div>*@
 
     <div class="col-md-8">
         <form method="post">
