@@ -128,7 +128,7 @@
                 Назад
             </a>
             <a asp-route-sortState="@Model.SortState"
-               asp-route-pageIndex="@(Model.Products.PageIndex-1)"
+               asp-route-pageIndex="@(Model.Products.PageIndex+1)"
                asp-route-MaterialId_select="@Model.MaterialIdState"
                asp-route-ManufId_select="@Model.ManufIdState"
                asp-route-PriceFrom="@Model.PriceFromState"

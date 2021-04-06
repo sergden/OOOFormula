@@ -24,7 +24,7 @@ namespace OOOFormula.Pages
             IQueryable<Gallery> GalleryIQ = _db.GetAllGallery();
             if (GalleryIQ.Count() > 4)
             {
-                GalleryIQ = GalleryIQ.Skip(Gallery.Count() - 4);
+                GalleryIQ = GalleryIQ.Skip(GalleryIQ.Count() - 4);
             }
             Gallery = await GalleryIQ.ToListAsync();
         }
