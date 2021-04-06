@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Administration\test\**" />
+    <Compile Remove="wwwroot\images\Materials\**" />
     <Compile Remove="wwwroot\images\OurServices\**" />
     <Content Remove="Pages\Administration\test\**" />
+    <Content Remove="wwwroot\images\Materials\**" />
     <Content Remove="wwwroot\images\OurServices\**" />
     <EmbeddedResource Remove="Pages\Administration\test\**" />
+    <EmbeddedResource Remove="wwwroot\images\Materials\**" />
     <EmbeddedResource Remove="wwwroot\images\OurServices\**" />
     <None Remove="Pages\Administration\test\**" />
+    <None Remove="wwwroot\images\Materials\**" />
     <None Remove="wwwroot\images\OurServices\**" />
   </ItemGroup>
 
@@ -29,10 +33,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\Materials\Gallery\" />
   </ItemGroup>
 
   <ItemGroup>
