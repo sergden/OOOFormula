@@ -53,7 +53,9 @@
                 </h2>
             </div>
             <div class="col-6 ml-2">
-                <h4>@Model.Products.Price ₽</h4>
+                <h4>
+                    <strong>@Model.Products.Price ₽</strong>
+                </h4>
             </div>
             <div class="col-12 ml-2 mt-3">
                 <h5>
@@ -77,19 +79,19 @@
     </div>
     <div class="col-12 pl-2 offset-sm-1 offset-sm-0">
         <dl class="row ml-2">
-            <dt class="col-sm-2">
+            <dt class="col-sm-2 pl-0">
                 <label asp-for="Products.Name" class="control-label"></label>
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Products.Name)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-sm-2 pl-0">
                 <label asp-for="Products.Profile.FacadeMaterialsId" class="control-label"></label>
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Products.Profile.FacadeMaterials.Name)
             </dd>
-            <dt class="col-sm-2">
+            <dt class="col-sm-2 pl-0">
                 <label asp-for="Products.Profile.FurnitureManufacturersId" class="control-label"></label>
             </dt>
             <dd class="col-sm-10">
