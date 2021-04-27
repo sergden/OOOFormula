@@ -2,48 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>aspnet-OOOFormula-AA4D776B-CFB1-4D71-BD00-45BB7279BB4C</UserSecretsId>
+    <UserSecretsId>aspnet-OOOFormula-3AC94037-D7BA-4895-BC54-41BCA1007CF1</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Administration\test\**" />
-    <Compile Remove="wwwroot\images\Materials\**" />
-    <Compile Remove="wwwroot\images\OurServices\**" />
-    <Content Remove="Pages\Administration\test\**" />
-    <Content Remove="wwwroot\images\Materials\**" />
-    <Content Remove="wwwroot\images\OurServices\**" />
-    <EmbeddedResource Remove="Pages\Administration\test\**" />
-    <EmbeddedResource Remove="wwwroot\images\Materials\**" />
-    <EmbeddedResource Remove="wwwroot\images\OurServices\**" />
-    <None Remove="Pages\Administration\test\**" />
-    <None Remove="wwwroot\images\Materials\**" />
-    <None Remove="wwwroot\images\OurServices\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\images\OurServices\delivery.png" />
-    <Content Include="wwwroot\images\OurServices\dimension.png" />
-    <Content Include="wwwroot\images\OurServices\install.png" />
-    <Content Include="wwwroot\images\OurServices\selection.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\lib\bootstrap\dist\css\fonts\bootstrap-icons.woff2" />
   </ItemGroup>
 
 </Project>

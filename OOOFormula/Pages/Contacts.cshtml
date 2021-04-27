@@ -19,46 +19,6 @@
 <div class="row mt-2">
     @Html.Raw(Model._page.Body)
 
-    @*<div class="col-md-4">
-        <p class="mb-0">
-            <span style="font-size:14pt;">
-                <strong>Наш адрес:</strong>
-            </span>
-        </p>
-        <p>
-            г. Аксай, улица Западная, 37А
-        </p>
-
-        <p class="mb-0">
-            <span style="font-size:14pt;">
-                <strong>Наши телефоны:</strong>
-            </span>
-        </p>
-        <p>
-            +7 (961) 269-65-88<br />
-            +7 (958) 571-64-88
-        </p>
-
-        <p class="mb-0">
-            <span style="font-size:14pt;">
-                <strong>Наш E-mail:</strong>
-            </span>
-        </p>
-        <p>
-            example@example.com
-        </p>
-
-        <p class="mb-0">
-            <span style="font-size:14pt;">
-                <strong>Режим работы:</strong>
-            </span>
-        </p>
-        <p>
-            Пн - Выходной<br />
-            Вт-Вс - c 9:00 до 17:00
-        </p>
-    </div>*@
-
     <div class="col-md-8">
         <form method="post">
             @if (TempData["SuccessMessage"] != null)
@@ -119,3 +79,46 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 }
+
+
+
+
+@*<div class="col-md-4">
+        <p class="mb-0">
+            <span style="font-size:14pt;">
+                <strong>Наш адрес:</strong>
+            </span>
+        </p>
+        <p>
+            г. Аксай, улица Западная, 37А
+        </p>
+
+        <p class="mb-0">
+            <span style="font-size:14pt;">
+                <strong>Наши телефоны:</strong>
+            </span>
+        </p>
+        <p>
+            +7 (961) 269-65-88<br />
+            +7 (958) 571-64-88
+        </p>
+
+        <p class="mb-0">
+            <span style="font-size:14pt;">
+                <strong>Наш E-mail:</strong>
+            </span>
+        </p>
+        <p>
+            example@example.com
+        </p>
+
+        <p class="mb-0">
+            <span style="font-size:14pt;">
+                <strong>Режим работы:</strong>
+            </span>
+        </p>
+        <p>
+            Пн - Выходной<br />
+            Вт-Вс - c 9:00 до 17:00
+        </p>
+    </div>*@

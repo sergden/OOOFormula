@@ -16,13 +16,11 @@ namespace OOOFormula.Pages
             _db = db;
         }
 
-        //public IEnumerable<Gallery> Gallery { get; set; }
         public PaginatedList<Gallery> Gallery { get; set; }
 
         public async Task OnGetAsync(int? pageIndex)
         {
             IQueryable<Gallery> GalleryIQ = _db.GetAllGallery().Where(g => g.Status == true);
-            //  Gallery = await GalleryIQ.ToListAsync();
             if (!GalleryIQ.Any())
             {
                 TempData["Message"] = "Здесь пока ничего нет"; //сообщение пользователю
