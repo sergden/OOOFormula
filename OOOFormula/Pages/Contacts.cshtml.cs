@@ -23,7 +23,7 @@ namespace OOOFormula.Pages
 
         [BindProperty]
         public Requests Requests { get; set; }
-
+                
         public _Pages _page { get; set; }
 
         public async Task<IActionResult> OnGet()
@@ -40,6 +40,7 @@ namespace OOOFormula.Pages
         {
             if (!ModelState.IsValid)
             {
+                _page = await _db_pages.GetPage("Contacts");
                 return Page();
             }
 
@@ -47,6 +48,7 @@ namespace OOOFormula.Pages
             if (!CaptchaResponse.Success)
             {
                 ModelState.AddModelError("reCaptchaError", "Подтвердите, что вы человек");
+                _page = await _db_pages.GetPage("Contacts");
                 return Page();
             }
 
@@ -54,6 +56,7 @@ namespace OOOFormula.Pages
 
             TempData["SuccessMessage"] = "Сообщение отправлено";
 
+            _page = await _db_pages.GetPage("Contacts");
             return Page();
         }
     }
