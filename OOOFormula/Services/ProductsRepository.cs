@@ -97,5 +97,14 @@ namespace OOOFormula.Services
             _context.ProductImages.RemoveRange(_context.ProductImages.Where(x => x.ProductsId == id));
             await _context.SaveChangesAsync();
         }
+
+        public IQueryable<Products> SearchProduct(string searchString)
+        {
+            return _context.Products.Where(p =>
+                                 p.Name.ToLower().Contains(searchString.ToLower()) ||
+                                 p.Profile.Description.ToLower().Contains(searchString.ToLower()))
+                            .Include(p => p.Profile)
+                            .AsNoTracking(); //выбираем из БД записи по критерию
+        }
     }
 }

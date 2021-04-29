@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using OOOFormula.Data;
 using OOOFormula.Models;
-using System.Collections.Generic;
+using OOOFormula.Services;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,31 +9,26 @@ namespace OOOFormula.Pages
 {
     public class SearchModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductsRepository _db;
+        private readonly IGalleryRepository _db_Gal;
 
-        public SearchModel(ApplicationDbContext context)
+        public SearchModel(IProductsRepository db, IGalleryRepository db_Gal)
         {
-            _context = context;
+            _db = db;
+            _db_Gal = db_Gal;
         }
 
-        public IEnumerable<Products> Products { get; set; }
-        public IEnumerable<Gallery> Gallery { get; set; }
+        public IQueryable<Products> Products { get; set; }
+
+        public IQueryable<Gallery> Gallery { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string searchString)
         {
             if (!string.IsNullOrWhiteSpace(searchString))
             {
-                Products = await _context.Products.Where(p =>
-                                 p.Name.ToLower().Contains(searchString.ToLower()) ||
-                                 p.Profile.Description.ToLower().Contains(searchString.ToLower()))
-                            .Include(p => p.Profile)
-                            .AsNoTracking()
-                            .ToListAsync(); //выбираем из БД записи по критерию
+                Products = _db.SearchProduct(searchString);
 
-                Gallery = await _context.Gallery.Where(p =>
-                     p.Name.ToLower().Contains(searchString.ToLower()))
-               .AsNoTracking()
-               .ToListAsync();
+                Gallery = _db_Gal.SearchGallery(searchString);
 
                 if (!Products.Any() && !Gallery.Any()) //сообщение пользователю, если списки пустые
                 {

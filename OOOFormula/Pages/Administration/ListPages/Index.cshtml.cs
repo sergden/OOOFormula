@@ -15,19 +15,24 @@ namespace OOOFormula.Pages.Administration.ListPages
             _db = db;
         }
 
-        public IQueryable<_Pages> _Pages { get; set; }
+        //  public IQueryable<_Pages> _Pages { get; set; }
+        public PaginatedList<_Pages> _Pages { get; set; }
 
         public SortState? CurrentSort { get; set; }
 
-        public async Task OnGetAsync(SortState? sortOrder)
+        public async Task OnGetAsync(SortState? sortOrder, int? pageIndex)
         {
             CurrentSort = sortOrder; //сохранение состояния сортировки
-            _Pages = _db.GetAllPages();//получаем записи из БД
+            IQueryable<_Pages> _PagesIQ = _db.GetAllPages(); //получаем записи из БД
 
             ViewData["NameSort"] = sortOrder == SortState.NameAsc ? SortState.NameDesc : SortState.NameAsc;
             ViewData["TitleSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
 
-            _Pages = _db.Sorting(_Pages, sortOrder); //сортировка
+            _PagesIQ = _db.Sorting(_PagesIQ, sortOrder); //сортировка
+
+            int pageSize = 1; //количество элементов на странице
+            _Pages = await PaginatedList<_Pages>.CreateAsync(
+                _PagesIQ, pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
     }
 }

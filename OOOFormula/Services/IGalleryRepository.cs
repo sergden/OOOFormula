@@ -16,6 +16,8 @@ namespace OOOFormula.Services
 
         Task<Gallery> Delete(int id);
 
+        IQueryable<Gallery> SearchGallery(string searchString);
+
         IQueryable<Gallery> Sorting(IQueryable<Gallery> items, SortState? sortState);
 
         public bool GalleryExists(int id);

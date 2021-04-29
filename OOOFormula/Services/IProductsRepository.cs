@@ -18,6 +18,8 @@ namespace OOOFormula.Services
 
         Task DeleteGallery(int id);
 
+        IQueryable<Products> SearchProduct(string searchString);
+
         IQueryable<Products> Sorting(IQueryable<Products> items, SortState? sortState);
 
         bool ProductsExists(int id);

@@ -23,7 +23,7 @@ namespace OOOFormula.Pages
 
         [BindProperty]
         public Requests Requests { get; set; }
-                
+
         public _Pages _page { get; set; }
 
         public async Task<IActionResult> OnGet()

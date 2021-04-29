@@ -76,5 +76,12 @@ namespace OOOFormula.Services
         {
             return _context.Gallery.Any(e => e.Id == id);
         }
+
+        public IQueryable<Gallery> SearchGallery(string searchString)
+        {
+            return _context.Gallery.Where(p =>
+                     p.Name.ToLower().Contains(searchString.ToLower()))
+               .AsNoTracking();
+        }
     }
 }

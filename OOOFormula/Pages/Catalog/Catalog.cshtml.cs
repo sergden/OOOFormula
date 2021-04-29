@@ -38,7 +38,7 @@ namespace OOOFormula.Pages.Catalog
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom,
             decimal PriceTo, SortState? sortState,
             int? MaterialId_select, int? ManufId_select,
-            int? pageIndex)
+            int? pageIndex, string searchString)
         {
             ProductsIQ = _db.GetAllProducts().Where(p => p.Profile.Status == true);
             ViewData["MaterialsId"] = _materials.MaterialToList(); //получаем материалы
@@ -53,6 +53,10 @@ namespace OOOFormula.Pages.Catalog
 
             //обрабатываем по фильтрам
             FilterPrice(PriceFrom, PriceTo);
+            if (searchString != null)
+            {
+                ProductsIQ = _db.SearchProduct(searchString);
+            }
             if (!ProductsIQ.Any()) //проверяем, есть ли что-то
             {
                 TempData["Message"] = "Ничего не найдено";
