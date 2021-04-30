@@ -34,6 +34,7 @@ namespace OOOFormula.Pages.Catalog
         public int? ManufIdState { get; set; }
         public decimal PriceFromState { get; set; }
         public decimal PriceToState { get; set; }
+        public string searchString { get; set; }
 
         public async Task<IActionResult> OnGetAsync(decimal PriceFrom,
             decimal PriceTo, SortState? sortState,
@@ -50,6 +51,7 @@ namespace OOOFormula.Pages.Catalog
             if (ManufId_select != null) ManufIdState = ManufId_select;
             PriceFromState = PriceFrom;
             PriceToState = PriceTo;
+            searchString = this.searchString;
 
             //обрабатываем по фильтрам
             FilterPrice(PriceFrom, PriceTo);
