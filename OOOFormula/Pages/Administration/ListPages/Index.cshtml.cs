@@ -30,7 +30,7 @@ namespace OOOFormula.Pages.Administration.ListPages
 
             _PagesIQ = _db.Sorting(_PagesIQ, sortOrder); //сортировка
 
-            int pageSize = 1; //количество элементов на странице
+            int pageSize = 10; //количество элементов на странице
             _Pages = await PaginatedList<_Pages>.CreateAsync(
                 _PagesIQ, pageIndex ?? 1, pageSize); //вызываем метод пагинации
         }
