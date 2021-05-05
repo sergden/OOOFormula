@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using OOOFormula.Models;
 using OOOFormula.Services;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace OOOFormula.Pages
 {
@@ -17,16 +14,18 @@ namespace OOOFormula.Pages
             _db = db;
         }
 
-        public IEnumerable<Gallery> Gallery { get; set; }
+        //public IEnumerable<Gallery> Gallery { get; set; }
+        public IQueryable<Gallery> Gallery { get; set; }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            IQueryable<Gallery> GalleryIQ = _db.GetAllGallery();
-            if (GalleryIQ.Count() > 4)
+            // IQueryable<Gallery> GalleryIQ = _db.GetAllGallery();
+            Gallery = _db.GetAllGallery();
+            if (Gallery.Count() > 4)
             {
-                GalleryIQ = GalleryIQ.Skip(GalleryIQ.Count() - 4);
+                Gallery = Gallery.Skip(Gallery.Count() - 4);
             }
-            Gallery = await GalleryIQ.ToListAsync();
+            // Gallery = await GalleryIQ.ToListAsync();
         }
     }
 }
