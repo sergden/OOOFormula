@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OOOFormula.Models;
 using OOOFormula.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace OOOFormula.Pages
@@ -38,6 +39,12 @@ namespace OOOFormula.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+
+            if (Requests.DesiredDate < DateTime.Now)
+            {
+                ModelState.AddModelError("DesiredDate", "Некорректная дата");
+            }
+
             if (!ModelState.IsValid)
             {
                 _page = await _db_pages.GetPage("Contacts");
