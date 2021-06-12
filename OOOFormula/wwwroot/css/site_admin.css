@@ -140,6 +140,7 @@ a.text-light:hover, a.text-light:focus {
 
 .menu {
     background-color: #014290;
+    border-radius: 5px;
 }
 
 .form-check-input {
