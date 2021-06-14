@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using OOOFormula.Services;
 
 namespace OOOFormula.Areas.Identity.Pages.Account
 {
@@ -15,14 +16,17 @@ namespace OOOFormula.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IGoogleRecaptchaRepository _recaptcha;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IGoogleRecaptchaRepository recaptcha)
         {
             _userManager = userManager;
+            _recaptcha = recaptcha;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -84,6 +88,14 @@ namespace OOOFormula.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                var CaptchaResponse = await _recaptcha.Validate(Request.Form);
+                if (!CaptchaResponse.Success)
+                {
+                    ModelState.AddModelError("reCaptchaError", "Подтвердите, что вы человек");
+                    return Page();
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
